@@ -1,3 +1,4 @@
+import 'express-async-errors';
 import express from 'express';
 
 // db
@@ -11,14 +12,14 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 
 // middleware
-app.use(express.json())
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('Hello Express!');
 });
 
 // routes
-app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/auth', authRouter);
 
 const startServer = async () => {
   try {
