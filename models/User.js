@@ -1,9 +1,12 @@
-import { Sequelize, DataTypes } from 'sequelize';
+import { DataTypes } from 'sequelize';
+
+import sequelize from '../db/connect.js';
 
 const User = sequelize.define('User', {
-  userId: {
-    type: Sequelize.UUID,
-    defaultValue: Sequelize.UUIDV4,
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
     primaryKey: true,
   },
   userName: {
@@ -16,9 +19,9 @@ const User = sequelize.define('User', {
   email: {
     type: DataTypes.STRING(255),
     allowNull: false,
-    unique: true,
+    unique: { mst: 'Email has already been taken' },
     validate: {
-      isEmail: true,
+      isEmail: { msg: 'Email is invalid' },
       notEmpty: true,
     },
   },
@@ -33,7 +36,7 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING(20),
   },
   goadGenreId: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER,
   },
   isAdmin: {
     type: DataTypes.BOOLEAN,
@@ -42,4 +45,4 @@ const User = sequelize.define('User', {
   },
 });
 
-User.hasOne;
+export default User;
