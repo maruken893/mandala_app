@@ -1,5 +1,6 @@
 import 'express-async-errors';
 import express from 'express';
+import helmet from 'helmet';
 
 // db
 import sequelize from './db/connect.js';
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 
 // middleware
+app.use(helmet());
 app.use(express.json());
 
 app.get('/', (req, res) => {
