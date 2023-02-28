@@ -3,13 +3,22 @@ import express from 'express';
 // db
 import sequelize from './db/connect.js';
 
-const PORT = process.env.PORT || 8000;
+// router
+import { authRouter } from './routes/index.js';
 
+// setting
+const PORT = process.env.PORT || 8000;
 const app = express();
+
+// middleware
+app.use(express.json())
 
 app.get('/', (req, res) => {
   res.send('Hello Express!');
 });
+
+// routes
+app.use('/api/v1/auth', authRouter)
 
 const startServer = async () => {
   try {
