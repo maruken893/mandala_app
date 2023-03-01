@@ -16,6 +16,12 @@ html {
   font-size: 16px;
 }
 
+html *,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
 
 
 /* ボタン */
@@ -28,12 +34,22 @@ html {
   font-weight: bold;
   font-size: 1.25rem;
   transition: .2s;
+  border: none;
+  cursor: pointer;
 }
 
 .btn-wide {
-  padding: 4rem 1.5rem;
+  padding: .5rem 4.5rem;
+}
+
+.btn-light-green {
+  background-color: #b4d851;
 }
 
 .btn:hover {
-  background-color: #e18e35;
+  background-color: #e89741;
+}
+
+.btn-light-green:hover {
+  background-color: #9bc133;
 }
