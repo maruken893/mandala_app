@@ -11,3 +11,29 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+html {
+  font-size: 16px;
+}
+
+
+
+/* ボタン */
+.btn {
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  background: #FFB443;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.25rem;
+  transition: .2s;
+}
+
+.btn-wide {
+  padding: 4rem 1.5rem;
+}
+
+.btn:hover {
+  background-color: #e18e35;
+}
