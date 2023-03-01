@@ -19,7 +19,7 @@ const User = sequelize.define('User', {
   email: {
     type: DataTypes.STRING(255),
     allowNull: false,
-    unique: { mst: 'Email has already been taken' },
+    unique: { msg: 'Email has already been taken' },
     validate: {
       isEmail: { msg: 'Email is invalid' },
       notEmpty: true,
