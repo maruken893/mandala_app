@@ -1,8 +1,12 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 function App() {
   return (
-    <div className="App">
-      <h1>Hello mandala</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
