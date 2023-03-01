@@ -5,6 +5,9 @@ const Wrapper = styled.div`
   height: 100vh;
   padding: 8% 5% 0 5%;
   background-color: #fefaf3;
+  h2 {
+    font-size: 1.75rem;
+  }
   .form-container {
     background-color: white;
     text-align: center;
