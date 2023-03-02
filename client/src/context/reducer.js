@@ -4,6 +4,9 @@ import {
   USER_REGISTER_BEGIN,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAILED,
+  USER_LOGIN_BEGIN,
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAILED,
 } from './action';
 
 const reducer = (state, { type, payload }) => {
@@ -20,6 +23,7 @@ const reducer = (state, { type, payload }) => {
         ...state,
         showAlert: false,
         alertMessage: '',
+        alertType: ''
       };
     case USER_REGISTER_BEGIN:
       return {
@@ -32,12 +36,41 @@ const reducer = (state, { type, payload }) => {
         isLoading: false,
         user: payload.user,
         token: payload.token,
+        showAlert: true,
+        alertMessage: payload.msg,
+        alertType: 'success',
       };
     case USER_REGISTER_FAILED:
       return {
         ...state,
-        isLoading: false
-      }
+        isLoading: false,
+        showAlert: true,
+        alertMessage: payload.msg,
+        alertType: 'failed',
+      };
+    case USER_LOGIN_BEGIN:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case USER_LOGIN_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        user: payload.user,
+        token: payload.token,
+        showAlert: true,
+        alertMessage: payload.msg,
+        alertType: 'success',
+      };
+    case USER_LOGIN_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertMessage: payload.msg,
+        alertType: 'failed',
+      };
     default:
       throw new Error('There is no such an action type');
   }

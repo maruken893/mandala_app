@@ -12,7 +12,7 @@ const initialState = {
   name: '',
   email: '',
   password: '',
-  isMember: false,
+  isMember: true,
 };
 
 const Auth = () => {
@@ -24,6 +24,7 @@ const Auth = () => {
     alertType,
     displayAlert,
     registerUser,
+    login,
   } = useAppContext();
 
   const handleChange = (e) => {
@@ -38,7 +39,7 @@ const Auth = () => {
     }
     if (state.isMember) {
       // loginの処理
-      console.log('log in');
+      login({ user: { email: state.email, password: state.password } });
     } else {
       // register
       registerUser({
@@ -95,17 +96,20 @@ const Auth = () => {
               <button type="submit" className="btn btn-wide btn-light-green">
                 Demo User
               </button>
+              <p>
+                {state.isMember
+                  ? "Don't have an account? "
+                  : 'Have an account already? '}
+                <button
+                  type="button"
+                  onClick={togglePage}
+                  className="member-btn"
+                >
+                  {state.isMember ? 'Register' : 'Log in'}
+                </button>
+              </p>
             </>
           )}
-
-          <p>
-            {state.isMember
-              ? "Don't have an account? "
-              : 'Have an account already? '}
-            <button type="button" onClick={togglePage} className="member-btn">
-              {state.isMember ? 'Register' : 'Log in'}
-            </button>
-          </p>
         </form>
       </div>
     </Wrapper>

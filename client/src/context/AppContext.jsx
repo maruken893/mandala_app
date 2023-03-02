@@ -8,7 +8,13 @@ import {
   USER_REGISTER_BEGIN,
   USER_REGISTER_FAILED,
   USER_REGISTER_SUCCESS,
+  USER_LOGIN_BEGIN,
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAILED,
 } from './action';
+
+const user = localStorage.getItem('user');
+const token = localStorage.getItem('token');
 
 const initialState = {
   isLoading: false,
@@ -16,8 +22,8 @@ const initialState = {
   alertMessage: '',
   alertType: '',
   // auth info
-  user: null,
-  token: '',
+  user: JSON.parse(user) || null,
+  token: token || '',
 };
 
 const AppContext = createContext();
@@ -36,30 +42,64 @@ const AppProvider = ({ children }) => {
     }, 3000);
   };
 
+  const addUserToLocalStorage = ({ user, token }) => {
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('token', token);
+  };
+
+  const removeUserFromLocalStorage = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+  };
+
   const registerUser = async ({ user }) => {
     dispatch({ type: USER_REGISTER_BEGIN });
-    let data;
     try {
-      data = await axios.post('/api/v1/auth/register', user);
-      const { user: createdUser, token } = data;
+      const response = await axios.post('/api/v1/auth/register', user);
+      const { user: createdUser, token } = response.data;
+      addUserToLocalStorage({ user: createdUser, token });
       dispatch({
         type: USER_REGISTER_SUCCESS,
-        payload: { user: createdUser, token },
+        payload: {
+          user: createdUser,
+          token,
+          msg: 'Account created successfully redirecting ...',
+        },
       });
-      displayAlert({
-        msg: 'Account created successfully redirecting ...',
-        type: 'success',
+    } catch (error) {
+      console.error(error);
+      const { msg } = error.response.data;
+      // console.error(msg);
+      dispatch({ type: USER_REGISTER_FAILED, payload: { msg } });
+    }
+    clearAlert();
+  };
+
+  const login = async ({ user }) => {
+    dispatch({ type: USER_LOGIN_BEGIN });
+    try {
+      const response = await axios.post('/api/v1/auth/login', user);
+      const { user: loginUser, token } = response.data;
+      addUserToLocalStorage({ user: loginUser, token });
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: {
+          user: loginUser,
+          token,
+          msg: 'Login successful',
+        },
       });
     } catch (error) {
       const { msg } = error.response.data;
-      dispatch({ type: USER_REGISTER_FAILED });
-      displayAlert({ msg, type: 'failed' });
+      dispatch({ type: USER_LOGIN_FAILED, payload: { msg } });
     }
     clearAlert();
   };
 
   return (
-    <AppContext.Provider value={{ ...state, displayAlert, registerUser }}>
+    <AppContext.Provider
+      value={{ ...state, displayAlert, registerUser, login }}
+    >
       {children}
     </AppContext.Provider>
   );
