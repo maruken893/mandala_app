@@ -12,8 +12,10 @@ export const register = async (req, res) => {
   if (alreadyExist) {
     throw new BadRequestError('Email has already been taken');
   }
-  await User.create({ name, email, password });
+  const createdUser = await User.create({ name, email, password });
+  const token = createdUser.createJWT()
+  console.log(token)
   res
     .status(StatusCodes.CREATED)
-    .json({ user: { name, email }, token: 'fdalffdalfjasf' });
+    .json({ user: { name, email }, token });
 };

@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 import { DataTypes } from 'sequelize';
 
@@ -52,5 +53,13 @@ User.beforeCreate(async (user) => {
   const hashedPassword = await bcrypt.hash(user.password, salt);
   user.password = hashedPassword;
 });
+
+User.prototype.createJWT =  function () {
+  return jwt.sign(
+    { iss: 'mandala_app', uid: this.id },
+    process.env.JWT_KEY,
+    { expiresIn: '1d' }
+  );
+};
 
 export default User;
