@@ -13,9 +13,12 @@ export const register = async (req, res) => {
     throw new BadRequestError('Email has already been taken');
   }
   const createdUser = await User.create({ name, email, password });
-  const token = createdUser.createJWT()
-  console.log(token)
-  res
-    .status(StatusCodes.CREATED)
-    .json({ user: { name, email }, token });
+  const token = createdUser.createJWT();
+  console.log(token);
+  res.status(StatusCodes.CREATED).json({ user: { name, email }, token });
+};
+
+export const login = async (req, res) => {
+  // const { email, password } = req.body;
+  res.status(StatusCodes.OK).json({ msg: 'log in successfully' });
 };
