@@ -54,12 +54,15 @@ User.beforeCreate(async (user) => {
   user.password = hashedPassword;
 });
 
-User.prototype.createJWT =  function () {
-  return jwt.sign(
-    { iss: 'mandala_app', uid: this.id },
-    process.env.JWT_KEY,
-    { expiresIn: '1d' }
-  );
+User.prototype.createJWT = function () {
+  return jwt.sign({ iss: 'mandala_app', uid: this.id }, process.env.JWT_KEY, {
+    expiresIn: '1d',
+  });
+};
+
+User.prototype.comparePassword = async function (password) {
+  const isMatch = await bcrypt.compare(password, this.password)
+  return isMatch
 };
 
 export default User;
