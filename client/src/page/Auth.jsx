@@ -6,9 +6,10 @@ import Wrapper from '../assets/wrappers/Auth';
 import Alert from '../Components/Alert';
 import FormRow from '../Components/FormRow';
 import Logo from '../Components/Logo';
+import LoadingSpinner from '../Components/LoadingSpinner';
 
 const initialState = {
-  userName: '',
+  name: '',
   email: '',
   password: '',
   isMember: false,
@@ -16,7 +17,14 @@ const initialState = {
 
 const Auth = () => {
   const [state, setState] = useState(initialState);
-  const { showAlert, alertMessage, alertType } = useAppContext();
+  const {
+    isLoading,
+    showAlert,
+    alertMessage,
+    alertType,
+    displayAlert,
+    registerUser,
+  } = useAppContext();
 
   const handleChange = (e) => {
     setState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -24,7 +32,23 @@ const Auth = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submit');
+    if (!state.email || !state.password || (!state.isMember && !state.name)) {
+      displayAlert({ msg: 'Please provide all values', type: 'failed' });
+      return;
+    }
+    if (state.isMember) {
+      // loginの処理
+      console.log('log in');
+    } else {
+      // register
+      registerUser({
+        user: {
+          name: state.name,
+          email: state.email,
+          password: state.password,
+        },
+      });
+    }
   };
 
   const togglePage = () => {
@@ -58,20 +82,27 @@ const Auth = () => {
             type="password"
             handleChange={handleChange}
           />
-          <button type="submit" className="btn btn-wide">
-            submit
-          </button>
-          <br />
-          <br />
-          <button type="submit" className="btn btn-wide btn-light-green">
-            Demo User
-          </button>
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <>
+              {' '}
+              <button type="submit" className="btn btn-wide">
+                submit
+              </button>
+              <br />
+              <br />
+              <button type="submit" className="btn btn-wide btn-light-green">
+                Demo User
+              </button>
+            </>
+          )}
 
           <p>
             {state.isMember
               ? "Don't have an account? "
               : 'Have an account already? '}
-            <button onClick={togglePage} class="member-btn">
+            <button type="button" onClick={togglePage} className="member-btn">
               {state.isMember ? 'Register' : 'Log in'}
             </button>
           </p>

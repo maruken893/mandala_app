@@ -1,4 +1,10 @@
-import { SHOW_ALERT, CLEAR_ALERT } from './action';
+import {
+  SHOW_ALERT,
+  CLEAR_ALERT,
+  USER_REGISTER_BEGIN,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAILED,
+} from './action';
 
 const reducer = (state, { type, payload }) => {
   switch (type) {
@@ -7,6 +13,7 @@ const reducer = (state, { type, payload }) => {
         ...state,
         showAlert: true,
         alertMessage: payload.msg,
+        alertType: payload.type,
       };
     case CLEAR_ALERT:
       return {
@@ -14,8 +21,25 @@ const reducer = (state, { type, payload }) => {
         showAlert: false,
         alertMessage: '',
       };
+    case USER_REGISTER_BEGIN:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case USER_REGISTER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        user: payload.user,
+        token: payload.token,
+      };
+    case USER_REGISTER_FAILED:
+      return {
+        ...state,
+        isLoading: false
+      }
     default:
-      throw new Error('There is no such an action type')
+      throw new Error('There is no such an action type');
   }
 };
 

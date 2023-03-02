@@ -60,17 +60,17 @@ body {
 .alert {
   width: 90%;
   margin: 30px auto;
-  padding: 0.5rem 1rem;
+  padding: 0.625rem 3rem;
   border-radius: 3px;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
 }
 
 .alert-success {
-  color: white;
-  background-color: #3ce12d;
+  color: rgb(40, 138, 76);
+  background-color: #bde7b9;
 }
 
 .alert-failed {
-  color: white;
-  background-color: #e12d2d;
+  color: rgb(195, 22, 22);
+  background-color: #e5c7c7;
 }

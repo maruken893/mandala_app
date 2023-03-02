@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "i": "yarn && yarn --cwd client",
-    "s": "nodemon server.js",
+    "server": "nodemon server.js",
+    "client": "nodemon --cwd client client",
+    "dev": "concurrently --kill-others-on-fail \"yarn server \" \"yarn client \" ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -24,6 +26,7 @@
     "sequelize": "^6.29.0"
   },
   "devDependencies": {
+    "concurrently": "^7.6.0",
     "nodemon": "^2.0.20"
   }
 }
