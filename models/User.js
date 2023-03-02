@@ -5,48 +5,69 @@ import { DataTypes } from 'sequelize';
 
 import sequelize from '../db/connect.js';
 
-const User = sequelize.define('User', {
-  id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    allowNull: false,
-    primaryKey: true,
-  },
-  name: {
-    type: DataTypes.STRING(20),
-    allowNull: false,
-    validate: {
-      notEmpty: true,
+const User = sequelize.define(
+  'User',
+  {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
+      primaryKey: true,
     },
-  },
-  email: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-    unique: { msg: 'Email has already been taken' },
-    validate: {
-      isEmail: { msg: 'Email is invalid' },
-      notEmpty: true,
+    name: {
+      type: DataTypes.STRING(20),
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
+    email: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      unique: { msg: 'Email has already been taken' },
+      validate: {
+        isEmail: { msg: 'Email is invalid' },
+        notEmpty: true,
+      },
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    biography: {
+      type: DataTypes.STRING(200),
+    },
+    mainGoal: {
+      type: DataTypes.STRING(20),
+    },
+    goalGenreId: {
+      type: DataTypes.INTEGER,
+    }
   },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  biography: {
-    type: DataTypes.STRING(200),
-  },
-  mainGoal: {
-    type: DataTypes.STRING(20),
-  },
-  goadGenreId: {
-    type: DataTypes.INTEGER,
-  },
-  isAdmin: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
-    allowNull: false,
-  },
-});
+  {
+    defaultScope: {
+      attributes: { exclude: ['createdAt', 'updatedAt'] },
+    },
+    scopes: {
+      withoutPassword: {
+        attributes: { exclude: ['password'] },
+      },
+      withoutAllValues: {
+        attributes: {
+          exclude: [
+            'name',
+            'email',
+            'password',
+            'biography',
+            'mainGoal',
+            'goalGenreId',
+            'isAdmin',
+          ],
+        },
+      },
+    },
+  }
+);
 
 User.beforeCreate(async (user) => {
   const salt = await bcrypt.genSalt(12);
@@ -61,8 +82,8 @@ User.prototype.createJWT = function () {
 };
 
 User.prototype.comparePassword = async function (password) {
-  const isMatch = await bcrypt.compare(password, this.password)
-  return isMatch
+  const isMatch = await bcrypt.compare(password, this.password);
+  return isMatch;
 };
 
 export default User;

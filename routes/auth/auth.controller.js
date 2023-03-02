@@ -5,10 +5,12 @@ import { BadRequestError, UnauthorizedError } from '../../errors/index.js';
 
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
-  if ((!name, !email, !password)) {
+  if (!name || !email || !password) {
     throw new BadRequestError('Please provide all values');
   }
-  const alreadyExist = await User.findOne({ where: { email } });
+  const alreadyExist = await User.scope('withoutAllValues').findOne({
+    where: { email },
+  });
   if (alreadyExist) {
     throw new BadRequestError('Email has already been taken');
   }
@@ -27,11 +29,11 @@ export const login = async (req, res) => {
   if (!user) {
     throw new UnauthorizedError('Invalid Credentials');
   }
-  const isMatch = await user.comparePassword(password);
-  if (!isMatch) {
+  const isCorrectPassword = await user.comparePassword(password);
+  if (!isCorrectPassword) {
     throw new UnauthorizedError('Invalid Credentials');
   }
-  user.password = null;
+  user.password = undefined;
   const token = user.createJWT();
   res.status(StatusCodes.OK).json({ user, token });
 };
