@@ -1,6 +1,9 @@
 import { useState } from 'react';
 
+import { useAppContext } from '../context/AppContext';
+
 import Wrapper from '../assets/wrappers/Auth';
+import Alert from '../Components/Alert';
 import FormRow from '../Components/FormRow';
 import Logo from '../Components/Logo';
 
@@ -13,6 +16,7 @@ const initialState = {
 
 const Auth = () => {
   const [state, setState] = useState(initialState);
+  const { showAlert, alertMessage, alertType } = useAppContext();
 
   const handleChange = (e) => {
     setState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -33,6 +37,7 @@ const Auth = () => {
         <Logo />
         <form onSubmit={handleSubmit}>
           <h2>{state.isMember ? 'Login' : 'Register'}</h2>
+          {showAlert && <Alert message={alertMessage} alertType={alertType} />}
           {!state.isMember && (
             <FormRow
               name="name"

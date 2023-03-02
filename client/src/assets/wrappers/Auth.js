@@ -1,17 +1,19 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  width: 100%;
-  height: 100vh;
-  padding: 8% 5% 0 5%;
-  background-color: #fefaf3;
+  min-height: 100vh;
+  padding: 8% 5% 3% 5%;
   h2 {
     font-size: 1.75rem;
+    margin: 20px 0 15px 0;
+  }
+  p {
+    margin: 20px 0 0 0;
   }
   .form-container {
     background-color: white;
     text-align: center;
-    padding: 3% 1% 2% 1%;
+    padding: 3% 1% 1.5% 1%;
     border: 1px solid #ccbca8;
     border-top: 7px solid #ffb443;
     border-radius: 5px;

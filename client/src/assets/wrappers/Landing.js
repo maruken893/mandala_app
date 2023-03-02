@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   max-width: 100%;
-  height: 100vh;
-  background-color: #fefaf3;
+  height: 100%;
+  min-height: 100vh;
   h1 {
     margin: 0;
     margin: 40px 0 50px 0;
