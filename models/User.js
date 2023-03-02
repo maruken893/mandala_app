@@ -37,7 +37,7 @@ const User = sequelize.define(
     biography: {
       type: DataTypes.STRING(200),
     },
-    mainGoal: {
+    goal: {
       type: DataTypes.STRING(20),
     },
     goalGenreId: {
