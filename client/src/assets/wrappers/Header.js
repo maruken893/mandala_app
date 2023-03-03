@@ -22,6 +22,9 @@ const Wrapper = styled.nav`
     color: var(--main-color);
     border: none;
   }
+  .toggle-btn:hover {
+    cursor: pointer;
+  }
   .user-info {
     display: flex;
     align-items: center;

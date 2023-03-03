@@ -7,12 +7,8 @@ import { VscThreeBars } from 'react-icons/vsc';
 import Logo from './Logo';
 
 const Header = () => {
-  const { user } = useAppContext();
+  const { user, openSidebarModal } = useAppContext();
   const { id, name } = user;
-
-  const toggleSidebar = () => {
-    console.log('toggle sidebar');
-  };
 
   const toggleUserInfo = () => {
     console.log('toggle user info');
@@ -21,7 +17,7 @@ const Header = () => {
   return (
     <Wrapper>
       <div className="header-container">
-        <button type="button" className="toggle-btn" onClick={toggleSidebar}>
+        <button type="button" className="toggle-btn" onClick={openSidebarModal}>
           <VscThreeBars />
         </button>
         <span className="logo">

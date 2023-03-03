@@ -24,6 +24,9 @@ const Wrapper = styled.div`
     .sidebar-container nav {
       margin-top: 4.5rem;
     }
+    .sidebar-modal {
+      display: none;
+    }
     .right-container {
       width: calc(100% - var(--sidebar-width));
     }

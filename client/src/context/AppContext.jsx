@@ -5,6 +5,8 @@ import reducer from './reducer';
 import {
   SHOW_ALERT,
   CLEAR_ALERT,
+  OPEN_SIDEBAR_MODAL,
+  CLOSE_SIDEBAR_MODAL,
   USER_REGISTER_BEGIN,
   USER_REGISTER_FAILED,
   USER_REGISTER_SUCCESS,
@@ -21,6 +23,7 @@ const initialState = {
   showAlert: false,
   alertMessage: '',
   alertType: '',
+  showSidebarModal: false,
   // auth info
   user: JSON.parse(user) || null,
   token: token || '',
@@ -40,6 +43,14 @@ const AppProvider = ({ children }) => {
     setTimeout(() => {
       dispatch({ type: CLEAR_ALERT });
     }, 3000);
+  };
+
+  const openSidebarModal = () => {
+    dispatch({ type: OPEN_SIDEBAR_MODAL });
+  };
+
+  const closeSidebarModal = () => {
+    dispatch({ type: CLOSE_SIDEBAR_MODAL });
   };
 
   const addUserToLocalStorage = ({ user, token }) => {
@@ -98,7 +109,14 @@ const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider
-      value={{ ...state, displayAlert, registerUser, login }}
+      value={{
+        ...state,
+        displayAlert,
+        registerUser,
+        login,
+        openSidebarModal,
+        closeSidebarModal,
+      }}
     >
       {children}
     </AppContext.Provider>

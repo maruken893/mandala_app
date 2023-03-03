@@ -1,6 +1,8 @@
 import {
   SHOW_ALERT,
   CLEAR_ALERT,
+  OPEN_SIDEBAR_MODAL,
+  CLOSE_SIDEBAR_MODAL,
   USER_REGISTER_BEGIN,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAILED,
@@ -23,7 +25,17 @@ const reducer = (state, { type, payload }) => {
         ...state,
         showAlert: false,
         alertMessage: '',
-        alertType: ''
+        alertType: '',
+      };
+    case OPEN_SIDEBAR_MODAL:
+      return {
+        ...state,
+        showSidebarModal: true,
+      };
+    case CLOSE_SIDEBAR_MODAL:
+      return {
+        ...state,
+        showSidebarModal: false,
       };
     case USER_REGISTER_BEGIN:
       return {
