@@ -3,10 +3,7 @@ import { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 
 import Wrapper from '../assets/wrappers/Auth';
-import Alert from '../Components/Alert';
-import FormRow from '../Components/FormRow';
-import Logo from '../Components/Logo';
-import LoadingSpinner from '../Components/LoadingSpinner';
+import { Alert, FormRow, Logo, LoadingSpinner } from '../components';
 
 const initialState = {
   name: '',

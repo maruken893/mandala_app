@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Noto+Sans+JP&display=swap');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +7,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: 'Inter';
+  font-weight: 500;
 }
 
 code {
@@ -23,14 +27,22 @@ html *,
 }
 
 body {
-  background-color: #fefaf3;
+  background-color: #FEFAF3;
+}
+
+/* 変数 */
+:root {
+  --sidebar-width: 14.5rem;
+  --header-height: 6rem;
+  --main-color: #ffb443;
+  --main-border-color: #f3e8d7;
 }
 
 /* ボタン */
 .btn {
   padding: 1rem 1.5rem;
   border-radius: 10px;
-  background: #ffb443;
+  background: var(--main-color);
   color: white;
   text-decoration: none;
   font-weight: bold;
@@ -73,4 +85,5 @@ body {
 .alert-failed {
   color: rgb(195, 22, 22);
   background-color: #e5c7c7;
+  color: #f7e8d2;
 }

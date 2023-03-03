@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import Wrapper from '../assets/wrappers/Landing';
-import Logo from '../Components/Logo';
+import { Logo } from '../components';
 import welcome from '../assets/images/welcome.svg';
 
 const Landing = () => {
@@ -9,7 +9,7 @@ const Landing = () => {
     <Wrapper>
       <div className="container">
         <header>
-          <Logo className="center" />
+          <Logo width="170px" className="center" />
         </header>
         <main className="flex">
           <div className="flex-item vertical-center">
