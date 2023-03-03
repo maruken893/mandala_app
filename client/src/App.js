@@ -1,20 +1,24 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { Auth, Landing, ProtectedRoute } from './page';
-import { Chart, History, Layout, Todo } from './page/dashboard';
+import { Chart, History, Layout, Todo, Profile } from './page/dashboard';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={
-          <ProtectedRoute>
-            <Layout />
-          </ProtectedRoute>
-        }>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
           <Route path="/" element={<Chart />} />
           <Route path="todo" element={<Todo />} />
-          <Route path="history" element={<History/>} />
+          <Route path="history" element={<History />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="/landing" element={<Landing />} />
         <Route path="/auth" element={<Auth />} />
