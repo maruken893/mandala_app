@@ -37,3 +37,9 @@ export const login = async (req, res) => {
   const token = user.createJWT();
   res.status(StatusCodes.OK).json({ user, token });
 };
+
+export const updateUser = async (req, res) => {
+  res.status(StatusCodes.OK).json({
+    msg: 'connected',
+  });
+};
