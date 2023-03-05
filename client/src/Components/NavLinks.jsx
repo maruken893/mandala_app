@@ -18,7 +18,7 @@ const NavLinks = () => {
             return isActive ? 'active' : undefined;
           }}
         >
-          <div class="link-element">
+          <div className="link-element">
             <span className="icon">{link.icon}</span>
             <span className="text">{link.text}</span>
           </div>

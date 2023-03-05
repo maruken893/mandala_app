@@ -1,4 +1,11 @@
+import Wrapper from '../../assets/wrappers/Profile';
+import UserInfo from '../../components/UserInfo';
+
 const Profile = () => {
-  return <div>Profile</div>;
+  return (
+    <Wrapper>
+      <UserInfo />
+    </Wrapper>
+  );
 };
 export default Profile;

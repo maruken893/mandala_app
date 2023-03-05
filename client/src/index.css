@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Noto+Sans+JP&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+JP&display=swap');
 
 body {
   margin: 0;
@@ -40,6 +40,7 @@ body {
 
 /* ボタン */
 .btn {
+  height: fit-content;
   padding: 1rem 1.5rem;
   border-radius: 10px;
   background: var(--main-color);
@@ -68,6 +69,14 @@ body {
   background-color: #9bc133;
 }
 
+.btn-edit {
+  font-size: .75rem;
+  background-color: #7099E8;
+  padding: .5rem .5rem;
+}
+.btn-edit:hover {
+  background-color: #5f82c8;
+}
 /* Alert */
 .alert {
   width: 90%;

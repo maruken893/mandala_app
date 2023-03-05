@@ -20,7 +20,7 @@ const Landing = () => {
               Register/Log in
             </Link>
           </div>
-          <div class="flex-item">
+          <div className="flex-item">
             <img src={welcome} className="landing-img" />
           </div>
         </main>
