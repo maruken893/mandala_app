@@ -24,7 +24,7 @@ const UserInfo = () => {
         <UserLink className="follower" label="followers" value={0} />
         <UserLink className="" label="following" value={0} />
       </div>
-      <p className="bio-label"># bio</p>
+      <p className="bio-label">#bio</p>
       <p className="bio">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloribus
         fugiat eum, laudantium alias voluptatem quasi voluptates mollitia rerum

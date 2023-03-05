@@ -24,9 +24,6 @@ const Wrapper = styled.div`
       justify-content: center;
       align-items: center;
     }
-    .btn-edit {
-      /* margin-top: 1rem; */
-    }
     .name {
       margin: 0;
       margin-bottom: 1rem;

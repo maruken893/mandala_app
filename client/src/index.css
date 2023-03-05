@@ -73,6 +73,7 @@ body {
   font-size: .75rem;
   background-color: #7099E8;
   padding: .5rem .5rem;
+  border-radius: 3px;
 }
 .btn-edit:hover {
   background-color: #5f82c8;

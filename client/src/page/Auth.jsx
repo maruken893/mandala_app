@@ -35,10 +35,8 @@ const Auth = () => {
       return;
     }
     if (state.isMember) {
-      // loginの処理
       login({ user: { email: state.email, password: state.password } });
     } else {
-      // register
       registerUser({
         user: {
           name: state.name,
@@ -56,7 +54,7 @@ const Auth = () => {
   return (
     <Wrapper>
       <div className="form-container">
-        <Logo />
+        <Logo width="170px" />
         <form onSubmit={handleSubmit}>
           <h2>{state.isMember ? 'Login' : 'Register'}</h2>
           {showAlert && <Alert message={alertMessage} alertType={alertType} />}
