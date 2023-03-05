@@ -34,7 +34,7 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    biography: {
+    bio: {
       type: DataTypes.STRING(200),
     },
     goal: {
