@@ -9,6 +9,9 @@ import {
   USER_LOGIN_BEGIN,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILED,
+  USER_UPDATE_BEGIN,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAILED,
 } from './action';
 
 const reducer = (state, { type, payload }) => {
@@ -76,6 +79,28 @@ const reducer = (state, { type, payload }) => {
         alertType: 'success',
       };
     case USER_LOGIN_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertMessage: payload.msg,
+        alertType: 'failed',
+      };
+    case USER_UPDATE_BEGIN:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case USER_UPDATE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertMessage: 'User updated successfully!',
+        alertType: 'success',
+        user: payload.user
+      };
+    case USER_UPDATE_FAILED:
       return {
         ...state,
         isLoading: false,

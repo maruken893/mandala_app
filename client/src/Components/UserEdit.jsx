@@ -1,11 +1,12 @@
 import { useState } from 'react';
 
 import Wrapper from '../assets/wrappers/UserEdit';
-import { FormRow } from '../components';
+import { Alert, FormRow } from '../components';
 import { useAppContext } from '../context/AppContext';
 
 const UserEdit = ({ toggleUserEditing }) => {
-  const { user } = useAppContext();
+  const { user, updateUser, showAlert, alertMessage, alertType } =
+    useAppContext();
   const [editInput, setEditInput] = useState({
     name: user.name,
     bio: user.bio || '',
@@ -21,11 +22,13 @@ const UserEdit = ({ toggleUserEditing }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('save user');
+    updateUser(editInput);
+    console.log(alertType);
   };
 
   return (
     <Wrapper>
+      {showAlert && <Alert message={alertMessage} alertType={alertType} />}
       <form onSubmit={handleSubmit}>
         <FormRow
           name="name"
@@ -43,7 +46,7 @@ const UserEdit = ({ toggleUserEditing }) => {
           />
         </div>
         <div type="submit" className="button-container">
-          <button className="btn btn-save" onClick={toggleUserEditing}>
+          <button className="btn btn-save" onClick={handleSubmit}>
             Save
           </button>
           <button

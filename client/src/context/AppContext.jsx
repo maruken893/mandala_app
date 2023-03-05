@@ -13,10 +13,17 @@ import {
   USER_LOGIN_BEGIN,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILED,
+  USER_UPDATE_BEGIN,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAILED,
 } from './action';
 
 const user = localStorage.getItem('user');
 const token = localStorage.getItem('token');
+
+const config = {
+  headers: { Authorization: `Bearer ${token}` },
+};
 
 const initialState = {
   isLoading: false,
@@ -107,6 +114,23 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const updateUser = async ({ name, bio }) => {
+    dispatch({ type: USER_UPDATE_BEGIN });
+    try {
+      const response = await axios.patch(
+        '/api/v1/auth/update-user',
+        { name, bio },
+        config
+      );
+      const { user } = response.data;
+      dispatch({ type: USER_UPDATE_SUCCESS, payload: { user } });
+    } catch (error) {
+      const { msg } = error.response.data;
+      dispatch({ type: USER_UPDATE_FAILED, payload: { msg } });
+    }
+    clearAlert();
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -116,6 +140,7 @@ const AppProvider = ({ children }) => {
         login,
         openSidebarModal,
         closeSidebarModal,
+        updateUser,
       }}
     >
       {children}

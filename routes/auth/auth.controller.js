@@ -47,7 +47,7 @@ export const updateUser = async (req, res) => {
     throw new UnauthorizedError('invalid token');
   }
   if (user.name === name && user.bio === bio) {
-    throw new BadRequestError('No property changes');
+    throw new BadRequestError('No property to change');
   }
   const updatedUser = await user.update({
     name,

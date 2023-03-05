@@ -112,7 +112,6 @@ body {
 .alert-failed {
   color: rgb(195, 22, 22);
   background-color: #e5c7c7;
-  color: #f7e8d2;
 }
 
 /* modal media query */

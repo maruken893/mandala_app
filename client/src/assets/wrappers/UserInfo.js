@@ -64,7 +64,8 @@ const Wrapper = styled.div`
     }
     .bio {
       margin: 0;
-      height: 105px;
+      min-height: 105px;
+      max-height: fit-content;
       color: #696969;
     }
   }
