@@ -3,18 +3,14 @@ import { FaUserAlt } from 'react-icons/fa';
 import Wrapper from '../assets/wrappers/UserInfo';
 import UserLink from './UserLink';
 
-const UserInfo = () => {
-  const handleEditButton = () => {
-    console.log('edit user toggle');
-  };
-
+const UserInfo = ({ toggleUserEditing }) => {
   return (
     <Wrapper>
       <div className="flex">
         <div className="icon">
           <FaUserAlt />
         </div>
-        <button className="btn btn-edit" onClick={handleEditButton}>
+        <button className="btn btn-edit" onClick={toggleUserEditing}>
           Edit Profile
         </button>
       </div>

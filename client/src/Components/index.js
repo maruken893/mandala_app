@@ -6,5 +6,16 @@ import Logo from './Logo';
 import NavLinks from './NavLinks';
 import UserInfo from './UserInfo';
 import UserLink from './UserLink';
+import UserEdit from './UserEdit';
 
-export { Alert, FormRow, Header, LoadingSpinner, Logo, NavLinks, UserInfo, UserLink };
+export {
+  Alert,
+  FormRow,
+  Header,
+  LoadingSpinner,
+  Logo,
+  NavLinks,
+  UserInfo,
+  UserLink,
+  UserEdit,
+};
