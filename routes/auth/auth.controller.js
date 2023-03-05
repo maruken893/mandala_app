@@ -39,19 +39,18 @@ export const login = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-  const { name, email } = req.body;
+  const { name } = req.body;
   const user = await User.scope('withoutPassword').findOne({
     where: { id: req.user.uid },
   });
   if (!user) {
     throw new UnauthorizedError('invalid token');
   }
-  if (user.name === name || user.email === email) {
+  if (user.name === name) {
     throw new BadRequestError('No property changes');
   }
   const updatedUser = await user.update({
     name,
-    email,
   });
   const token = updatedUser.createJWT();
   res.status(StatusCodes.OK).json({
