@@ -10,6 +10,7 @@ const auth = async (req, res, next) => {
   const token = authHeader.split(' ')[1];
   try {
     req.user = jwt.verify(token, process.env.JWT_KEY);
+    console.log(req.user)
     next();
   } catch (error) {
     throw new UnauthorizedError('invalid token');
