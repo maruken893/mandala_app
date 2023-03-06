@@ -2,7 +2,7 @@ import app from './app.js';
 
 // db
 import sequelize from './db/connect.js';
-import { User, GoalGenre, Mission } from './models/index.js';
+import { User, GoalGenre, Mission, SubMission } from './models/index.js';
 import { goalGenres } from './models/GoalGenre.js';
 
 // setting
@@ -17,8 +17,12 @@ const startServer = async () => {
     // association
     GoalGenre.hasMany(User);
     User.belongsTo(GoalGenre);
+
     User.hasMany(Mission);
     Mission.belongsTo(User);
+
+    Mission.hasMany(SubMission);
+    SubMission.belongsTo(Mission);
 
     console.log('db connection');
     app.listen(PORT, (req, res) => {
