@@ -16,6 +16,9 @@ import {
   USER_UPDATE_BEGIN,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAILED,
+  REQUEST_BEGIN,
+  GOAL_CREATE_SUCCESS,
+  GOAL_CREATE_FAILED,
 } from './action';
 
 const user = localStorage.getItem('user');
@@ -131,6 +134,22 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const createGoal = async ({ goal, goalGenreId }) => {
+    dispatch({ type: REQUEST_BEGIN });
+    try {
+      const response = await axios.patch(
+        '/api/v1/create-goal',
+        { goal, goalGenreId },
+        config
+      );
+      const { user } = response.data;
+      dispatch({ type: GOAL_CREATE_SUCCESS, payload: { user } });
+    } catch (error) {
+      const { msg } = error.response.data;
+      dispatch({ type: GOAL_CREATE_FAILED, payload: { msg } });
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -141,6 +160,7 @@ const AppProvider = ({ children }) => {
         openSidebarModal,
         closeSidebarModal,
         updateUser,
+        createGoal,
       }}
     >
       {children}

@@ -12,6 +12,9 @@ import {
   USER_UPDATE_BEGIN,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAILED,
+  REQUEST_BEGIN,
+  GOAL_CREATE_SUCCESS,
+  GOAL_CREATE_FAILED,
 } from './action';
 
 const reducer = (state, { type, payload }) => {
@@ -39,6 +42,11 @@ const reducer = (state, { type, payload }) => {
       return {
         ...state,
         showSidebarModal: false,
+      };
+    case REQUEST_BEGIN:
+      return {
+        ...state,
+        isLoading: true,
       };
     case USER_REGISTER_BEGIN:
       return {
@@ -98,12 +106,24 @@ const reducer = (state, { type, payload }) => {
         showAlert: true,
         alertMessage: 'User updated successfully!',
         alertType: 'success',
-        user: payload.user
+        user: payload.user,
       };
     case USER_UPDATE_FAILED:
       return {
         ...state,
         isLoading: false,
+        showAlert: true,
+        alertMessage: payload.msg,
+        alertType: 'failed',
+      };
+    case GOAL_CREATE_SUCCESS:
+      return {
+        ...state,
+        user: payload.user,
+      };
+    case GOAL_CREATE_FAILED:
+      return {
+        ...state,
         showAlert: true,
         alertMessage: payload.msg,
         alertType: 'failed',

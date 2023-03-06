@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { createGoal, getAllGoalGenres, getUserWithGoalGenre } from './goal.controller.js';
+import { createGoal, getAllGoalGenres } from './goal.controller.js';
 import { auth } from '../../middleware/index.js';
 
 const router = express.Router();

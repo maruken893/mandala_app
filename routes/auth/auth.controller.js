@@ -16,7 +16,17 @@ export const register = async (req, res) => {
   }
   const createdUser = await User.create({ name, email, password });
   const token = createdUser.createJWT();
-  res.status(StatusCodes.CREATED).json({ user: { name, email }, token });
+  createdUser.password = undefined;
+  createdUser.updatedAt = undefined;
+  createdUser.createdAt = undefined;
+  res.status(StatusCodes.CREATED).json({
+    user: {
+      ...createdUser.dataValues,
+      goal: null,
+      GoalGenre: null,
+    },
+    token,
+  });
 };
 
 export const login = async (req, res) => {
@@ -43,6 +53,7 @@ export const updateUser = async (req, res) => {
   const { name, bio } = req.body;
   const user = await User.scope('withoutPassword').findOne({
     where: { id: req.user.uid },
+    include: GoalGenre,
   });
   if (!user) {
     throw new UnauthorizedError('invalid token');

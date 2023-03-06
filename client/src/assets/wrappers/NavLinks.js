@@ -15,14 +15,6 @@ const Wrapper = styled.nav`
     text-decoration: none;
     font-size: 1.25rem;
     display: block;
-    .active {
-      .text {
-        color: black;
-      }
-      .icon {
-        color: var(--main-color);
-      }
-    }
   }
   a:hover {
     color: black;
@@ -36,15 +28,21 @@ const Wrapper = styled.nav`
       color: var(--main-color);
     }
   }
+  .active .text {
+    color: black;
+  }
+  .active .icon {
+    color: var(--main-color);
+  }
   @media (min-width: 990px) {
     a {
       padding: 0.75rem 0 1.25rem 2.25rem;
     }
     a:hover {
       .link-element {
-      transition: 0.2s;
-      transform: translateX(0.5rem);
-    }
+        transition: 0.2s;
+        transform: translateX(0.5rem);
+      }
     }
   }
 `;
