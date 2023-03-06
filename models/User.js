@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
 import { DataTypes } from 'sequelize';
 
 import sequelize from '../db/connect.js';
+import { GoalGenre } from './index.js';
 
 const User = sequelize.define(
   'User',
@@ -40,9 +40,9 @@ const User = sequelize.define(
     goal: {
       type: DataTypes.STRING(20),
     },
-    goalGenreId: {
+    GoalGenreId: {
       type: DataTypes.INTEGER,
-    }
+    },
   },
   {
     defaultScope: {
@@ -85,5 +85,6 @@ User.prototype.comparePassword = async function (password) {
   const isMatch = await bcrypt.compare(password, this.password);
   return isMatch;
 };
+
 
 export default User;

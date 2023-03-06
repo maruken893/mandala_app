@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { User } from '../../models/index.js';
+import { User, GoalGenre } from '../../models/index.js';
 import { BadRequestError, UnauthorizedError } from '../../errors/index.js';
 
 export const register = async (req, res) => {
@@ -16,7 +16,6 @@ export const register = async (req, res) => {
   }
   const createdUser = await User.create({ name, email, password });
   const token = createdUser.createJWT();
-  console.log(token);
   res.status(StatusCodes.CREATED).json({ user: { name, email }, token });
 };
 
@@ -25,7 +24,7 @@ export const login = async (req, res) => {
   if (!email || !password) {
     throw new BadRequestError('Please provide all values');
   }
-  const user = await User.findOne({ where: { email } });
+  const user = await User.findOne({ where: { email }, include: GoalGenre });
   if (!user) {
     throw new UnauthorizedError('Invalid Credentials');
   }
@@ -34,6 +33,8 @@ export const login = async (req, res) => {
     throw new UnauthorizedError('Invalid Credentials');
   }
   user.password = undefined;
+  user.GoalGenreId = undefined;
+  user.goalGenreId = undefined;
   const token = user.createJWT();
   res.status(StatusCodes.OK).json({ user, token });
 };
