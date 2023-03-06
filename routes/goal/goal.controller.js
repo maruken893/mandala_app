@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { User, GoalGenre } from '../../models/index.js';
+import { User, GoalGenre, Mission } from '../../models/index.js';
 import { goalGenres } from '../../models/GoalGenre.js';
 import { BadRequestError, UnauthorizedError } from '../../errors/index.js';
 
@@ -19,7 +19,13 @@ export const createGoal = async (req, res) => {
     throw new BadRequestError('goal has already been created');
   }
   await user.update({ goal, GoalGenreId: goalGenreId }, { include: GoalGenre });
-  // ここにミッションとサブミッションを作成する処理を書く
+  for (let i = 0; i < 9; i++) {
+    await Mission.create({
+      content: '',
+      position: i,
+      UserId: user.id,
+    });
+  }
   user.GoalGenreId = undefined;
   const updatedUser = {
     ...user.dataValues,
@@ -32,4 +38,3 @@ export const getAllGoalGenres = async (req, res) => {
   const goalGenres = await GoalGenre.findAll();
   res.status(StatusCodes.OK).json({ goalGenres });
 };
-
