@@ -34,6 +34,24 @@ export const createGoal = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ user: updatedUser });
 };
 
+export const updateGoal = async (req, res) => {
+  const { goal, goalGenreId } = req.body;
+  if (!goal && !goalGenreId) {
+    throw new BadRequestError('properties not provided');
+  }
+  const user = await User.scope('withoutPassword').findOne({ where: { id: req.user.uid } });
+  if (!user) {
+    throw new UnauthorizedError('user not found');
+  }
+  await user.update({ goal, GoalGenreId: goalGenreId }, { include: GoalGenre });
+  user.GoalGenreId = undefined;
+  const updatedUser = {
+    ...user.dataValues,
+    GoalGenre: { id: goalGenreId, name: goalGenres[goalGenreId].name },
+  };
+  res.status(StatusCodes.OK).json({ user: updatedUser });
+};
+
 export const getAllGoalGenres = async (req, res) => {
   const goalGenres = await GoalGenre.findAll();
   res.status(StatusCodes.OK).json({ goalGenres });
