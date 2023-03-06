@@ -6,18 +6,18 @@ import { BadRequestError, UnauthorizedError } from '../../errors/index.js';
 
 export const createGoal = async (req, res) => {
   const { goal, goalGenreId } = req.body;
-  // if (!goal || !goalGenreId) {
-  //   throw new BadRequestError('Goal or goal genre is not provided');
-  // }
+  if (!goal || !goalGenreId) {
+    throw new BadRequestError('Goal or goal genre is not provided');
+  }
   const user = await User.scope('withoutPassword').findOne({
     where: { id: req.user.uid },
   });
   if (!user) {
     throw new UnauthorizedError('user not found');
   }
-  // if (user.goal !== null) {
-  //   throw new BadRequestError('goal has already been created');
-  // }
+  if (user.goal !== null) {
+    throw new BadRequestError('goal has already been created');
+  }
   await user.update({ goal, GoalGenreId: goalGenreId }, { include: GoalGenre });
   // ここにミッションとサブミッションを作成する処理を書く
   user.GoalGenreId = undefined;
@@ -33,10 +33,3 @@ export const getAllGoalGenres = async (req, res) => {
   res.status(StatusCodes.OK).json({ goalGenres });
 };
 
-export const getUserWithGoalGenre = async (req, res) => {
-  const user = await User.scope('withoutPassword').findOne({
-    where: { id: req.user.uid },
-    include: GoalGenre,
-  });
-  res.status(StatusCodes.OK).json({ user });
-};
