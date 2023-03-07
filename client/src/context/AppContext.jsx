@@ -37,6 +37,7 @@ const initialState = {
   // auth info
   user: JSON.parse(user) || null,
   token: token || '',
+  missions: [],
 };
 
 const AppContext = createContext();
@@ -100,7 +101,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: USER_LOGIN_BEGIN });
     try {
       const response = await axios.post('/api/v1/auth/login', user);
-      const { user: loginUser, token } = response.data;
+      const { user: loginUser, token, missions } = response.data;
       addUserToLocalStorage({ user: loginUser, token });
       dispatch({
         type: USER_LOGIN_SUCCESS,
@@ -108,6 +109,7 @@ const AppProvider = ({ children }) => {
           user: loginUser,
           token,
           msg: 'Login successful',
+          missions,
         },
       });
     } catch (error) {
