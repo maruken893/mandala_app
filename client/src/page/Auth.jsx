@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { useAppContext } from '../context/AppContext';
 
 import Wrapper from '../assets/wrappers/Auth';
 import { Alert, FormRow, Logo, LoadingSpinner } from '../components';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const initialState = {
   name: '',
@@ -22,7 +23,9 @@ const Auth = () => {
     displayAlert,
     registerUser,
     login,
+    token,
   } = useAppContext();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -50,6 +53,10 @@ const Auth = () => {
   const togglePage = () => {
     setState((prev) => ({ ...prev, isMember: !prev.isMember }));
   };
+
+  if (token) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <Wrapper>
