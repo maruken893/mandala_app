@@ -23,6 +23,7 @@ import {
 
 const user = localStorage.getItem('user');
 const token = localStorage.getItem('token');
+const missions = localStorage.getItem('mission');
 
 const config = {
   headers: { Authorization: `Bearer ${token}` },
@@ -37,7 +38,7 @@ const initialState = {
   // auth info
   user: JSON.parse(user) || null,
   token: token || '',
-  missions: [],
+  missions: missions || [],
 };
 
 const AppContext = createContext();
@@ -64,14 +65,16 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CLOSE_SIDEBAR_MODAL });
   };
 
-  const addUserToLocalStorage = ({ user, token }) => {
+  const addUserToLocalStorage = ({ user, token, missions }) => {
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', token);
+    localStorage.setItem('missions', JSON.stringify(missions));
   };
 
   const removeUserFromLocalStorage = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
+    localStorage.removeItem('missions');
   };
 
   const registerUser = async ({ user }) => {
@@ -102,7 +105,7 @@ const AppProvider = ({ children }) => {
     try {
       const response = await axios.post('/api/v1/auth/login', user);
       const { user: loginUser, token, missions } = response.data;
-      addUserToLocalStorage({ user: loginUser, token });
+      addUserToLocalStorage({ user: loginUser, token, missions });
       dispatch({
         type: USER_LOGIN_SUCCESS,
         payload: {
