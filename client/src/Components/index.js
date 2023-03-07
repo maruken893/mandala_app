@@ -9,6 +9,7 @@ import UserInfo from './UserInfo';
 import UserLink from './UserLink';
 import UserEdit from './UserEdit';
 import CharWithoutGoal from './CharWithoutGoal';
+import MandalaChart from './MandalaChart';
 
 export {
   Alert,
@@ -22,4 +23,5 @@ export {
   UserLink,
   UserEdit,
   CharWithoutGoal,
+  MandalaChart,
 };

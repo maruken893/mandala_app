@@ -20,11 +20,13 @@ export const createGoal = async (req, res) => {
   }
   await user.update({ goal, GoalGenreId: goalGenreId }, { include: GoalGenre });
   for (let i = 0; i < 9; i++) {
-    await Mission.create({
-      content: '',
-      position: i,
-      UserId: user.id,
-    });
+    if (i !== 4) {
+      await Mission.create({
+        content: '',
+        position: i,
+        UserId: user.id,
+      });
+    }
   }
   user.GoalGenreId = undefined;
   const updatedUser = {

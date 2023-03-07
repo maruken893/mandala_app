@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { User, GoalGenre } from '../../models/index.js';
+import { User, GoalGenre, Mission, SubMission } from '../../models/index.js';
 import { BadRequestError, UnauthorizedError } from '../../errors/index.js';
 
 export const register = async (req, res) => {
@@ -34,7 +34,21 @@ export const login = async (req, res) => {
   if (!email || !password) {
     throw new BadRequestError('Please provide all values');
   }
-  const user = await User.findOne({ where: { email }, include: GoalGenre });
+  const user = await User.findOne({
+    where: { email },
+    include: {
+      model: GoalGenre,
+      attributes: ['name'],
+    },
+  });
+  const missions = await Mission.findAll({
+    where: { UserId: user.id },
+    attributes: ['content', 'position'],
+    include: {
+      model: SubMission,
+      attributes: ['content', 'position'],
+    },
+  });
   if (!user) {
     throw new UnauthorizedError('Invalid Credentials');
   }
@@ -46,7 +60,7 @@ export const login = async (req, res) => {
   user.GoalGenreId = undefined;
   user.goalGenreId = undefined;
   const token = user.createJWT();
-  res.status(StatusCodes.OK).json({ user, token });
+  res.status(StatusCodes.OK).json({ user, missions, token });
 };
 
 export const updateUser = async (req, res) => {

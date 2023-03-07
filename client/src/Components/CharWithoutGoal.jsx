@@ -1,12 +1,13 @@
 import { useState } from 'react';
 
 import { useAppContext } from '../context/AppContext';
-import { FormRow, FormSelect } from '../components';
+import { Alert, FormRow, FormSelect } from '../components';
+import Wrapper from '../assets/wrappers/ChartWithoutGoal';
 
 const initState = { name: '', id: 1 };
 
 const CharWithoutGoal = () => {
-  const { createGoal } = useAppContext();
+  const { createGoal, showAlert, alertMessage, alertType } = useAppContext();
   const [goal, setGoal] = useState(initState);
 
   const list = [
@@ -33,7 +34,7 @@ const CharWithoutGoal = () => {
   };
 
   return (
-    <div className="goal-null">
+    <Wrapper>
       <div className="message-container">
         <p className="welcome">Welcome to Mandala! </p>
         <p>
@@ -41,6 +42,7 @@ const CharWithoutGoal = () => {
         </p>
       </div>
       <div className="form-container">
+        {showAlert && <Alert message={alertMessage} alertType={alertType} />}
         <form onSubmit={handleSubmit}>
           <FormRow
             name="name"
@@ -69,7 +71,7 @@ const CharWithoutGoal = () => {
           </div>
         </form>
       </div>
-    </div>
+    </Wrapper>
   );
 };
 export default CharWithoutGoal;

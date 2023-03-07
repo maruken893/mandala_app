@@ -8,8 +8,13 @@ export const updateMission = async (req, res) => {
   if (content === null) {
     throw new BadRequestError('Mission content is not provided');
   }
-  if (!!Number.isInteger(position) && position < 0 && position > 8) {
-    throw new BadRequestError('position is not correct');
+  if (
+    !!Number.isInteger(position) ||
+    position === 4 ||
+    position < 0 ||
+    position > 8
+  ) {
+    throw new BadRequestError('provided position is invalid');
   }
   const mission = await Mission.findOne({
     where: { UserId: req.user.uid, position },
@@ -19,5 +24,7 @@ export const updateMission = async (req, res) => {
   }
   const updatedMission = await mission.update({ content });
 
-  res.status(StatusCodes.OK).json({ msg: 'mission updated', mission: updatedMission });
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: 'mission updated', mission: updatedMission });
 };
