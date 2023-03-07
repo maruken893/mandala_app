@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 
 // router
-import { authRouter, goalRouter } from './routes/index.js';
+import { authRouter, goalRouter, missionRouter } from './routes/index.js';
 
 // middleware
 import { errorHandlerMiddleware } from './middleware/index.js';
@@ -23,6 +23,7 @@ app.get('/', (req, res) => {
 });
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1', goalRouter);
+app.use('/api/v1', missionRouter);
 
 // app endpoint
 app.use(notFoundMiddleware);
