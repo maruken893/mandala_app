@@ -13,6 +13,7 @@ import {
   USER_LOGIN_BEGIN,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILED,
+  USER_LOGOUT,
   USER_UPDATE_BEGIN,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAILED,
@@ -122,6 +123,14 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const logoutUser = () => {
+    removeUserFromLocalStorage();
+    dispatch({ type: USER_LOGOUT });
+    setTimeout(() => {
+      clearAlert();
+    }, 2500);
+  };
+
   const updateUser = async ({ name, bio }) => {
     dispatch({ type: USER_UPDATE_BEGIN });
     try {
@@ -163,6 +172,7 @@ const AppProvider = ({ children }) => {
         displayAlert,
         registerUser,
         login,
+        logoutUser,
         openSidebarModal,
         closeSidebarModal,
         updateUser,

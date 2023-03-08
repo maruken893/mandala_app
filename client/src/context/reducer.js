@@ -9,6 +9,7 @@ import {
   USER_LOGIN_BEGIN,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILED,
+  USER_LOGOUT,
   USER_UPDATE_BEGIN,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAILED,
@@ -94,6 +95,16 @@ const reducer = (state, { type, payload }) => {
         showAlert: true,
         alertMessage: payload.msg,
         alertType: 'failed',
+      };
+    case USER_LOGOUT:
+      return {
+        ...state,
+        user: null,
+        token: null,
+        missions: [],
+        showAlert: true,
+        alertMessage: 'Log out successful',
+        alertType: 'success',
       };
     case USER_UPDATE_BEGIN:
       return {

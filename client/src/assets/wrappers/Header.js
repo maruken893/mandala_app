@@ -8,7 +8,7 @@ const Wrapper = styled.nav`
     min-height: 100%;
     justify-content: space-between;
     align-items: center;
-    padding: 0 .75rem;
+    padding: 0 1rem;
     margin-top: auto;
   }
   .toggle-btn {
@@ -30,10 +30,10 @@ const Wrapper = styled.nav`
     align-items: center;
     background-color: var(--main-color);
     width: 8.5rem;
-    padding: .5rem 0.375rem;
-    border-radius: .5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
     color: white;
-    font-size: .75rem;
+    font-size: 0.75rem;
   }
   .user-icon {
     width: 1.5rem;
@@ -71,10 +71,22 @@ const Wrapper = styled.nav`
     .logo {
       display: none;
     }
+    .user-info-container {
+      margin: 0 20px 0 auto;
+    }
     .user-info {
       min-width: 11rem;
-      margin: 0 20px 0 auto;
       font-size: 1rem;
+      position: relative;
+    }
+    .btn-logout {
+      min-width: 11rem;
+      /* margin: 0 0 0 auto; */
+      font-size: 1rem;
+      position: absolute;
+      margin-top: 8px;
+      background-color: #ffe4a0;
+      color: #ff9d09;
     }
   }
 `;
