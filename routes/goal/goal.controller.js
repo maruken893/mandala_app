@@ -19,15 +19,13 @@ export const createGoal = async (req, res) => {
     throw new BadRequestError('goal has already been created');
   }
   await user.update({ goal, GoalGenreId: goalGenreId }, { include: GoalGenre });
-  for (let i = 0; i < 9; i++) {
-    if (i !== 4) {
-      await Mission.create({
-        content: '',
-        position: i,
-        UserId: user.id,
-      });
-    }
-  }
+  await Mission.bulkCreate(
+    [...Array(9)].map((_, i) => ({
+      content: '',
+      position: i,
+      UserId: user.id,
+    }))
+  );
   user.GoalGenreId = undefined;
   const updatedUser = {
     ...user.dataValues,
@@ -41,7 +39,9 @@ export const updateGoal = async (req, res) => {
   if (!goal && !goalGenreId) {
     throw new BadRequestError('properties not provided');
   }
-  const user = await User.scope('withoutPassword').findOne({ where: { id: req.user.uid } });
+  const user = await User.scope('withoutPassword').findOne({
+    where: { id: req.user.uid },
+  });
   if (!user) {
     throw new UnauthorizedError('user not found');
   }

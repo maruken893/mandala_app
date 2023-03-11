@@ -6,7 +6,15 @@ const Chart = () => {
   const { user } = useAppContext();
 
   return (
-    <Wrapper>{user.goal ? <MandalaChart /> : <CharWithoutGoal />}</Wrapper>
+    <Wrapper>
+      {user.goal ? (
+        <div className="modal-container">
+          <MandalaChart />
+        </div>
+      ) : (
+        <CharWithoutGoal />
+      )}
+    </Wrapper>
   );
 };
 export default Chart;

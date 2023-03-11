@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import Wrapper from '../assets/wrappers/UserEdit';
-import { Alert, FormRow } from '../components';
+import { Alert, FormRow, FormTextarea } from '../components';
 import { useAppContext } from '../context/AppContext';
 
 const UserEdit = ({ toggleUserEditing }) => {
@@ -36,15 +36,11 @@ const UserEdit = ({ toggleUserEditing }) => {
           type="text"
           handleChange={handleChange}
         />
-        <div className="bio-form">
-          <label htmlFor="bio">biography</label>
-          <textarea
-            name="bio"
-            id="bio"
-            onChange={handleChange}
-            value={editInput.bio}
-          />
-        </div>
+        <FormTextarea
+          name="bio"
+          handleChange={handleChange}
+          value={editInput.bio}
+        />
         <div type="submit" className="button-container">
           <button className="btn btn-save" onClick={handleSubmit}>
             Save

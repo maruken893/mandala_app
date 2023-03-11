@@ -24,7 +24,7 @@ import {
 
 const user = localStorage.getItem('user');
 const token = localStorage.getItem('token');
-const missions = localStorage.getItem('mission');
+const missions = localStorage.getItem('missions');
 
 const config = {
   headers: { Authorization: `Bearer ${token}` },
@@ -39,7 +39,7 @@ const initialState = {
   // auth info
   user: JSON.parse(user) || null,
   token: token || '',
-  missions: missions || [],
+  missions: JSON.parse(missions) || null,
 };
 
 const AppContext = createContext();

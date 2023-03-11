@@ -34,6 +34,7 @@ const Wrapper = styled.div`
       height: calc(100% - var(--header-height));
       border-left: 1px solid var(--main-border-color);
     }
+
   }
 `;
 

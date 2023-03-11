@@ -26,9 +26,6 @@ const Wrapper = styled.div`
       border: 1px solid white;
       outline: 2px solid #ffb443;
     }
-    .bio-form {
-      margin-top: 10px;
-    }
     form textarea {
       width: 100%;
       height: 10rem;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useAppContext } from '../context/AppContext';
-import { Alert, FormRow, FormSelect } from '../components';
+import { Alert, FormRow, FormSelect } from '.';
 import Wrapper from '../assets/wrappers/ChartWithoutGoal';
 
 const initState = { name: '', id: 1 };

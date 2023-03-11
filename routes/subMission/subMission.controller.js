@@ -29,12 +29,11 @@ export const updateSubMission = async (req, res) => {
     include: SubMission,
   });
   if (mission.SubMissions.length <= 0) {
-    const positions = [8, 7, 6, 5, 3, 2, 1, 0];
     await SubMission.bulkCreate(
-      positions.map((position) => {
+      [...Array(9)].map((_, i) => {
         return {
           content: '',
-          position,
+          position: 8 - i,
           MissionId: mission.id,
         };
       })
@@ -44,5 +43,14 @@ export const updateSubMission = async (req, res) => {
     where: { MissionId: mission.id, position },
   });
   subMission.update({ content });
-  res.status(StatusCodes.OK).json({ msg: 'update sub mission', subMission });
+  res
+    .status(StatusCodes.OK)
+    .json({
+      msg: 'update sub mission',
+      updatedSubMission: {
+        cont: content,
+        pos: position,
+        missionPos: missionPosition,
+      },
+    });
 };
