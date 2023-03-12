@@ -16,6 +16,12 @@ import {
   REQUEST_BEGIN,
   GOAL_CREATE_SUCCESS,
   GOAL_CREATE_FAILED,
+  GOAL_UPDATE_SUCCESS,
+  GOAL_UPDATE_FAILED,
+  MISSION_UPDATE_SUCCESS,
+  MISSION_UPDATE_FAILED,
+  SUB_MISSION_UPDATE_SUCCESS,
+  SUB_MISSION_UPDATE_FAILED,
 } from './action';
 
 const reducer = (state, { type, payload }) => {
@@ -133,7 +139,7 @@ const reducer = (state, { type, payload }) => {
         ...state,
         isLoading: false,
         user: payload.user,
-        missions: payload.missions
+        missions: payload.missions,
       };
     case GOAL_CREATE_FAILED:
       return {
@@ -142,6 +148,32 @@ const reducer = (state, { type, payload }) => {
         isLoading: false,
         alertMessage: payload.msg,
         alertType: 'failed',
+      };
+    case GOAL_UPDATE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        user: payload.user,
+        missions: payload.missions,
+      };
+    case GOAL_UPDATE_FAILED:
+      return {
+        ...state,
+        showAlert: true,
+        alertMessage: payload.msg,
+        alertType: 'failed',
+      };
+    case MISSION_UPDATE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        missions: payload.missions,
+      };
+    case SUB_MISSION_UPDATE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        missions: payload.missions,
       };
     default:
       throw new Error('There is no such an action type');

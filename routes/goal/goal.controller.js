@@ -12,7 +12,7 @@ export const createGoal = async (req, res) => {
   const user = await User.scope('withoutPassword').findOne({
     where: { id: req.user.uid },
   });
-  console.log(user)
+  console.log(user);
   if (!user) {
     throw new UnauthorizedError('user not found');
   }
@@ -39,7 +39,7 @@ export const createGoal = async (req, res) => {
 
 export const updateGoal = async (req, res) => {
   const { goal, goalGenreId } = req.body;
-  if (!goal && !goalGenreId) {
+  if (!goal) {
     throw new BadRequestError('properties not provided');
   }
   const user = await User.scope('withoutPassword').findOne({
@@ -48,13 +48,17 @@ export const updateGoal = async (req, res) => {
   if (!user) {
     throw new UnauthorizedError('user not found');
   }
-  await user.update({ goal, GoalGenreId: goalGenreId }, { include: GoalGenre });
+  // await user.update({ goal, GoalGenreId: goalGenreId }, { include: GoalGenre });
+  await user.update({ goal }, { include: GoalGenre });
   user.GoalGenreId = undefined;
+  console.log(goalGenres[goalGenreId]);
   const updatedUser = {
     ...user.dataValues,
     GoalGenre: { id: goalGenreId, name: goalGenres[goalGenreId].name },
   };
-  res.status(StatusCodes.OK).json({ user: updatedUser });
+  const missions = await user.fetchMissions();
+  const token = user.createJWT();
+  res.status(StatusCodes.OK).json({ user: updatedUser, token, missions });
 };
 
 export const getAllGoalGenres = async (req, res) => {

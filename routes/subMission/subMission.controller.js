@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { Mission, SubMission } from '../../models/index.js';
+import { User, Mission, SubMission } from '../../models/index.js';
 import { BadRequestError } from '../../errors/index.js';
 
 export const updateSubMission = async (req, res) => {
@@ -24,6 +24,7 @@ export const updateSubMission = async (req, res) => {
   ) {
     throw new BadRequestError('mission position is invalid');
   }
+  const user = await User.findOne({ where: { id: req.user.uid } });
   const mission = await Mission.findOne({
     where: { UserId: req.user.uid, position: missionPosition },
     include: SubMission,
@@ -42,15 +43,10 @@ export const updateSubMission = async (req, res) => {
   const subMission = await SubMission.findOne({
     where: { MissionId: mission.id, position },
   });
-  subMission.update({ content });
-  res
-    .status(StatusCodes.OK)
-    .json({
-      msg: 'update sub mission',
-      updatedSubMission: {
-        cont: content,
-        pos: position,
-        missionPos: missionPosition,
-      },
-    });
+  await subMission.update({ content });
+  const missions = await user.fetchMissions();
+  res.status(StatusCodes.OK).json({
+    msg: 'update sub mission',
+    posMissions: missions[missionPosition]
+  });
 };

@@ -20,27 +20,33 @@ import {
   REQUEST_BEGIN,
   GOAL_CREATE_SUCCESS,
   GOAL_CREATE_FAILED,
+  GOAL_UPDATE_SUCCESS,
+  GOAL_UPDATE_FAILED,
+  MISSION_UPDATE_SUCCESS,
+  MISSION_UPDATE_FAILED,
+  SUB_MISSION_UPDATE_SUCCESS,
+  SUB_MISSION_UPDATE_FAILED,
 } from './action';
+
+let initUser = localStorage.getItem('user');
+let initToken = localStorage.getItem('token');
+let initMissions = localStorage.getItem('missions');
+
+const initialState = {
+  isLoading: false,
+  showAlert: false,
+  alertMessage: '',
+  alertType: '',
+  showSidebarModal: false,
+  // auth info
+  user: JSON.parse(initUser) || null,
+  token: initToken || '',
+  missions: JSON.parse(initMissions) || null,
+};
 
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  let initUser = localStorage.getItem('user');
-  let initToken = localStorage.getItem('token');
-  let initMissions = localStorage.getItem('missions');
-
-  const initialState = {
-    isLoading: false,
-    showAlert: false,
-    alertMessage: '',
-    alertType: '',
-    showSidebarModal: false,
-    // auth info
-    user: JSON.parse(initUser) || null,
-    token: initToken || '',
-    missions: JSON.parse(initMissions) || null,
-  };
-
   // axios
   const config = {
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -165,6 +171,72 @@ const AppProvider = ({ children }) => {
     // clearAlert();
   };
 
+  const updateChart = async ({ type, cont, pos, parentPos, goalId }) => {
+    console.log('hello');
+    dispatch({ type: REQUEST_BEGIN });
+    try {
+      switch (type) {
+        case 'goal': {
+          const res = await axios.patch(
+            '/api/v1/update-goal',
+            {
+              goal: cont,
+              goalGenreId: goalId,
+            },
+            config
+          );
+          const { user, token, missions } = res.data;
+          dispatch({ type: GOAL_UPDATE_SUCCESS, payload: { user, missions } });
+          addUserToLocalStorage({ user, token, missions });
+          break;
+        }
+        case 'mission': {
+          const res = await axios.patch(
+            '/api/v1/update-mission',
+            { content: cont, position: pos },
+            config
+          );
+          const { updatedMission, posMissions } = res.data;
+          const userMissions = JSON.parse(localStorage.getItem('missions'));
+          userMissions[pos] = posMissions;
+          userMissions[4][pos] = updatedMission;
+          dispatch({
+            type: MISSION_UPDATE_SUCCESS,
+            payload: { missions: userMissions },
+          });
+          localStorage.setItem('missions', JSON.stringify(userMissions));
+          break;
+        }
+        case 'sub-mission': {
+          const res = await axios.patch(
+            '/api/v1/update-sub-mission',
+            {
+              content: cont,
+              position: pos,
+              missionPosition: parentPos,
+            },
+            config
+          );
+          const { posMissions } = res.data;
+          console.log(posMissions);
+          const userMissions = JSON.parse(localStorage.getItem('missions'));
+          userMissions[parentPos] = posMissions;
+          dispatch({
+            type: SUB_MISSION_UPDATE_SUCCESS,
+            payload: { missions: userMissions },
+          });
+          localStorage.setItem('missions', JSON.stringify(userMissions));
+          break;
+        }
+        default: {
+          throw new Error('no such update type');
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -177,6 +249,7 @@ const AppProvider = ({ children }) => {
         closeSidebarModal,
         updateUser,
         createGoal,
+        updateChart,
       }}
     >
       {children}

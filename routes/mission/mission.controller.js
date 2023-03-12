@@ -16,6 +16,7 @@ export const updateMission = async (req, res) => {
   ) {
     throw new BadRequestError('provided position is invalid');
   }
+  const user = await User.findOne({ where: { id: req.user.uid } });
   const mission = await Mission.findOne({
     where: { UserId: req.user.uid, position },
     include: { model: SubMission },
@@ -37,11 +38,10 @@ export const updateMission = async (req, res) => {
   }
   const updatedMission = await mission.update({ content });
   updatedMission.SubMissions = undefined;
-
-  res
-    .status(StatusCodes.OK)
-    .json({
-      msg: 'mission updated',
-      updatedMission: { cont: content, pos: position },
-    });
+  const missions = await user.fetchMissions();
+  res.status(StatusCodes.OK).json({
+    msg: 'mission updated',
+    posMissions: missions[position],
+    updatedMission: { cont: content, missionPos: position },
+  });
 };

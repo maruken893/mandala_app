@@ -22,18 +22,36 @@ const modalStyle = {
   },
 };
 
+const initModalState = {
+  isOpen: false,
+  type: '',
+  cont: '',
+  pos: null,
+  parentPos: null,
+  goalId: null,
+};
+
 const MandalaChart = () => {
-  const { missions } = useAppContext();
-  const [modalState, setModalState] = useState({
-    isOpen: false,
-    cont: '',
-    type: '',
-  });
+  const { missions, updateChart } = useAppContext();
+  const [modalState, setModalState] = useState(initModalState);
   const ref = useRef(null);
 
-  const openModal = ({ cont, missionPos, goal }) => {
-    if (goal) {
-      setModalState((prev) => ({ ...prev, isOpen: true, cont, type: 'goal' }));
+  const openModal = ({
+    cont,
+    goalId,
+    missionPos,
+    subMissionPos,
+    parentPos,
+  }) => {
+    console.log({ cont, goalId, missionPos, subMissionPos, parentPos });
+    if (goalId && Number.isInteger(goalId)) {
+      setModalState((prev) => ({
+        ...prev,
+        isOpen: true,
+        cont,
+        goalId,
+        type: 'goal',
+      }));
       return;
     }
     if (Number.isInteger(missionPos) && missionPos >= 0 && missionPos <= 8) {
@@ -41,6 +59,7 @@ const MandalaChart = () => {
         ...prev,
         isOpen: true,
         cont,
+        pos: missionPos,
         type: 'mission',
       }));
       return;
@@ -49,11 +68,13 @@ const MandalaChart = () => {
       ...prev,
       isOpen: true,
       cont,
-      type: 'subMission',
+      pos: subMissionPos,
+      parentPos,
+      type: 'sub-mission',
     }));
   };
   const closeModal = () => {
-    setModalState((prev) => ({ ...prev, isOpen: false, cont: '', type: '' }));
+    setModalState(initModalState);
   };
 
   const handleChange = (e) => {
@@ -61,6 +82,16 @@ const MandalaChart = () => {
       ...prev,
       cont: e.target.value,
     }));
+  };
+
+  const handleCancel = () => {
+    closeModal();
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    updateChart(modalState);
+    closeModal();
   };
 
   return (
@@ -76,7 +107,7 @@ const MandalaChart = () => {
         parentSelector={() => document.querySelector('.modal-container')}
       >
         <p className="modal-header">Update {modalState.type}</p>
-        <form className="modal-form">
+        <form className="modal-form" onSubmit={handleSubmit}>
           <FormTextarea
             name={modalState.type}
             value={modalState.cont}
@@ -85,6 +116,13 @@ const MandalaChart = () => {
           />
           <button type="submit" className="btn btn-save">
             Submit
+          </button>
+          <button
+            type="button"
+            className="btn btn-cancel"
+            onClick={handleCancel}
+          >
+            Cancel
           </button>
         </form>
       </Modal>
@@ -113,15 +151,25 @@ export default MandalaChart;
 const NineSquare = ({ list, openModal }) => {
   return (
     <div className="inner-container">
-      {list.map(({ cont, missionPos, goal }, i) => (
+      {list.map(({ cont, missionPos, goalId }, i) => (
         <div
           key={i}
           onClick={() => {
-            openModal({ cont, missionPos, goal });
+            const parentPos = list.filter(
+              ({ missionPos }) => missionPos !== undefined
+            )[0].missionPos;
+            console.log(parentPos);
+            openModal({
+              cont,
+              goalId,
+              missionPos,
+              subMissionPos: i,
+              parentPos,
+            });
           }}
           className={`cell cell-${i} ${
             missionPos !== undefined ? `mission mission-${missionPos}` : ''
-          } ${goal !== undefined ? 'goal' : ''} `}
+          } ${goalId !== undefined ? 'goal' : ''} `}
         >
           {cont}
         </div>

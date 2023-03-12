@@ -99,7 +99,7 @@ User.prototype.fetchMissions = async function () {
     if (i === 4) {
       return {
         cont: this.goal,
-        goal: true,
+        goalId: this.GoalGenreId,
       };
     } else {
       return {
@@ -132,6 +132,7 @@ User.prototype.fetchMissions = async function () {
           return {
             cont: mission.content,
             pos: mission.position,
+            missionPos: mission.position,
           };
         }
         return {
