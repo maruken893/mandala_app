@@ -46,6 +46,7 @@ const CharWithoutGoal = () => {
         <form onSubmit={handleSubmit}>
           <FormRow
             name="name"
+            label="Goal"
             value={goal.name}
             type="text"
             handleChange={handleChange}

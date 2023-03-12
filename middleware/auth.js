@@ -4,6 +4,7 @@ import { UnauthorizedError } from '../errors/index.js';
 
 const auth = async (req, res, next) => {
   const authHeader = req.headers.authorization;
+  console.log(authHeader)
   if (!authHeader || !authHeader.startsWith('Bearer')) {
     throw new UnauthorizedError('invalid token');
   }
@@ -12,6 +13,7 @@ const auth = async (req, res, next) => {
     req.user = jwt.verify(token, process.env.JWT_KEY);
     next();
   } catch (error) {
+    console.error(error);
     throw new UnauthorizedError('invalid token');
   }
 };

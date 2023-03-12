@@ -26,6 +26,7 @@ export const register = async (req, res) => {
       GoalGenre: null,
     },
     token,
+    missions: [],
   });
 };
 
@@ -48,66 +49,16 @@ export const login = async (req, res) => {
   if (!isCorrectPassword) {
     throw new UnauthorizedError('Invalid Credentials');
   }
-  const missionsData = await Mission.findAll({
-    where: { UserId: user.id },
-    attributes: ['content', 'position'],
-    include: {
-      model: SubMission,
-      attributes: ['content', 'position'],
-    },
-  });
-  const missions = missionsData.map((mission, i) => {
-    if (i === 4) {
-      return {
-        cont: user.goal,
-        goal: true,
-      };
-    } else {
-      return {
-        cont: mission.content,
-        missionPos: mission.position,
-      };
-    }
-  });
-  let shapedMissions = [
-    ...missionsData.slice(0, 4).map((mission) => {
-      const shaped = mission.SubMissions.map((subMission) => {
-        if (subMission.position === 4) {
-          return {
-            cont: mission.content,
-            pos: subMission.position,
-            missionPos: mission.position,
-          };
-        }
-        return {
-          cont: subMission.content,
-          pos: subMission.position,
-        };
-      });
-      return shaped;
-    }),
-    missions,
-    ...missionsData.slice(5).map((mission) => {
-      const shaped = mission.SubMissions.map((subMission) => {
-        if (subMission.position === 4) {
-          return {
-            cont: mission.content,
-            pos: mission.position,
-          };
-        }
-        return {
-          cont: subMission.content,
-          pos: subMission.position,
-        };
-      });
-      return shaped;
-    }),
-  ];
+  const shapedMissions = await user.fetchMissions();
   user.password = undefined;
   user.GoalGenreId = undefined;
   user.goalGenreId = undefined;
   const token = user.createJWT();
-  res.status(StatusCodes.OK).json({ user, token, missions: shapedMissions });
+  res.status(StatusCodes.OK).json({
+    user,
+    token,
+    missions: shapedMissions,
+  });
 };
 
 export const updateUser = async (req, res) => {

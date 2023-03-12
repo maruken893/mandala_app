@@ -12,6 +12,7 @@ export const createGoal = async (req, res) => {
   const user = await User.scope('withoutPassword').findOne({
     where: { id: req.user.uid },
   });
+  console.log(user)
   if (!user) {
     throw new UnauthorizedError('user not found');
   }
@@ -31,7 +32,9 @@ export const createGoal = async (req, res) => {
     ...user.dataValues,
     GoalGenre: { id: goalGenreId, name: goalGenres[goalGenreId].name },
   };
-  res.status(StatusCodes.CREATED).json({ user: updatedUser });
+  const token = user.createJWT();
+  const missions = await user.fetchMissions();
+  res.status(StatusCodes.CREATED).json({ user: updatedUser, token, missions });
 };
 
 export const updateGoal = async (req, res) => {

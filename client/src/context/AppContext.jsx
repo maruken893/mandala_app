@@ -22,29 +22,30 @@ import {
   GOAL_CREATE_FAILED,
 } from './action';
 
-const user = localStorage.getItem('user');
-const token = localStorage.getItem('token');
-const missions = localStorage.getItem('missions');
-
-const config = {
-  headers: { Authorization: `Bearer ${token}` },
-};
-
-const initialState = {
-  isLoading: false,
-  showAlert: false,
-  alertMessage: '',
-  alertType: '',
-  showSidebarModal: false,
-  // auth info
-  user: JSON.parse(user) || null,
-  token: token || '',
-  missions: JSON.parse(missions) || null,
-};
-
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
+  let initUser = localStorage.getItem('user');
+  let initToken = localStorage.getItem('token');
+  let initMissions = localStorage.getItem('missions');
+
+  const initialState = {
+    isLoading: false,
+    showAlert: false,
+    alertMessage: '',
+    alertType: '',
+    showSidebarModal: false,
+    // auth info
+    user: JSON.parse(initUser) || null,
+    token: initToken || '',
+    missions: JSON.parse(initMissions) || null,
+  };
+
+  // axios
+  const config = {
+    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+  };
+
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const displayAlert = ({ msg, type }) => {
@@ -82,8 +83,8 @@ const AppProvider = ({ children }) => {
     dispatch({ type: USER_REGISTER_BEGIN });
     try {
       const response = await axios.post('/api/v1/auth/register', user);
-      const { user: createdUser, token } = response.data;
-      addUserToLocalStorage({ user: createdUser, token });
+      const { user: createdUser, token, missions } = response.data;
+      addUserToLocalStorage({ user: createdUser, token, missions });
       dispatch({
         type: USER_REGISTER_SUCCESS,
         payload: {
@@ -95,7 +96,6 @@ const AppProvider = ({ children }) => {
     } catch (error) {
       console.error(error);
       const { msg } = error.response.data;
-      // console.error(msg);
       dispatch({ type: USER_REGISTER_FAILED, payload: { msg } });
     }
     clearAlert();
@@ -126,9 +126,7 @@ const AppProvider = ({ children }) => {
   const logoutUser = () => {
     removeUserFromLocalStorage();
     dispatch({ type: USER_LOGOUT });
-    setTimeout(() => {
-      clearAlert();
-    }, 2500);
+    clearAlert();
   };
 
   const updateUser = async ({ name, bio }) => {
@@ -151,13 +149,15 @@ const AppProvider = ({ children }) => {
   const createGoal = async ({ goal, goalGenreId }) => {
     dispatch({ type: REQUEST_BEGIN });
     try {
+      console.log(config);
       const response = await axios.patch(
         '/api/v1/create-goal',
         { goal, goalGenreId },
         config
       );
-      const { user } = response.data;
-      dispatch({ type: GOAL_CREATE_SUCCESS, payload: { user } });
+      const { user, token, missions } = response.data;
+      addUserToLocalStorage({ user, token, missions });
+      dispatch({ type: GOAL_CREATE_SUCCESS, payload: { user, missions } });
     } catch (error) {
       const { msg } = error.response.data;
       dispatch({ type: GOAL_CREATE_FAILED, payload: { msg } });

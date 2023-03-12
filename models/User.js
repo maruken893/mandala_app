@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { DataTypes } from 'sequelize';
 
 import sequelize from '../db/connect.js';
-import { GoalGenre } from './index.js';
+import { Mission, SubMission, GoalGenre } from './index.js';
 
 const User = sequelize.define(
   'User',
@@ -86,5 +86,63 @@ User.prototype.comparePassword = async function (password) {
   return isMatch;
 };
 
+User.prototype.fetchMissions = async function () {
+  const missionsData = await Mission.findAll({
+    where: { UserId: this.id },
+    attributes: ['content', 'position'],
+    include: {
+      model: SubMission,
+      attributes: ['content', 'position'],
+    },
+  });
+  const missions = missionsData.map((mission, i) => {
+    if (i === 4) {
+      return {
+        cont: this.goal,
+        goal: true,
+      };
+    } else {
+      return {
+        cont: mission.content,
+        missionPos: mission.position,
+      };
+    }
+  });
+  let shapedMissions = [
+    ...missionsData.slice(0, 4).map((mission) => {
+      const shaped = mission.SubMissions.map((subMission) => {
+        if (subMission.position === 4) {
+          return {
+            cont: mission.content,
+            pos: subMission.position,
+            missionPos: mission.position,
+          };
+        }
+        return {
+          cont: subMission.content,
+          pos: subMission.position,
+        };
+      });
+      return shaped;
+    }),
+    missions,
+    ...missionsData.slice(5).map((mission) => {
+      const shaped = mission.SubMissions.map((subMission) => {
+        if (subMission.position === 4) {
+          return {
+            cont: mission.content,
+            pos: mission.position,
+          };
+        }
+        return {
+          cont: subMission.content,
+          pos: subMission.position,
+        };
+      });
+      return shaped;
+    }),
+  ];
+  return shapedMissions;
+};
 
 export default User;

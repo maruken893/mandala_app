@@ -131,12 +131,15 @@ const reducer = (state, { type, payload }) => {
     case GOAL_CREATE_SUCCESS:
       return {
         ...state,
+        isLoading: false,
         user: payload.user,
+        missions: payload.missions
       };
     case GOAL_CREATE_FAILED:
       return {
         ...state,
         showAlert: true,
+        isLoading: false,
         alertMessage: payload.msg,
         alertType: 'failed',
       };
