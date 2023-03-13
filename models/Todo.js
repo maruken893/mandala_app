@@ -29,9 +29,9 @@ const Todo = sequelize.define('Todo', {
     defaultValue: 1,
     allowNull: false,
   },
-  MissionId: {
-    type: DataTypes.UUID,
-  },
+  // MissionId: {
+  //   type: DataTypes.UUID,
+  // },
 });
 
 export default Todo;

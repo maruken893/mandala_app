@@ -42,8 +42,8 @@ const startServer = async () => {
     Status.hasMany(Todo);
     Todo.belongsTo(Status);
 
-    Mission.hasMany(Todo);
-    Todo.belongsTo(Mission);
+    // Mission.hasMany(Todo);
+    // Todo.belongsTo(Mission);
 
     console.log('db connection');
     app.listen(PORT, (req, res) => {
