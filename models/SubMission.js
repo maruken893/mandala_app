@@ -17,7 +17,7 @@ const SubMission = sequelize.define(
       },
     },
     MissionId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
     },
   },
   {

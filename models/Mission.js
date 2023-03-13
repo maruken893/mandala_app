@@ -5,6 +5,12 @@ import sequelize from '../db/connect.js';
 const Mission = sequelize.define(
   'Mission',
   {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV1,
+      allowNull: false,
+      primaryKey: true,
+    },
     content: {
       type: DataTypes.STRING,
       allowNull: false,

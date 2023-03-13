@@ -26,9 +26,11 @@ const Todo = sequelize.define('Todo', {
   },
   StatusId: {
     type: DataTypes.INTEGER,
+    defaultValue: 1,
+    allowNull: false,
   },
   MissionId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
   },
 });
 

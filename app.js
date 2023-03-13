@@ -9,6 +9,7 @@ import {
   goalRouter,
   missionRouter,
   subMissionRouter,
+  todoRouter,
 } from './routes/index.js';
 
 // middleware
@@ -30,6 +31,7 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1', goalRouter);
 app.use('/api/v1', missionRouter);
 app.use('/api/v1', subMissionRouter);
+app.use('/api/v1', todoRouter);
 
 // app endpoint
 app.use(notFoundMiddleware);
