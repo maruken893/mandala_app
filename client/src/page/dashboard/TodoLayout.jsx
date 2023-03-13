@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import Wrapper from '../../assets/wrappers/TodoLayout';
 import TodoNav from '../../components/TodoNav';

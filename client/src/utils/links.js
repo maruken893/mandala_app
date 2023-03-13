@@ -34,12 +34,12 @@ export const todoLinks = [
   {
     id: 1,
     text: 'All Todo',
-    to: '/all-todo',
+    to: '/todo/all',
   },
   {
     id: 2,
     text: 'Add Todo',
-    to: '/add-todo',
+    to: '/todo/add',
   },
 ];
 

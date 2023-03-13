@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AddTodo } from './components';
 
 import { Auth, Landing, ProtectedRoute } from './page';
@@ -24,9 +24,10 @@ function App() {
           }
         >
           <Route path="/" element={<Chart />} />
-          <Route path="/" element={<TodoLayout />}>
-            <Route path="add-todo" element={<AddTodo />} />
-            <Route path="all-todo" element={<TodoList />} />
+          <Route path="/todo" element={<TodoLayout />}>
+            <Route path="" element={<Navigate to="all" />} />
+            <Route path="all" element={<TodoList />} />
+            <Route path="add" element={<AddTodo />} />
           </Route>
           <Route path="history" element={<History />} />
           <Route path="profile" element={<Profile />} />
