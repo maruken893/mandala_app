@@ -22,6 +22,8 @@ import {
   MISSION_UPDATE_FAILED,
   SUB_MISSION_UPDATE_SUCCESS,
   SUB_MISSION_UPDATE_FAILED,
+  TODO_CREATE_SUCCESS,
+  TODO_CREATE_FAILED,
 } from './action';
 
 const reducer = (state, { type, payload }) => {
@@ -174,6 +176,22 @@ const reducer = (state, { type, payload }) => {
         ...state,
         isLoading: false,
         missions: payload.missions,
+      };
+    case TODO_CREATE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertMessage: 'Todo created successfully.',
+        alertType: 'success',
+      };
+    case TODO_CREATE_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertMessage: payload.msg,
+        alertType: 'failed',
       };
     default:
       throw new Error('There is no such an action type');

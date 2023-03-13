@@ -26,6 +26,8 @@ import {
   MISSION_UPDATE_FAILED,
   SUB_MISSION_UPDATE_SUCCESS,
   SUB_MISSION_UPDATE_FAILED,
+  TODO_CREATE_SUCCESS,
+  TODO_CREATE_FAILED,
 } from './action';
 
 let initUser = localStorage.getItem('user');
@@ -237,6 +239,22 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const createTodo = async ({ content, dueDate }) => {
+    dispatch({ type: REQUEST_BEGIN });
+    try {
+      const res = await axios.post(
+        '/api/v1/create-todo',
+        { content, dueDate },
+        config
+      );
+      dispatch({ type: TODO_CREATE_SUCCESS });
+    } catch (error) {
+      const { msg } = error.response.data;
+      dispatch({ type: TODO_CREATE_FAILED, payload: msg });
+    }
+    clearAlert();
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -250,6 +268,7 @@ const AppProvider = ({ children }) => {
         updateUser,
         createGoal,
         updateChart,
+        createTodo,
       }}
     >
       {children}

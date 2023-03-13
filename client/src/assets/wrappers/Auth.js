@@ -13,13 +13,13 @@ const Wrapper = styled.div`
   .form-container {
     background-color: white;
     text-align: center;
-    padding: 3% 1% 1.5% 1%;
+    padding: 40px 40px 30px 40px;
     border: 1px solid #ccbca8;
     border-top: 7px solid #ffb443;
     border-radius: 5px;
   }
   .form-row {
-    width: 90%;
+    width: 100%;
     margin: 0 auto 20px auto;
   }
   form label {

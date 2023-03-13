@@ -98,11 +98,12 @@ body {
 }
 /* Alert */
 .alert {
-  width: 90%;
-  margin: 30px auto;
+  width: 100%;
+  margin: 30px 0;
   padding: 0.625rem 3rem;
   border-radius: 3px;
   font-size: 1.125rem;
+  text-align: center;
 }
 
 .alert-success {

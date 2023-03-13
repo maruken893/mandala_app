@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   background-color: white;
   min-width: 350px;
-  height: 320px;
+  height: fit-content;
   width: 40%;
   border: 1px solid #bababa;
   border-radius: 10px;
@@ -31,11 +31,14 @@ const Wrapper = styled.div`
         margin-top: 0.25rem;
       }
     }
+    .loading {
+      margin-top: 20px;
+    }
     .btn-container {
       display: flex;
       gap: 0.5rem;
       justify-content: center;
-      margin-top: 2rem;
+      margin-top: 1.5rem;
     }
   }
 `;
