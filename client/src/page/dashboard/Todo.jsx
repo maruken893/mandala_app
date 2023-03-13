@@ -1,4 +1,11 @@
+import Wrapper from '../../assets/wrappers/Todo';
+import AddTodo from '../../components/AddTodo';
+
 const Todo = () => {
-  return <div>Todo</div>;
+  return (
+    <Wrapper>
+      <AddTodo />
+    </Wrapper>
+  );
 };
 export default Todo;

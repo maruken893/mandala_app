@@ -140,7 +140,7 @@ form label {
   width: fit-content;
   text-align: left;
   margin-bottom: 8px;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   text-transform: capitalize;
 }
 form input {
@@ -167,6 +167,24 @@ form textarea {
 form textarea:focus {
   border: 1px solid white;
   outline: 2px solid #ffb443;
+}
+form .type-selector {
+  width: 100%;
+  margin-top: 1.25rem;
+}
+form .type-item {
+  display: block;
+  width: 100%;
+  background-color: #fefaf3;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+form .type-item:focus {
+  border: 1px solid white;
+  outline: 2px solid #ffb443;
+}
+.date-picker {
+  margin-top: 1.25rem;
 }
 
 /* mandala chart modal */
