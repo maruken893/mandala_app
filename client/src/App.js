@@ -1,7 +1,15 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AddTodo } from './components';
 
 import { Auth, Landing, ProtectedRoute } from './page';
-import { Chart, History, Layout, Todo, Profile } from './page/dashboard';
+import {
+  Chart,
+  History,
+  Layout,
+  TodoLayout,
+  TodoList,
+  Profile,
+} from './page/dashboard';
 
 function App() {
   return (
@@ -16,7 +24,10 @@ function App() {
           }
         >
           <Route path="/" element={<Chart />} />
-          <Route path="todo" element={<Todo />} />
+          <Route path="/" element={<TodoLayout />}>
+            <Route path="add-todo" element={<AddTodo />} />
+            <Route path="all-todo" element={<TodoList />} />
+          </Route>
           <Route path="history" element={<History />} />
           <Route path="profile" element={<Profile />} />
         </Route>

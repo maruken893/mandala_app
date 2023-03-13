@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 
 import Wrapper from '../assets/wrappers/NavLinks';
 import { useAppContext } from '../context/AppContext';
-import links from '../utils/links';
+import { links } from '../utils/links';
 
 const NavLinks = () => {
   const { closeSidebarModal } = useAppContext();

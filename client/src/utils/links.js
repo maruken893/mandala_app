@@ -3,7 +3,7 @@ import { MdTableChart } from 'react-icons/md';
 import { RiTodoLine } from 'react-icons/ri';
 import { GoCalendar } from 'react-icons/go';
 
-const links = [
+export const links = [
   {
     id: 1,
     text: 'Chart',
@@ -30,4 +30,16 @@ const links = [
   },
 ];
 
-export default links;
+export const todoLinks = [
+  {
+    id: 1,
+    text: 'All Todo',
+    to: '/all-todo',
+  },
+  {
+    id: 2,
+    text: 'Add Todo',
+    to: '/add-todo',
+  },
+];
+

@@ -2,9 +2,8 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   background-color: white;
-  min-width: 350px;
   height: fit-content;
-  width: 40%;
+  width: 50%;
   border: 1px solid #bababa;
   border-radius: 10px;
   padding: 1rem 2rem;
