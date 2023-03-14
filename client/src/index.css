@@ -43,7 +43,7 @@ body {
 /* ボタン */
 .btn {
   height: fit-content;
-  padding: 1rem 1.25rem;
+  padding: 0.875rem 1.25rem;
   border-radius: 10px;
   background: var(--main-color);
   color: white;
@@ -95,6 +95,45 @@ body {
 }
 .btn-cancel:hover {
   background: #9a9a9a;
+}
+.btn-suspend {
+  background-color: #dfe413;
+  font-size: 1rem;
+}
+.btn-suspend:hover {
+  background-color: #cccf14;
+}
+.btn-complete {
+  background-color: #3b8cec;
+  font-size: 1rem;
+}
+.btn-complete:hover {
+  background-color: #3073c6;
+}
+/* todo button */
+.btn-edit-todo {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #7099e8;
+}
+.btn-edit-todo:hover {
+  background-color: #6082c7;
+}
+.btn-delete-todo {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #f56969;
+}
+.btn-delete-todo:hover {
+  background-color: #d75c5c;
+}
+.btn-work-on {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #19e26a;
+}
+.btn-work-on:hover {
+  background-color: #14bd57;
 }
 /* Alert */
 .alert {

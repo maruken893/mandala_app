@@ -16,6 +16,8 @@ import MandalaChart from './MandalaChart';
 import NineSquare from './NineSquare';
 // Todo
 import AddTodo from './AddTodo';
+import TodoCard from './TodoCard';
+import TodoCardInProgress from './TodoCardInProgress';
 
 export {
   Alert,
@@ -35,4 +37,6 @@ export {
   MandalaChart,
   NineSquare,
   AddTodo,
+  TodoCard,
+  TodoCardInProgress,
 };

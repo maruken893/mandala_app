@@ -1,7 +1,7 @@
-const FormTextarea = ({ name, value, handleChange, inputRef }) => {
+const FormTextarea = ({ name, label, value, handleChange, inputRef }) => {
   return (
     <div>
-      <label htmlFor={name}>{name}</label>
+      <label htmlFor={name}>{label || name}</label>
       <textarea
         name={name}
         id={name}
