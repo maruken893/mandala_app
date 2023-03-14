@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import Wrapper from '../../assets/wrappers/Todo';
+import Wrapper from '../../assets/wrappers/TodoList';
 import { TodoCard } from '../../components';
 import { fetchTodos } from '../../utils/api/todo';
 
@@ -18,7 +18,9 @@ const TodoList = () => {
   return (
     <Wrapper>
       <p className="header-text">Todos</p>
-      {todos && todos.map((todo) => <TodoCard key={todo.id} todo={todo} />)}
+      <div className="todo-container">
+        {todos && todos.map((todo) => <TodoCard key={todo.id} todo={todo} />)}
+      </div>
     </Wrapper>
   );
 };
