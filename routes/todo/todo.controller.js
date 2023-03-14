@@ -21,7 +21,7 @@ export const createTodo = async (req, res) => {
 };
 
 export const getTodos = async (req, res) => {
-  const PAGE_NUM = 10;
+  const PAGE_NUM = 12;
   const page = !req?.query.page ? 0 : req.query.page;
 
   const todos = await Todo.findAll(
