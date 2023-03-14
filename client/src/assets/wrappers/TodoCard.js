@@ -10,12 +10,13 @@ const Wrapper = styled.div`
     svg {
       vertical-align: bottom;
     }
-    .icon-1 {
+    .icon {
       margin-right: 0.25rem;
+    }
+    .icon-1 {
       color: #8a8d89;
     }
     .icon-2 {
-      margin-right: 0.25rem;
       color: #42d735;
     }
     .icon-3 {

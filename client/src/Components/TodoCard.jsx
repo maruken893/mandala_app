@@ -9,7 +9,7 @@ const TodoCard = ({ todo }) => {
     <Wrapper>
       <div className="todo-header">
         <p className="todo-header-text">
-          <span className={`icon-${todo.StatusId}`}>
+          <span className={`icon icon-${todo.StatusId}`}>
             {<GrStatusGoodSmall />}
           </span>
           <span>{todo.content}</span>
@@ -17,7 +17,7 @@ const TodoCard = ({ todo }) => {
       </div>
       <div className="todo-body">
         <p className="due-date">
-          <span>{<MdOutlineEventAvailable />}</span>
+          <span className="icon">{<MdOutlineEventAvailable />}</span>
           {moment(todo.dueDate).format('YYYY-MM-D')}
         </p>
         <div className="btn-container">
