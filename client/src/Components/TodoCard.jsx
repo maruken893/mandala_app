@@ -3,8 +3,14 @@ import { MdOutlineEventAvailable } from 'react-icons/md';
 import moment from 'moment';
 
 import Wrapper from '../assets/wrappers/TodoCard';
+import { patchTodoStatus } from '../utils/api/todo';
 
-const TodoCard = ({ todo }) => {
+const TodoCard = ({ todo, idx, updateTodos }) => {
+  const handleWorkOn = async () => {
+    const newTodo = await patchTodoStatus({ id: todo.id, toStatusId: 2 });
+    updateTodos({ newTodo, idx });
+  };
+
   return (
     <Wrapper>
       <div className="todo-header">
@@ -22,7 +28,13 @@ const TodoCard = ({ todo }) => {
         </p>
         <div className="btn-container">
           <button className="btn btn-edit-todo">Edit</button>
-          <button className="btn btn-work-on">Work on</button>
+          <button
+            type="button"
+            className="btn btn-work-on"
+            onClick={handleWorkOn}
+          >
+            Work on
+          </button>
           <button className="btn btn-delete-todo">Delete</button>
         </div>
       </div>

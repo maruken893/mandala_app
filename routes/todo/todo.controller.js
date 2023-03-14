@@ -32,7 +32,7 @@ export const getTodos = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: 'return todos', todos });
 };
 
-export const workOnTodo = async (req, res) => {
+export const changeTodoStatus = async (req, res) => {
   const { id, toStatusId } = req.body;
   const todo = await Todo.findOne({
     where: { id },
