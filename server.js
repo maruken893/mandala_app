@@ -45,6 +45,24 @@ const startServer = async () => {
     // Mission.hasMany(Todo);
     // Todo.belongsTo(Mission);
 
+    // Demoユーザー
+    const demoUser = await User.findOne({
+      where: { email: 'demo@example.com' },
+    });
+    if (!demoUser) {
+      const demoUser = await User.create({
+        name: 'demo user',
+        email: 'demo@example.com',
+        password: 'password',
+      });
+      await Todo.bulkCreate(
+        [...Array(20)].map((_, i) => ({
+          content: `todo-${i}`,
+          dueDate: new Date(),
+          UserId: demoUser.id,
+        }))
+      );
+    }
     console.log('db connection');
     app.listen(PORT, (req, res) => {
       console.log(`Server listening port on ${PORT}...`);

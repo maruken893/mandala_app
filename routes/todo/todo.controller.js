@@ -19,3 +19,17 @@ export const createTodo = async (req, res) => {
     newTodo,
   });
 };
+
+export const getTodos = async (req, res) => {
+  const PAGE_NUM = 10;
+  const page = !req?.query.page ? 0 : req.query.page;
+
+  const todos = await Todo.findAll(
+    {
+      where: { UserId: req.user.uid },
+      limit: PAGE_NUM,
+      offset: PAGE_NUM * page,
+    },
+  );
+  res.status(StatusCodes.OK).json({ msg: 'return todos', todos });
+};
