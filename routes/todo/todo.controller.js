@@ -20,16 +20,19 @@ export const createTodo = async (req, res) => {
   });
 };
 
-export const getTodos = async (req, res) => {
-  const PAGE_NUM = 12;
-  const page = !req?.query.page ? 0 : req.query.page;
-
-  const todos = await Todo.findAll({
-    where: { UserId: req.user.uid },
-    limit: PAGE_NUM,
-    offset: PAGE_NUM * page,
+export const updateTodo = async (req, res) => {
+  const { id, content, dueDate } = req.body;
+  const todo = await Todo.findOne({
+    where: { id },
   });
-  res.status(StatusCodes.OK).json({ msg: 'return todos', todos });
+  if (!todo) {
+    throw new BadRequestError('Todo not found.');
+  }
+  if (todo.UserId !== req.user.uid) {
+    throw new UnauthorizedError("You can't change todo info.");
+  }
+  const updatedTodo = await todo.update({ content, dueDate });
+  res.status(StatusCodes.OK).json({ msg: 'updated', todo: updatedTodo });
 };
 
 export const changeTodoStatus = async (req, res) => {
@@ -48,4 +51,16 @@ export const changeTodoStatus = async (req, res) => {
   }
   const updatedTodo = await todo.update({ StatusId: toStatusId });
   res.status(StatusCodes.OK).json({ msg: 'change', todo: updatedTodo });
+};
+
+export const getTodos = async (req, res) => {
+  const PAGE_NUM = 12;
+  const page = !req?.query.page ? 0 : req.query.page;
+
+  const todos = await Todo.findAll({
+    where: { UserId: req.user.uid },
+    limit: PAGE_NUM,
+    offset: PAGE_NUM * page,
+  });
+  res.status(StatusCodes.OK).json({ msg: 'return todos', todos });
 };

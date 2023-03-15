@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   background-color: white;
-  width: 350px;
+  width: 360px;
   box-shadow: 0px 0px 2px 1px #d9d9d9;
   border-radius: 10px;
   /* width: 40%; */
