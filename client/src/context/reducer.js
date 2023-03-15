@@ -24,9 +24,11 @@ import {
   SUB_MISSION_UPDATE_FAILED,
   TODO_CREATE_SUCCESS,
   TODO_CREATE_FAILED,
+  TODO_UPDATE_SUCCESS,
   TOGGLE_EDIT_TODO,
   CANCEL_EDIT_TODO,
   CHANGE_TODO_STATE,
+  TODO_UPDATE_FAILED,
 } from './action';
 
 const reducer = (state, { type, payload }) => {
@@ -200,6 +202,7 @@ const reducer = (state, { type, payload }) => {
       return {
         ...state,
         isEdit: true,
+        todoId: payload.id,
         todoContent: payload.content,
         todoDueDate: payload.dueDate,
       };
@@ -209,6 +212,19 @@ const reducer = (state, { type, payload }) => {
         isEdit: false,
         todoContent: '',
         todoDueDate: null,
+      };
+    case TODO_UPDATE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case TODO_UPDATE_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertMessage: payload.msg,
+        alertType: 'failed',
       };
     case CHANGE_TODO_STATE:
       return {

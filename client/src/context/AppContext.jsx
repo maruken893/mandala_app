@@ -31,6 +31,8 @@ import {
   TOGGLE_EDIT_TODO,
   CANCEL_EDIT_TODO,
   CHANGE_TODO_STATE,
+  TODO_UPDATE_SUCCESS,
+  TODO_UPDATE_FAILED,
 } from './action';
 
 let initUser = localStorage.getItem('user');
@@ -49,6 +51,7 @@ const initialState = {
   missions: JSON.parse(initMissions) || null,
   // todo add edit
   isEdit: false,
+  todoId: null,
   todoContent: '',
   todoDueDate: null,
 };
@@ -263,10 +266,28 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  const toggleEditTodo = ({ content, dueDate }) => {
+  const updateTodo = async ({ id, content, dueDate }) => {
+    dispatch({ type: REQUEST_BEGIN });
+    try {
+      const res = await axios.patch(
+        '/api/v1/update-todo',
+        { id, content, dueDate },
+        config
+      );
+      const { todo } = res.data;
+      dispatch({ type: TODO_UPDATE_SUCCESS });
+      return todo;
+    } catch (error) {
+      const { msg } = error.response;
+      dispatch({ type: TODO_UPDATE_FAILED, payload: { msg } });
+    }
+    clearAlert();
+  };
+
+  const toggleEditTodo = ({ id, content, dueDate }) => {
     dispatch({
       type: TOGGLE_EDIT_TODO,
-      payload: { content, dueDate },
+      payload: { id, content, dueDate },
     });
   };
 
@@ -292,6 +313,7 @@ const AppProvider = ({ children }) => {
         createGoal,
         updateChart,
         createTodo,
+        updateTodo,
         toggleEditTodo,
         cancelEditTodo,
         changeTodoState,

@@ -5,6 +5,7 @@ import { useAppContext } from '../context/AppContext';
 const AddTodo = () => {
   const {
     isEdit,
+    todoId,
     todoContent,
     todoDueDate,
     isLoading,
@@ -13,6 +14,7 @@ const AddTodo = () => {
     alertType,
     displayAlert,
     createTodo,
+    updateTodo,
     cancelEditTodo,
     changeTodoState,
   } = useAppContext();
@@ -31,7 +33,11 @@ const AddTodo = () => {
       displayAlert({ msg: 'Todo content is not provided', type: 'failed' });
       return;
     }
-    createTodo({ content: todoContent, dueDate: todoDueDate });
+    if (isEdit) {
+      updateTodo({ id: todoId, content: todoContent, dueDate: todoDueDate });
+    } else {
+      createTodo({ content: todoContent, dueDate: todoDueDate });
+    }
     cancelEditTodo();
   };
 
