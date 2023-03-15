@@ -8,9 +8,10 @@ const Wrapper = styled.div`
   /* width: 40%; */
   @media (min-width: 990px) {
     svg {
-      vertical-align: bottom;
+      vertical-align: middle;
     }
     .icon {
+      font-size: 1rem;
       margin-right: 0.25rem;
     }
     .icon-1 {
