@@ -112,7 +112,7 @@ body {
 }
 /* todo button */
 .btn-edit-todo {
-  font-size: 1rem;
+  font-size: 0.75rem;
   padding: 0.5rem 1rem;
   background-color: #7099e8;
 }
@@ -134,6 +134,22 @@ body {
 }
 .btn-work-on:hover {
   background-color: #14bd57;
+}
+.btn-suspend {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #bcbcbc;
+}
+.btn-suspend:hover {
+  background-color: #9a9a9a;
+}
+.btn-complete {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #3B8CEC;
+}
+.btn-complete:hover {
+  background-color: #3377cb;
 }
 /* Alert */
 .alert {

@@ -20,10 +20,14 @@ const Wrapper = styled.div`
       color: #42d735;
     }
     .icon-3 {
+      color: #3559D7;
     }
     .todo-header {
       padding: 0.25rem 0.5rem;
       border-bottom: 1px solid black;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     .todo-header-text {
       vertical-align: bottom;
@@ -34,6 +38,9 @@ const Wrapper = styled.div`
     .btn-container {
       display: flex;
       justify-content: space-evenly;
+    }
+    .btn-edit {
+      font-size: 0.75rem;
     }
   }
 `;

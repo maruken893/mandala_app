@@ -11,6 +11,16 @@ const TodoCard = ({ todo, idx, updateTodos }) => {
     updateTodos({ newTodo, idx });
   };
 
+  const handleSuspend = async () => {
+    const newTodo = await patchTodoStatus({ id: todo.id, toStatusId: 1 });
+    updateTodos({ newTodo, idx });
+  };
+
+  const handleComplete = async () => {
+    const newTodo = await patchTodoStatus({ id: todo.id, toStatusId: 3 });
+    updateTodos({ newTodo, idx });
+  };
+
   return (
     <Wrapper>
       <div className="todo-header">
@@ -20,6 +30,7 @@ const TodoCard = ({ todo, idx, updateTodos }) => {
           </span>
           <span>{todo.content}</span>
         </p>
+        <button className="btn btn-edit-todo">Edit</button>
       </div>
       <div className="todo-body">
         <p className="due-date">
@@ -27,15 +38,46 @@ const TodoCard = ({ todo, idx, updateTodos }) => {
           {moment(todo.dueDate).format('YYYY-MM-D')}
         </p>
         <div className="btn-container">
-          <button className="btn btn-edit-todo">Edit</button>
-          <button
-            type="button"
-            className="btn btn-work-on"
-            onClick={handleWorkOn}
-          >
-            Work on
-          </button>
-          <button className="btn btn-delete-todo">Delete</button>
+          {todo.StatusId === 1 && (
+            <>
+              <button
+                type="button"
+                className="btn btn-work-on"
+                onClick={handleWorkOn}
+              >
+                Work on
+              </button>
+            </>
+          )}
+          {todo.StatusId === 2 && (
+            <>
+              <button
+                type="button"
+                className="btn btn-suspend"
+                onClick={handleSuspend}
+              >
+                Suspend
+              </button>
+              <button
+                type="button"
+                className="btn btn-complete"
+                onClick={handleComplete}
+              >
+                Complete
+              </button>
+            </>
+          )}
+          {todo.StatusId === 3 && (
+            <>
+              <button
+                type="button"
+                className="btn btn-work-on"
+                onClick={handleWorkOn}
+              >
+                Work on
+              </button>
+            </>
+          )}
         </div>
       </div>
     </Wrapper>
