@@ -28,6 +28,9 @@ import {
   SUB_MISSION_UPDATE_FAILED,
   TODO_CREATE_SUCCESS,
   TODO_CREATE_FAILED,
+  TOGGLE_EDIT_TODO,
+  CANCEL_EDIT_TODO,
+  CHANGE_TODO_STATE,
 } from './action';
 
 let initUser = localStorage.getItem('user');
@@ -44,6 +47,10 @@ const initialState = {
   user: JSON.parse(initUser) || null,
   token: initToken || '',
   missions: JSON.parse(initMissions) || null,
+  // todo add edit
+  isEdit: false,
+  todoContent: '',
+  todoDueDate: null,
 };
 
 const AppContext = createContext();
@@ -239,6 +246,7 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  // Todo
   const createTodo = async ({ content, dueDate }) => {
     dispatch({ type: REQUEST_BEGIN });
     try {
@@ -255,6 +263,21 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const toggleEditTodo = ({ content, dueDate }) => {
+    dispatch({
+      type: TOGGLE_EDIT_TODO,
+      payload: { content, dueDate },
+    });
+  };
+
+  const cancelEditTodo = () => {
+    dispatch({ type: CANCEL_EDIT_TODO });
+  };
+
+  const changeTodoState = ({ name, data }) => {
+    dispatch({ type: CHANGE_TODO_STATE, payload: { name, data } });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -269,6 +292,9 @@ const AppProvider = ({ children }) => {
         createGoal,
         updateChart,
         createTodo,
+        toggleEditTodo,
+        cancelEditTodo,
+        changeTodoState,
       }}
     >
       {children}

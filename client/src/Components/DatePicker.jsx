@@ -9,7 +9,7 @@ const DatePicker = ({ name, label, value, handleChangeDate }) => {
         showIcon
         dateFormat="yyyy/MM/dd"
         id={name}
-        selected={value || new Date()}
+        selected={value}
         onChange={handleChangeDate}
       />
     </div>

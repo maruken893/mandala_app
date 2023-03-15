@@ -1,65 +1,60 @@
-import { useState } from 'react';
-
 import Wrapper from '../assets/wrappers/AddTodo';
 import { FormRow, DatePicker, Alert, LoadingSpinner } from '../components';
 import { useAppContext } from '../context/AppContext';
 
-const initTodo = {
-  content: '',
-  dueDate: null,
-};
-
 const AddTodo = () => {
-  const [todo, setTodo] = useState({ initTodo });
   const {
+    isEdit,
+    todoContent,
+    todoDueDate,
     isLoading,
     showAlert,
     alertMessage,
     alertType,
     displayAlert,
     createTodo,
+    cancelEditTodo,
+    changeTodoState,
   } = useAppContext();
 
   const handleChange = (e) => {
-    setTodo((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    changeTodoState({ name: 'todoContent', data: e.target.value });
   };
 
   const handleChangeDate = (date) => {
-    setTodo((prev) => ({
-      ...prev,
-      dueDate: date,
-    }));
+    changeTodoState({ name: 'todoDueDate', data: date });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!todo.content) {
+    if (!todoContent) {
       displayAlert({ msg: 'Todo content is not provided', type: 'failed' });
       return;
     }
-    createTodo({ content: todo.content, dueDate: todo.dueDate });
-    setTodo(initTodo);
+    createTodo({ content: todoContent, dueDate: todoDueDate });
+    cancelEditTodo();
+  };
+
+  const handleCancel = () => {
+    cancelEditTodo();
   };
 
   return (
     <Wrapper>
-      <p className="title">Add Todo</p>
+      <p className="title">{isEdit ? 'Edit Todo' : 'Add Todo'}</p>
       {showAlert && <Alert message={alertMessage} alertType={alertType} />}
       <form onSubmit={handleSubmit}>
         <FormRow
           name="content"
           label="Todo"
-          value={todo.content}
+          value={todoContent}
           type="text"
           handleChange={handleChange}
         />
         <DatePicker
           name="dueDate"
           label="Due Date"
-          value={todo.dueDate}
+          value={todoDueDate ? new Date(todoDueDate) : new Date()}
           handleChangeDate={handleChangeDate}
         />
         {/* <div className="flex"> */}
@@ -78,9 +73,13 @@ const AddTodo = () => {
         ) : (
           <div className="btn-container">
             <button type="onSubmit" className="btn btn-save">
-              Add Todo
+              {isEdit ? 'Edit' : 'Add'}
             </button>
-            <button type="button" className="btn btn-cancel">
+            <button
+              type="button"
+              className="btn btn-cancel"
+              onClick={handleCancel}
+            >
               Cancel
             </button>
           </div>

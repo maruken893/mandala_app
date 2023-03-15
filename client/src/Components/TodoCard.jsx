@@ -4,8 +4,18 @@ import moment from 'moment';
 
 import Wrapper from '../assets/wrappers/TodoCard';
 import { patchTodoStatus } from '../utils/api/todo';
+import { useAppContext } from '../context/AppContext';
+import { useNavigate } from 'react-router-dom';
 
 const TodoCard = ({ todo, idx, updateTodos }) => {
+  const { toggleEditTodo } = useAppContext();
+  const navigate = useNavigate();
+
+  const handleEdit = () => {
+    toggleEditTodo({ content: todo.content, dueDate: todo.dueDate });
+    navigate('/todo/add');
+  };
+
   const handleWorkOn = async () => {
     const newTodo = await patchTodoStatus({ id: todo.id, toStatusId: 2 });
     updateTodos({ newTodo, idx });
@@ -30,7 +40,13 @@ const TodoCard = ({ todo, idx, updateTodos }) => {
           </span>
           <span>{todo.content}</span>
         </p>
-        <button className="btn btn-edit-todo">Edit</button>
+        <button
+          type="button"
+          className="btn btn-edit-todo"
+          onClick={handleEdit}
+        >
+          Edit
+        </button>
       </div>
       <div className="todo-body">
         <p className="due-date">

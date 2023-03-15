@@ -24,6 +24,9 @@ import {
   SUB_MISSION_UPDATE_FAILED,
   TODO_CREATE_SUCCESS,
   TODO_CREATE_FAILED,
+  TOGGLE_EDIT_TODO,
+  CANCEL_EDIT_TODO,
+  CHANGE_TODO_STATE,
 } from './action';
 
 const reducer = (state, { type, payload }) => {
@@ -192,6 +195,25 @@ const reducer = (state, { type, payload }) => {
         showAlert: true,
         alertMessage: payload.msg,
         alertType: 'failed',
+      };
+    case TOGGLE_EDIT_TODO:
+      return {
+        ...state,
+        isEdit: true,
+        todoContent: payload.content,
+        todoDueDate: payload.dueDate,
+      };
+    case CANCEL_EDIT_TODO:
+      return {
+        ...state,
+        isEdit: false,
+        todoContent: '',
+        todoDueDate: null,
+      };
+    case CHANGE_TODO_STATE:
+      return {
+        ...state,
+        [payload.name]: payload.data,
       };
     default:
       throw new Error('There is no such an action type');
