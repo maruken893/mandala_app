@@ -53,6 +53,8 @@ const AddTodo = () => {
         id: todoId,
         content: todoContent,
         dueDate: todoDueDate || new Date(),
+        type: todoType,
+        memo: todoMemo || '',
       });
     } else {
       createTodo({

@@ -18,6 +18,7 @@ const TodoCard = ({ todo, idx, updateTodos }) => {
       content: todo.content,
       dueDate: todo.dueDate,
       todoType: todo.todoType,
+      todoMemo: todo.memo,
     });
     navigate('/todo/add');
   };

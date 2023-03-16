@@ -268,12 +268,12 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  const updateTodo = async ({ id, content, dueDate }) => {
+  const updateTodo = async ({ id, content, dueDate, type, memo }) => {
     dispatch({ type: REQUEST_BEGIN });
     try {
       const res = await axios.patch(
         '/api/v1/update-todo',
-        { id, content, dueDate },
+        { id, content, dueDate, todoType: type, memo },
         config
       );
       const { todo } = res.data;
