@@ -11,7 +11,7 @@ export const createTodo = async (req, res) => {
   }
   const newTodo = await Todo.create({
     content,
-    dueDate,
+    dueDate: dueDate,
     todoType: todoType || '',
     memo: memo || '',
     UserId: req.user.uid,

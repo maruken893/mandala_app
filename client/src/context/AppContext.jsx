@@ -54,6 +54,7 @@ const initialState = {
   todoId: null,
   todoContent: '',
   todoDueDate: null,
+  todoType: '',
 };
 
 const AppContext = createContext();
@@ -250,12 +251,12 @@ const AppProvider = ({ children }) => {
   };
 
   // Todo
-  const createTodo = async ({ content, dueDate }) => {
+  const createTodo = async ({ content, dueDate, type }) => {
     dispatch({ type: REQUEST_BEGIN });
     try {
       const res = await axios.post(
         '/api/v1/create-todo',
-        { content, dueDate },
+        { content, dueDate, todoType: type },
         config
       );
       dispatch({ type: TODO_CREATE_SUCCESS });

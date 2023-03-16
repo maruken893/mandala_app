@@ -1,5 +1,11 @@
 import Wrapper from '../assets/wrappers/AddTodo';
-import { FormRow, DatePicker, Alert, LoadingSpinner } from '../components';
+import {
+  FormRow,
+  DatePicker,
+  Alert,
+  LoadingSpinner,
+  FormSelect,
+} from '../components';
 import { useAppContext } from '../context/AppContext';
 
 const AddTodo = () => {
@@ -8,6 +14,8 @@ const AddTodo = () => {
     todoId,
     todoContent,
     todoDueDate,
+    todoType,
+    missions,
     isLoading,
     showAlert,
     alertMessage,
@@ -19,8 +27,13 @@ const AddTodo = () => {
     changeTodoState,
   } = useAppContext();
 
+  const todoTypes = missions[4]
+    .filter((mission) => mission.goalId === undefined && mission.cont)
+    .map((mission) => ({ id: mission.missionPos, name: mission.cont }));
+  todoTypes.push({ name: 'Other', id: -1 });
+
   const handleChange = (e) => {
-    changeTodoState({ name: 'todoContent', data: e.target.value });
+    changeTodoState({ name: e.target.name, data: e.target.value });
   };
 
   const handleChangeDate = (date) => {
@@ -34,9 +47,17 @@ const AddTodo = () => {
       return;
     }
     if (isEdit) {
-      updateTodo({ id: todoId, content: todoContent, dueDate: todoDueDate });
+      updateTodo({
+        id: todoId,
+        content: todoContent,
+        dueDate: todoDueDate || new Date(),
+      });
     } else {
-      createTodo({ content: todoContent, dueDate: todoDueDate });
+      createTodo({
+        content: todoContent,
+        dueDate: todoDueDate || new Date(),
+        type: todoType || todoTypes[0],
+      });
     }
     cancelEditTodo();
   };
@@ -51,7 +72,7 @@ const AddTodo = () => {
       {showAlert && <Alert message={alertMessage} alertType={alertType} />}
       <form onSubmit={handleSubmit}>
         <FormRow
-          name="content"
+          name="todoContent"
           label="Todo"
           value={todoContent}
           type="text"
@@ -64,13 +85,13 @@ const AddTodo = () => {
           handleChangeDate={handleChangeDate}
         />
         {/* <div className="flex"> */}
-        {/* <FormSelect
-            label="type"
-            name="missionPos"
-            value={todo.missionPos}
-            handleChange={handleChange}
-            list={todoTypes}
-          /> */}
+        <FormSelect
+          label="type"
+          name="todoType"
+          value={todoType}
+          handleChange={handleChange}
+          list={todoTypes}
+        />
         {/* </div> */}
         {isLoading ? (
           <div className="loading">

@@ -20,6 +20,9 @@ const Todo = sequelize.define(
     dueDate: {
       type: DataTypes.DATE,
     },
+    type: {
+      type: DataTypes.STRING,
+    },
     endDate: {
       type: DataTypes.DATE,
     },
