@@ -114,16 +114,17 @@ body {
 }
 /* todo button */
 .btn-edit-todo {
-  font-size: 0.625rem;
-  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+  padding: 0.375rem 1rem;
+  margin-right: 10px;
   background-color: #7099e8;
 }
 .btn-edit-todo:hover {
   background-color: #6082c7;
 }
 .btn-delete-todo {
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  padding: 0.375rem 0.5rem;
   background-color: #f56969;
 }
 .btn-delete-todo:hover {
@@ -148,10 +149,10 @@ body {
 .btn-complete {
   font-size: 1rem;
   padding: 0.5rem 1rem;
-  background-color: #3B8CEC;
+  background-color: #3681de;
 }
 .btn-complete:hover {
-  background-color: #3377cb;
+  background-color: #2f6db9;
 }
 /* Alert */
 .alert {

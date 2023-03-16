@@ -3,7 +3,7 @@ import { MdOutlineEventAvailable } from 'react-icons/md';
 import moment from 'moment';
 
 import Wrapper from '../assets/wrappers/TodoCard';
-import { patchTodoStatus } from '../utils/api/todo';
+import { deleteTodo, patchTodoStatus } from '../utils/api/todo';
 import { useAppContext } from '../context/AppContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,6 +21,13 @@ const TodoCard = ({ todo, idx, updateTodos }) => {
       todoMemo: todo.memo,
     });
     navigate('/todo/add');
+  };
+
+  const handleDelete = async () => {
+    const sure = window.confirm('Are you sure to delete todo?');
+    if (sure) {
+      await deleteTodo({ id: todo.id });
+    }
   };
 
   const handleWorkOn = async () => {
@@ -47,13 +54,22 @@ const TodoCard = ({ todo, idx, updateTodos }) => {
           </span>
           <span>{todo.content}</span>
         </p>
-        <button
-          type="button"
-          className="btn btn-edit-todo"
-          onClick={handleEdit}
-        >
-          Edit
-        </button>
+        <div>
+          <button
+            type="button"
+            className="btn btn-edit-todo"
+            onClick={handleEdit}
+          >
+            Edit
+          </button>
+          <button
+            type="button"
+            className="btn btn-delete-todo"
+            onClick={handleDelete}
+          >
+            Delete
+          </button>
+        </div>
       </div>
       <div className="todo-body">
         <p className="due-date">
