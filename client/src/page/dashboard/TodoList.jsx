@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 
 import Wrapper from '../../assets/wrappers/TodoList';
 import { TodoCard } from '../../components';
+import TodoPaginate from '../../components/TodoPaginate';
 import { fetchTodos } from '../../utils/api/todo';
 
 const TodoList = () => {
   const [todos, setTodos] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const updateTodos = ({ newTodo, idx }) => {
     setTodos((prev) => {
@@ -17,7 +19,7 @@ const TodoList = () => {
 
   useEffect(() => {
     const initialFunc = async () => {
-      const todos = await fetchTodos({ page: 0 });
+      const todos = await fetchTodos({ page: currentPage });
       setTodos(todos);
     };
     initialFunc();
@@ -36,6 +38,9 @@ const TodoList = () => {
               updateTodos={updateTodos}
             />
           ))}
+      </div>
+      <div className="pagination">
+        <TodoPaginate />
       </div>
     </Wrapper>
   );

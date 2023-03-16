@@ -6,6 +6,10 @@ const Wrapper = styled.div`
     flex-wrap: wrap;
     gap: 30px;
   }
+  .pagination {
+    margin-top: 30px;
+    justify-content: center;
+  }
 `;
 
 export default Wrapper;
