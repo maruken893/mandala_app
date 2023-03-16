@@ -252,12 +252,12 @@ const AppProvider = ({ children }) => {
   };
 
   // Todo
-  const createTodo = async ({ content, dueDate, type }) => {
+  const createTodo = async ({ content, dueDate, type, memo }) => {
     dispatch({ type: REQUEST_BEGIN });
     try {
       const res = await axios.post(
         '/api/v1/create-todo',
-        { content, dueDate, todoType: type },
+        { content, dueDate, todoType: type, memo },
         config
       );
       dispatch({ type: TODO_CREATE_SUCCESS });

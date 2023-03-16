@@ -215,7 +215,7 @@ const reducer = (state, { type, payload }) => {
         todoContent: '',
         todoDueDate: null,
         todoType: '',
-        todoDemo: '',
+        todoMemo: '',
       };
     case TODO_UPDATE_SUCCESS:
       return {

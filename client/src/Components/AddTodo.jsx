@@ -58,7 +58,8 @@ const AddTodo = () => {
       createTodo({
         content: todoContent,
         dueDate: todoDueDate || new Date(),
-        type: todoType || todoTypes[0],
+        type: todoType || todoTypes[0].name,
+        memo: todoMemo || '',
       });
     }
     cancelEditTodo();
