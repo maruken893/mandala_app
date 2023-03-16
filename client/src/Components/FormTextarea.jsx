@@ -1,6 +1,8 @@
+import Wrapper from '../assets/wrappers/FormTextarea';
+
 const FormTextarea = ({ name, label, value, handleChange, inputRef }) => {
   return (
-    <div>
+    <Wrapper>
       <label htmlFor={name}>{label || name}</label>
       <textarea
         name={name}
@@ -9,7 +11,7 @@ const FormTextarea = ({ name, label, value, handleChange, inputRef }) => {
         value={value}
         ref={inputRef}
       />
-    </div>
+    </Wrapper>
   );
 };
 export default FormTextarea;

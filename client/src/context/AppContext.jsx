@@ -55,6 +55,7 @@ const initialState = {
   todoContent: '',
   todoDueDate: null,
   todoType: '',
+  todoMemo: '',
 };
 
 const AppContext = createContext();
@@ -285,10 +286,10 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  const toggleEditTodo = ({ id, content, dueDate, todoType }) => {
+  const toggleEditTodo = ({ id, content, dueDate, todoType, todoMemo }) => {
     dispatch({
       type: TOGGLE_EDIT_TODO,
-      payload: { id, content, dueDate, todoType },
+      payload: { id, content, dueDate, todoType, todoMemo },
     });
   };
 

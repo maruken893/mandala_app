@@ -5,6 +5,7 @@ import {
   Alert,
   LoadingSpinner,
   FormSelect,
+  FormTextarea,
 } from '../components';
 import { useAppContext } from '../context/AppContext';
 
@@ -15,6 +16,7 @@ const AddTodo = () => {
     todoContent,
     todoDueDate,
     todoType,
+    todoMemo,
     missions,
     isLoading,
     showAlert,
@@ -78,22 +80,28 @@ const AddTodo = () => {
           type="text"
           handleChange={handleChange}
         />
-        <DatePicker
-          name="dueDate"
-          label="Due Date"
-          value={todoDueDate ? new Date(todoDueDate) : new Date()}
-          handleChangeDate={handleChangeDate}
-        />
-        {/* <div className="flex"> */}
-        <FormSelect
-          label="type"
-          name="todoType"
-          value={todoType}
+        <div className="flex">
+          <DatePicker
+            name="dueDate"
+            label="Due Date"
+            value={todoDueDate ? new Date(todoDueDate) : new Date()}
+            handleChangeDate={handleChangeDate}
+          />
+          <FormSelect
+            label="type"
+            name="todoType"
+            value={todoType}
+            handleChange={handleChange}
+            list={todoTypes}
+            isEdit={isEdit}
+          />
+        </div>
+        <FormTextarea
+          name="todoMemo"
+          label="Memo"
+          value={todoMemo}
           handleChange={handleChange}
-          list={todoTypes}
-          isEdit={isEdit}
         />
-        {/* </div> */}
         {isLoading ? (
           <div className="loading">
             <LoadingSpinner />
