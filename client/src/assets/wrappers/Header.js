@@ -3,13 +3,17 @@ import styled from 'styled-components';
 const Wrapper = styled.nav`
   height: calc(var(--header-height));
   background-color: white;
+  width: calc(100% - var(--sidebar-width));
+  position: fixed;
+
+  /* left: var(--sidebar-width); */
   .header-container {
     display: flex;
     min-height: 100%;
     justify-content: space-between;
     align-items: center;
     padding: 0 1rem;
-    margin-top: auto;
+    border-bottom: 1px solid var(--main-border-color);
   }
   .toggle-btn {
     /* display: block; */
