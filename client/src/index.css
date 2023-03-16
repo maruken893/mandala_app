@@ -66,6 +66,7 @@ body {
 
 .btn:hover {
   background-color: #e89741;
+  color: white;
 }
 
 .btn-light-green:hover {

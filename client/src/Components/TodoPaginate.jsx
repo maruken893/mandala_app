@@ -1,7 +1,22 @@
 import ReactPaginate from 'react-paginate';
 
-const TodoPaginate = ({ currentPage }) => {
-  const handlePageClick = (e) => {};
+import { fetchTodos } from '../utils/api/todo';
+
+const TodoPaginate = ({
+  setTodos,
+  setTodoCount,
+  currentPage,
+  setCurrentPage,
+  todoCount,
+}) => {
+  const TODO_PER_PAGE = 12;
+  const TOTAL_PAGE = Math.floor(todoCount / TODO_PER_PAGE) + 1;
+  const handlePageClick = async (e) => {
+    const { todos, todoCount } = await fetchTodos({ page: e.selected });
+    setTodos(todos);
+    setTodoCount(todoCount);
+    setCurrentPage(e.selected);
+  };
 
   return (
     <ReactPaginate
@@ -9,8 +24,9 @@ const TodoPaginate = ({ currentPage }) => {
       onPageChange={handlePageClick}
       pageRangeDisplayed={3}
       marginPagesDisplayed={2}
+      pageCount={TOTAL_PAGE}
+      initialPage={currentPage}
       forcePage={currentPage}
-      pageCount={100}
       previousLabel="<"
       pageClassName="page-item"
       pageLinkClassName="page-link"

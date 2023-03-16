@@ -4,8 +4,8 @@ import authConfig from '.';
 
 export const fetchTodos = async ({ page }) => {
   const res = await axios.get(`/api/v1/todos?page=${page}`, authConfig);
-  const { todos } = res.data;
-  return todos;
+  const { todos, todoCount } = res.data;
+  return {todos, todoCount};
 };
 
 export const patchTodoStatus = async ({ id, toStatusId }) => {

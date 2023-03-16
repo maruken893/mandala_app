@@ -1,13 +1,19 @@
 import { useState, useEffect } from 'react';
+import { useOutletContext } from 'react-router-dom';
 
 import Wrapper from '../../assets/wrappers/TodoList';
 import { TodoCard } from '../../components';
 import TodoPaginate from '../../components/TodoPaginate';
-import { fetchTodos } from '../../utils/api/todo';
 
 const TodoList = () => {
-  const [todos, setTodos] = useState(null);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [
+    todos,
+    setTodos,
+    todoCount,
+    setTodoCount,
+    currentPage,
+    setCurrentPage,
+  ] = useOutletContext();
 
   const updateTodos = ({ newTodo, idx }) => {
     setTodos((prev) => {
@@ -16,14 +22,6 @@ const TodoList = () => {
       return newTodos;
     });
   };
-
-  useEffect(() => {
-    const initialFunc = async () => {
-      const todos = await fetchTodos({ page: currentPage });
-      setTodos(todos);
-    };
-    initialFunc();
-  }, []);
 
   return (
     <Wrapper>
@@ -40,7 +38,15 @@ const TodoList = () => {
           ))}
       </div>
       <div className="pagination">
-        <TodoPaginate />
+        {
+          <TodoPaginate
+            setTodos={setTodos}
+            setTodoCount={setTodoCount}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            todoCount={todoCount}
+          />
+        }
       </div>
     </Wrapper>
   );
