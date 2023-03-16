@@ -12,10 +12,12 @@ const TodoCard = ({ todo, idx, updateTodos }) => {
   const navigate = useNavigate();
 
   const handleEdit = () => {
+    console.log(todo.todoType);
     toggleEditTodo({
       id: todo.id,
       content: todo.content,
       dueDate: todo.dueDate,
+      todoType: todo.todoType,
     });
     navigate('/todo/add');
   };

@@ -285,10 +285,10 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  const toggleEditTodo = ({ id, content, dueDate }) => {
+  const toggleEditTodo = ({ id, content, dueDate, todoType }) => {
     dispatch({
       type: TOGGLE_EDIT_TODO,
-      payload: { id, content, dueDate },
+      payload: { id, content, dueDate, todoType },
     });
   };
 

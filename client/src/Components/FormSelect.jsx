@@ -1,4 +1,7 @@
-const FormSelect = ({ label, name, value, handleChange, list }) => {
+const FormSelect = ({ isEdit, label, name, value, handleChange, list }) => {
+  if (isEdit && !list.map((item) => item.name).includes(value)) {
+    list.push({ id: 9, name: value });
+  }
   return (
     <div className="type-selector">
       <label htmlFor={name}>{label}</label>
@@ -7,7 +10,7 @@ const FormSelect = ({ label, name, value, handleChange, list }) => {
         id={name}
         className="type-item"
         onChange={handleChange}
-        // value={value}
+        value={value}
       >
         {list.map(({ id, name }) => {
           return (

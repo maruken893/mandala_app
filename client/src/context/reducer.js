@@ -205,6 +205,7 @@ const reducer = (state, { type, payload }) => {
         todoId: payload.id,
         todoContent: payload.content,
         todoDueDate: payload.dueDate,
+        todoType: payload.todoType,
       };
     case CANCEL_EDIT_TODO:
       return {
@@ -212,6 +213,7 @@ const reducer = (state, { type, payload }) => {
         isEdit: false,
         todoContent: '',
         todoDueDate: null,
+        todoType: '',
       };
     case TODO_UPDATE_SUCCESS:
       return {

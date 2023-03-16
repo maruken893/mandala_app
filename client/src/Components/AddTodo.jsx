@@ -91,6 +91,7 @@ const AddTodo = () => {
           value={todoType}
           handleChange={handleChange}
           list={todoTypes}
+          isEdit={isEdit}
         />
         {/* </div> */}
         {isLoading ? (
