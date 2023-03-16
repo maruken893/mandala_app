@@ -24,7 +24,7 @@ const Wrapper = styled.div`
       color: #3559D7;
     }
     .todo-header {
-      padding: 0.25rem 0.5rem;
+      padding: 0.75rem 0.5rem;
       border-bottom: 1px solid black;
       display: flex;
       justify-content: space-between;
@@ -32,6 +32,7 @@ const Wrapper = styled.div`
     }
     .todo-header-text {
       vertical-align: bottom;
+      margin: 0;
     }
     .todo-body {
       padding: 0.5rem 1rem 1rem 1rem;
