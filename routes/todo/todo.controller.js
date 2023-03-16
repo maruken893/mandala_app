@@ -60,6 +60,16 @@ export const changeTodoStatus = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: 'change', todo: updatedTodo });
 };
 
+export const deleteTodo = async (req, res) => {
+  const { id } = req.body;
+  const todo = await Todo.findOne({ where: { id } });
+  if (todo.UserId !== req.user.uid) {
+    throw new UnauthorizedError('You cant delete todo');
+  }
+  await todo.destroy();
+  res.status(StatusCodes.OK).json({ msg: 'Todo deleted successfully' });
+};
+
 export const getTodos = async (req, res) => {
   const PAGE_NUM = 12;
   const page = !req?.query.page ? 0 : req.query.page;
