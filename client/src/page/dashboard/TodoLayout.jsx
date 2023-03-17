@@ -23,14 +23,14 @@ const TodoLayout = () => {
     <Wrapper>
       <TodoNav />
       <Outlet
-        context={[
+        context={{
           todos,
           setTodos,
           todoCount,
           setTodoCount,
           currentPage,
           setCurrentPage,
-        ]}
+        }}
       />
     </Wrapper>
   );

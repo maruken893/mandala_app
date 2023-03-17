@@ -1,3 +1,4 @@
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import Wrapper from '../assets/wrappers/AddTodo';
 import {
   FormRow,
@@ -8,6 +9,7 @@ import {
   FormTextarea,
 } from '../components';
 import { useAppContext } from '../context/AppContext';
+import { fetchTodos } from '../utils/api/todo';
 
 const AddTodo = () => {
   const {
@@ -28,6 +30,8 @@ const AddTodo = () => {
     cancelEditTodo,
     changeTodoState,
   } = useAppContext();
+  const { setTodos, setCurrentPage, setTodoCount } = useOutletContext();
+  const navigate = useNavigate();
 
   const todoTypes = missions[4]
     .filter((mission) => mission.goalId === undefined && mission.cont)
@@ -42,14 +46,14 @@ const AddTodo = () => {
     changeTodoState({ name: 'todoDueDate', data: date });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!todoContent) {
       displayAlert({ msg: 'Todo content is not provided', type: 'failed' });
       return;
     }
     if (isEdit) {
-      updateTodo({
+      await updateTodo({
         id: todoId,
         content: todoContent,
         dueDate: todoDueDate || new Date(),
@@ -57,14 +61,20 @@ const AddTodo = () => {
         memo: todoMemo || '',
       });
     } else {
-      createTodo({
+      await createTodo({
         content: todoContent,
         dueDate: todoDueDate || new Date(),
         type: todoType || todoTypes[0].name,
         memo: todoMemo || '',
       });
     }
+    const INIT_PAGE = 0;
+    const { todos, todoCount } = await fetchTodos({ page: INIT_PAGE });
+    setTodos(todos);
+    setTodoCount(todoCount);
+    setCurrentPage(INIT_PAGE);
     cancelEditTodo();
+    navigate('/todo/all');
   };
 
   const handleCancel = () => {

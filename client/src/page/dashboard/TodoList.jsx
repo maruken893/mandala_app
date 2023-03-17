@@ -6,14 +6,14 @@ import { TodoCard } from '../../components';
 import TodoPaginate from '../../components/TodoPaginate';
 
 const TodoList = () => {
-  const [
+  const {
     todos,
     setTodos,
     todoCount,
     setTodoCount,
     currentPage,
     setCurrentPage,
-  ] = useOutletContext();
+  } = useOutletContext();
 
   const updateTodos = ({ newTodo, idx }) => {
     setTodos((prev) => {
