@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   width: 350px;
   background-color: white;
-  padding: 1.5%;
+  padding: 1rem;
   border: 1px solid #bababa;
   border-radius: 5px;
   @media (min-width: 990px) {

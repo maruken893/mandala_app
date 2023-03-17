@@ -77,7 +77,7 @@ const Wrapper = styled.div`
       opacity: .8;
     }
     .mission-0 {
-      background-color: #EC8787;
+      background-color: #F79797;
     }
     .mission-1 {
       background-color: #F8E688;

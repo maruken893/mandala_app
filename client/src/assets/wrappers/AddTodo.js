@@ -11,7 +11,7 @@ const Wrapper = styled.div`
     width: 70%;
     .title {
       margin: 0;
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       font-weight: bold;
     }
     form {

@@ -28,6 +28,7 @@ const UserEdit = ({ toggleUserEditing }) => {
 
   return (
     <Wrapper>
+      <p className="edit-user-head">Edit User</p>
       {showAlert && <Alert message={alertMessage} alertType={alertType} />}
       <form onSubmit={handleSubmit}>
         <FormRow
