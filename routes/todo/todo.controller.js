@@ -78,6 +78,7 @@ export const getTodos = async (req, res) => {
     where: { UserId: req.user.uid },
     limit: PAGE_NUM,
     offset: PAGE_NUM * page,
+    order: [['createdAt', 'DESC']],
   });
   const todoCount = await Todo.count({ where: { UserId: req.user.uid } });
   res.status(StatusCodes.OK).json({ msg: 'return todos', todos, todoCount });
