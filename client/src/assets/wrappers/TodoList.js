@@ -4,6 +4,8 @@ const Wrapper = styled.div`
   .todo-container {
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-start;
+    align-items: flex-start;
     gap: 30px;
   }
   .header-text {

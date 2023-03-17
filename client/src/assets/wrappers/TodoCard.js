@@ -21,11 +21,13 @@ const Wrapper = styled.div`
       color: #42d735;
     }
     .icon-3 {
-      color: #3559D7;
+      color: #3559d7;
     }
     .todo-header {
       padding: 0.75rem 0.5rem;
       border-bottom: 1px solid black;
+    }
+    .flex {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -33,9 +35,35 @@ const Wrapper = styled.div`
     .todo-header-text {
       vertical-align: bottom;
       margin: 0;
+      font-weight: bold;
+    }
+    .todo-type-text {
+      font-size: 0.875rem;
+      margin: 3px 0 0 20px;
+      color: #4d4c4c;
     }
     .todo-body {
-      padding: 0.5rem 1rem 1rem 1rem;
+      padding: 0.75rem 1.25rem 1rem 1.25rem;
+    }
+    .todo-due-date-container {
+      display: flex;
+      vertical-align: center;
+    }
+    .todo-due-date-icon {
+      margin: 0 5px 0 0;
+    }
+    .todo-memo-container {
+      display: flex;
+      vertical-align: center;
+      margin-bottom: 20px;
+    }
+    .todo-memo-icon {
+      margin: 0 5px 0 0;
+    }
+    .todo-memo-text {
+
+      margin: 0;
+      vertical-align: top;
     }
     .btn-container {
       display: flex;

@@ -1,5 +1,6 @@
 import { GrStatusGoodSmall } from 'react-icons/gr';
 import { MdOutlineEventAvailable } from 'react-icons/md';
+import { FaRegStickyNote } from 'react-icons/fa';
 import moment from 'moment';
 
 import Wrapper from '../assets/wrappers/TodoCard';
@@ -48,34 +49,66 @@ const TodoCard = ({ todo, idx, updateTodos }) => {
   return (
     <Wrapper>
       <div className="todo-header">
-        <p className="todo-header-text">
-          <span className={`icon icon-${todo.StatusId}`}>
-            {<GrStatusGoodSmall />}
-          </span>
-          <span>{todo.content}</span>
-        </p>
-        <div>
-          <button
-            type="button"
-            className="btn btn-edit-todo"
-            onClick={handleEdit}
-          >
-            Edit
-          </button>
-          <button
-            type="button"
-            className="btn btn-delete-todo"
-            onClick={handleDelete}
-          >
-            Delete
-          </button>
+        <div className="flex">
+          <p className="todo-header-text">
+            <span className={`icon icon-${todo.StatusId}`}>
+              {<GrStatusGoodSmall />}
+            </span>
+            <span>{todo.content}</span>
+          </p>
+          <div>
+            <button
+              type="button"
+              className="btn btn-edit-todo"
+              onClick={handleEdit}
+            >
+              Edit
+            </button>
+            <button
+              type="button"
+              className="btn btn-delete-todo"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+          </div>
         </div>
+        <p className="todo-type-text">{todo.todoType}</p>
       </div>
       <div className="todo-body">
-        <p className="due-date">
-          <span className="icon">{<MdOutlineEventAvailable />}</span>
-          {moment(todo.dueDate).format('YYYY-MM-D')}
-        </p>
+        <div className="todo-due-date-container">
+          <p className="todo-due-date-icon">
+            {
+              <MdOutlineEventAvailable
+                style={{
+                  width: '1.125rem',
+                  height: 'auto',
+                  verticalAlign: 'middle',
+                  color: '#787878',
+                }}
+              />
+            }
+          </p>
+          <p className="todo-due-date-text">
+            {' '}
+            {moment(todo.dueDate).format('YYYY-MM-D')}
+          </p>
+        </div>
+        <div className="todo-memo-container">
+          <p className="todo-memo-icon">
+            {
+              <FaRegStickyNote
+                style={{
+                  width: '1.125rem',
+                  height: 'auto',
+                  verticalAlign: 'middle',
+                  color: '#787878',
+                }}
+              />
+            }
+          </p>
+          <p className="todo-memo-text">{todo.memo || 'no memo'}</p>
+        </div>
         <div className="btn-container">
           {todo.StatusId === 1 && (
             <>
