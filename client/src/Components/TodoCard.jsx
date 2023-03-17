@@ -1,19 +1,19 @@
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { GrStatusGoodSmall } from 'react-icons/gr';
 import { MdOutlineEventAvailable } from 'react-icons/md';
 import { FaRegStickyNote } from 'react-icons/fa';
 import moment from 'moment';
 
 import Wrapper from '../assets/wrappers/TodoCard';
-import { deleteTodo, patchTodoStatus } from '../utils/api/todo';
+import { deleteTodo, fetchTodos, patchTodoStatus } from '../utils/api/todo';
 import { useAppContext } from '../context/AppContext';
-import { useNavigate } from 'react-router-dom';
 
 const TodoCard = ({ todo, idx, updateTodos }) => {
   const { toggleEditTodo } = useAppContext();
+  const { todos, setTodos, todoCount, setTodoCount, currentPage, setCurrentPage } = useOutletContext();
   const navigate = useNavigate();
 
   const handleEdit = () => {
-    console.log(todo.todoType);
     toggleEditTodo({
       id: todo.id,
       content: todo.content,
@@ -26,8 +26,22 @@ const TodoCard = ({ todo, idx, updateTodos }) => {
 
   const handleDelete = async () => {
     const sure = window.confirm('Are you sure to delete todo?');
-    if (sure) {
-      await deleteTodo({ id: todo.id });
+    if (!sure) {
+      return
+    }
+    await deleteTodo({ id: todo.id });
+    const updatedTodos = todos.filter((item) => item.id !== todo.id)
+    setTodos(updatedTodos)
+    setTodoCount((prev) => prev - 1)
+    if (updatedTodos.length <= 0 && currentPage !== 0) {
+      const PREV_PAGE = currentPage - 1;
+      setCurrentPage(PREV_PAGE);
+      const { todos } = await fetchTodos({ page: PREV_PAGE });
+      setTodos(todos)
+      return
+    } else {
+      const { todos } = await fetchTodos({ page: currentPage });
+      setTodos(todos)
     }
   };
 
