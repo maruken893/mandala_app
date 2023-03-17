@@ -1,4 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
+import { NUMBER, Op } from 'sequelize';
 
 import { User, Todo, Mission, Status } from '../../models/index.js';
 import { UnauthorizedError, BadRequestError } from '../../errors/index.js';
@@ -82,4 +83,21 @@ export const getTodos = async (req, res) => {
   });
   const todoCount = await Todo.count({ where: { UserId: req.user.uid } });
   res.status(StatusCodes.OK).json({ msg: 'return todos', todos, todoCount });
+};
+
+export const getTodoCalendar = async (req, res) => {
+  const { year, month } = req.query;
+  const NUMBER_OF_DAYS = new Date(year, month, 0).getDate();
+  const notStartedTodo = await Todo.findAll({
+    where: {
+      UserId: req.user.uid,
+      StatusId: 1,
+      dueDate: {
+        [Op.gte]: `${year}-${month}-01 00:00:00`,
+        [Op.lte]: `${year}-${month}-${NUMBER_OF_DAYS} 23:59:59`,
+      },
+    },
+    order: [['dueDate', 'ASC']],
+  });
+  res.status(StatusCodes.OK).json({ year, month, notStartedTodo });
 };

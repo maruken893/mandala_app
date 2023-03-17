@@ -136,6 +136,7 @@ const AppProvider = ({ children }) => {
           missions,
         },
       });
+      window.location.reload();
     } catch (error) {
       const { msg } = error.response.data;
       dispatch({ type: USER_LOGIN_FAILED, payload: { msg } });
