@@ -61,9 +61,9 @@ const Wrapper = styled.div`
       margin: 0 5px 0 0;
     }
     .todo-memo-text {
-
       margin: 0;
       vertical-align: top;
+      color: #3E3E3E;
     }
     .btn-container {
       display: flex;
