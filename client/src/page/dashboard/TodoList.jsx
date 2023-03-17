@@ -25,9 +25,13 @@ const TodoList = () => {
 
   return (
     <Wrapper>
-      <p className="header-text">Todos</p>
+      <p className="header-text">
+        {todos?.length > 0
+          ? `${todoCount} Todos found`
+          : 'No Todos to display.'}
+      </p>
       <div className="todo-container">
-        {todos &&
+        {todos?.length > 0 &&
           todos.map((todo, idx) => (
             <TodoCard
               key={todo.id}
@@ -37,17 +41,19 @@ const TodoList = () => {
             />
           ))}
       </div>
-      <div className="pagination">
-        {
-          <TodoPaginate
-            setTodos={setTodos}
-            setTodoCount={setTodoCount}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            todoCount={todoCount}
-          />
-        }
-      </div>
+      {
+        <div className="pagination">
+          {todos?.length > 0 && (
+            <TodoPaginate
+              setTodos={setTodos}
+              setTodoCount={setTodoCount}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              todoCount={todoCount}
+            />
+          )}
+        </div>
+      }
     </Wrapper>
   );
 };
