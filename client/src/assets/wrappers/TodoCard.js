@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   background-color: white;
-  width: 40%;
+  min-width: 380px;
+  width: 45%;
   box-shadow: 0px 0px 2px 1px #d9d9d9;
   border-radius: 10px;
-  /* width: 40%; */
   @media (min-width: 990px) {
     svg {
       vertical-align: middle;
@@ -25,7 +25,7 @@ const Wrapper = styled.div`
     }
     .todo-header {
       padding: 0.75rem 0.5rem;
-      border-bottom: 1px solid black;
+      border-bottom: 1px solid #959595;
     }
     .flex {
       display: flex;
@@ -68,9 +68,6 @@ const Wrapper = styled.div`
     .btn-container {
       display: flex;
       justify-content: space-evenly;
-    }
-    .btn-edit {
-      font-size: 0.75rem;
     }
   }
 `;

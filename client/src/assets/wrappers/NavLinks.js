@@ -30,6 +30,7 @@ const Wrapper = styled.nav`
   }
   .active .text {
     color: black;
+    font-weight: 700;
   }
   .active .icon {
     color: var(--main-color);
