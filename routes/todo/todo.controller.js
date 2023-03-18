@@ -58,6 +58,15 @@ export const changeTodoStatus = async (req, res) => {
   if (!todo.StatusId === toStatusId) {
     throw new BadRequestError('Todo status not change');
   }
+  // TODO: マジックナンバーどうにかしたい
+  if (toStatusId == 3) {
+    const updatedTodo = await todo.update({
+      StatusId: toStatusId,
+      endDate: new Date(),
+    });
+    res.status(StatusCodes.OK).json({ msg: 'change', todo: updatedTodo });
+    return;
+  }
   const updatedTodo = await todo.update({ StatusId: toStatusId });
   res.status(StatusCodes.OK).json({ msg: 'change', todo: updatedTodo });
 };
@@ -87,27 +96,56 @@ export const getTodos = async (req, res) => {
 };
 
 export const getTodoCalendar = async (req, res) => {
-  const { year, month } = req.query;
+  const { year, month, notStarted, done } = req.query;
   const NUMBER_OF_DAYS = new Date(year, month, 0).getDate();
-  const notStartedTodo = await Todo.findAll({
-    where: {
-      UserId: req.user.uid,
-      StatusId: 1,
-      dueDate: {
-        [Op.gte]: `${year}-${month}-01 00:00:00`,
-        [Op.lte]: `${year}-${month}-${NUMBER_OF_DAYS} 23:59:59`,
+  let notStartedTodoList;
+  let doneTodoList;
+
+  if (notStarted) {
+    notStartedTodoList = await Todo.findAll({
+      where: {
+        UserId: req.user.uid,
+        StatusId: [1],
+        dueDate: {
+          [Op.gte]: `${year}-${month}-01 00:00:00`,
+          [Op.lte]: `${year}-${month}-${NUMBER_OF_DAYS} 23:59:59`,
+        },
       },
-    },
-    attributes: [
-      'id',
-      ['content', 'title'],
-      [
-        sequelize.fn('date_format', sequelize.col('dueDate'), '%Y-%m-%d'),
-        'start',
+      attributes: [
+        'id',
+        ['content', 'title'],
+        [
+          sequelize.fn('date_format', sequelize.col('dueDate'), '%Y-%m-%d'),
+          'start',
+        ],
+        'StatusId',
       ],
-      'StatusId',
-    ],
-    order: [['dueDate', 'ASC']],
-  });
-  res.status(StatusCodes.OK).json({ year, month, notStartedTodo });
+      order: [['dueDate', 'ASC']],
+    });
+  }
+
+  if (done) {
+    doneTodoList = await Todo.findAll({
+      where: {
+        UserId: req.user.uid,
+        StatusId: [3],
+        dueDate: {
+          [Op.gte]: `${year}-${month}-01 00:00:00`,
+          [Op.lte]: `${year}-${month}-${NUMBER_OF_DAYS} 23:59:59`,
+        },
+      },
+      attributes: [
+        'id',
+        ['content', 'title'],
+        [
+          sequelize.fn('date_format', sequelize.col('endDate'), '%Y-%m-%d'),
+          'start',
+        ],
+        'StatusId',
+      ],
+      order: [['dueDate', 'ASC']],
+    });
+  }
+
+  res.status(StatusCodes.OK).json({ year, month, notStartedTodoList, doneTodoList });
 };
