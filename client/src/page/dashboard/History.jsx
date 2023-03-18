@@ -6,18 +6,24 @@ import Wrapper from '../../assets/wrappers/History';
 import { fetchTodoForCalendar } from '../../utils/api/todo';
 
 const History = () => {
-  const [date, setDate] = useState(null);
   const [todoList, setTodoList] = useState([]);
 
   const handleDateChange = async (e) => {
     const { startStr } = e;
     const [year, month] = startStr.split('-');
-    const { notStartedTodo } = await fetchTodoForCalendar({ year, month });
-    const notStartedTodoWithColor = notStartedTodo.map((todo) => ({
+    const { notStartedTodoList, doneTodoList } = await fetchTodoForCalendar({
+      year,
+      month,
+    });
+    const notStartedTodoListWithColor = notStartedTodoList.map((todo) => ({
       ...todo,
       color: '#ff1f1f',
     }));
-    setTodoList(notStartedTodoWithColor);
+    const doneTodoListWithColor = doneTodoList.map((todo) => ({
+      ...todo,
+      color: '#025bff',
+    }));
+    setTodoList([...notStartedTodoListWithColor, ...doneTodoListWithColor]);
   };
 
   useEffect(function setCalendarEventHeightHack() {
