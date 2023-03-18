@@ -1,3 +1,4 @@
+import sequelize from 'sequelize';
 import { StatusCodes } from 'http-status-codes';
 import { NUMBER, Op } from 'sequelize';
 
@@ -97,7 +98,15 @@ export const getTodoCalendar = async (req, res) => {
         [Op.lte]: `${year}-${month}-${NUMBER_OF_DAYS} 23:59:59`,
       },
     },
-    attributes: ['id', ['content', 'title'], ['dueDate', 'start']],
+    attributes: [
+      'id',
+      ['content', 'title'],
+      [
+        sequelize.fn('date_format', sequelize.col('dueDate'), '%Y-%m-%d'),
+        'start',
+      ],
+      'StatusId',
+    ],
     order: [['dueDate', 'ASC']],
   });
   res.status(StatusCodes.OK).json({ year, month, notStartedTodo });
