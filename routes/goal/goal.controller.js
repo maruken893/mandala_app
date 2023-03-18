@@ -12,7 +12,6 @@ export const createGoal = async (req, res) => {
   const user = await User.scope('withoutPassword').findOne({
     where: { id: req.user.uid },
   });
-  console.log(user);
   if (!user) {
     throw new UnauthorizedError('user not found');
   }
@@ -27,13 +26,13 @@ export const createGoal = async (req, res) => {
       UserId: user.id,
     }))
   );
-  user.GoalGenreId = undefined;
   const updatedUser = {
     ...user.dataValues,
     GoalGenre: { id: goalGenreId, name: goalGenres[goalGenreId].name },
   };
   const token = user.createJWT();
   const missions = await user.fetchMissions();
+  updatedUser.GoalGenreId = undefined;
   res.status(StatusCodes.CREATED).json({ user: updatedUser, token, missions });
 };
 
@@ -50,7 +49,6 @@ export const updateGoal = async (req, res) => {
   }
   // await user.update({ goal, GoalGenreId: goalGenreId }, { include: GoalGenre });
   await user.update({ goal }, { include: GoalGenre });
-  user.GoalGenreId = undefined;
   console.log(goalGenres[goalGenreId]);
   const updatedUser = {
     ...user.dataValues,
@@ -58,6 +56,7 @@ export const updateGoal = async (req, res) => {
   };
   const missions = await user.fetchMissions();
   const token = user.createJWT();
+  updatedUser.GoalGenreId = undefined;
   res.status(StatusCodes.OK).json({ user: updatedUser, token, missions });
 };
 

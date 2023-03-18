@@ -39,7 +39,7 @@ export const login = async (req, res) => {
     where: { email },
     include: {
       model: GoalGenre,
-      attributes: ['name'],
+      attributes: ['id', 'name'],
     },
   });
   if (!user) {

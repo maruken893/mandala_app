@@ -113,6 +113,7 @@ const AppProvider = ({ children }) => {
           msg: 'Account created successfully redirecting ...',
         },
       });
+      window.location.reload();
     } catch (error) {
       console.error(error);
       const { msg } = error.response.data;
