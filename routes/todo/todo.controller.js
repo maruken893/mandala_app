@@ -97,6 +97,7 @@ export const getTodoCalendar = async (req, res) => {
         [Op.lte]: `${year}-${month}-${NUMBER_OF_DAYS} 23:59:59`,
       },
     },
+    attributes: ['id', ['content', 'title'], ['dueDate', 'start']],
     order: [['dueDate', 'ASC']],
   });
   res.status(StatusCodes.OK).json({ year, month, notStartedTodo });
