@@ -22,3 +22,12 @@ export const deleteTodo = async ({ id }) => {
   await axios.post(`/api/v1/delete-todo`, { id }, authConfig);
   return;
 };
+
+export const fetchTodoForCalendar = async ({ year, month }) => {
+  const res = await axios.get(
+    `api/v1/todo-calendar?year=${year}&month=${month}`,
+    authConfig
+  );
+  const { notStartedTodo } = res.data;
+  return { notStartedTodo };
+};
