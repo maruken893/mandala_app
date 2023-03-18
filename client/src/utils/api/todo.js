@@ -23,9 +23,10 @@ export const deleteTodo = async ({ id }) => {
   return;
 };
 
-export const fetchTodoForCalendar = async ({ year, month }) => {
+export const fetchTodoForCalendar = async ({ year, month, fetchTypes }) => {
+  const { notStarted, done } = fetchTypes;
   const res = await axios.get(
-    `api/v1/todo-calendar?year=${year}&month=${month}&notStarted=true&done=true`,
+    `api/v1/todo-calendar?year=${year}&month=${month}&notStarted=${notStarted}&done=${done}`,
     authConfig
   );
   const { notStartedTodoList, doneTodoList } = res.data;

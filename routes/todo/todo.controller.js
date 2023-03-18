@@ -101,7 +101,7 @@ export const getTodoCalendar = async (req, res) => {
   let notStartedTodoList;
   let doneTodoList;
 
-  if (notStarted) {
+  if (notStarted === 'true') {
     notStartedTodoList = await Todo.findAll({
       where: {
         UserId: req.user.uid,
@@ -124,7 +124,7 @@ export const getTodoCalendar = async (req, res) => {
     });
   }
 
-  if (done) {
+  if (done === 'true') {
     doneTodoList = await Todo.findAll({
       where: {
         UserId: req.user.uid,
@@ -147,5 +147,12 @@ export const getTodoCalendar = async (req, res) => {
     });
   }
 
-  res.status(StatusCodes.OK).json({ year, month, notStartedTodoList, doneTodoList });
+  res
+    .status(StatusCodes.OK)
+    .json({
+      year,
+      month,
+      notStartedTodoList: notStartedTodoList || [],
+      doneTodoList: doneTodoList || [],
+    });
 };
