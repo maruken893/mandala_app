@@ -20,9 +20,9 @@ const UserEdit = ({ toggleUserEditing }) => {
     console.log(editInput);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    updateUser(editInput);
+    await updateUser(editInput);
     console.log(alertType);
   };
 

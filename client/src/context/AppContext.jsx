@@ -167,6 +167,7 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  // chart
   const createGoal = async ({ goal, goalGenreId }) => {
     dispatch({ type: REQUEST_BEGIN });
     try {
