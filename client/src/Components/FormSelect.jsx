@@ -1,4 +1,12 @@
-const FormSelect = ({ isEdit, label, name, value, handleChange, list }) => {
+const FormSelect = ({
+  isEdit,
+  label,
+  name,
+  value,
+  handleChange,
+  list,
+  returnId,
+}) => {
   if (isEdit && !list.map((item) => item.name).includes(value)) {
     list.push({ id: 9, name: value });
   }
@@ -14,7 +22,7 @@ const FormSelect = ({ isEdit, label, name, value, handleChange, list }) => {
       >
         {list.map(({ id, name }) => {
           return (
-            <option key={id} value={name}>
+            <option key={id} value={returnId ? id : name}>
               {name}
             </option>
           );

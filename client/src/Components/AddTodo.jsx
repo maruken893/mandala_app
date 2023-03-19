@@ -1,4 +1,5 @@
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Navigate, useNavigate, useOutletContext } from 'react-router-dom';
 import Wrapper from '../assets/wrappers/AddTodo';
 import {
   FormRow,
@@ -32,6 +33,11 @@ const AddTodo = () => {
   } = useAppContext();
   const { setTodos, setCurrentPage, setTodoCount } = useOutletContext();
   const navigate = useNavigate();
+
+  if (missions.length <= 0) {
+    console.log('あ');
+    return <Navigate to={"/"} />
+  }
 
   const todoTypes = missions[4]
     .filter((mission) => mission.goalId === undefined && mission.cont)

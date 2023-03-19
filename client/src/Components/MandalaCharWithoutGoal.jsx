@@ -4,7 +4,7 @@ import { useAppContext } from '../context/AppContext';
 import { Alert, FormRow, FormSelect } from '.';
 import Wrapper from '../assets/wrappers/ChartWithoutGoal';
 
-const initState = { name: '', id: 1 };
+const initState = { name: '', id: '1' };
 
 const CharWithoutGoal = () => {
   const { createGoal, showAlert, alertMessage, alertType } = useAppContext();
@@ -57,6 +57,7 @@ const CharWithoutGoal = () => {
             value={goal.id}
             handleChange={handleChange}
             list={list}
+            returnId={true}
           />
           <div className="btn-container">
             <button type="submit" className="btn btn-save">
