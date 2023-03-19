@@ -1,26 +1,8 @@
-import React, { useState, useRef } from 'react';
-import Modal from 'react-modal';
+import React, { useState } from 'react';
 
 import Wrapper from '../assets/wrappers/MandalaChart';
 import { useAppContext } from '../context/AppContext';
-import { FormTextarea, Alert } from '../components';
-
-const modalStyle = {
-  portal: {
-    position: 'relative',
-    width: '100%',
-    height: '100%',
-  },
-  content: {
-    top: '20%',
-    left: '43.5%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    width: '400px',
-    height: 'fit-content',
-  },
-};
+import { MandalaChartModal } from '../components';
 
 const initModalState = {
   isOpen: false,
@@ -32,10 +14,8 @@ const initModalState = {
 };
 
 const MandalaChart = () => {
-  const { showAlert, alertMessage, alertType, missions, updateChart } =
-    useAppContext();
+  const { missions } = useAppContext();
   const [modalState, setModalState] = useState(initModalState);
-  const ref = useRef(null);
 
   const openModal = ({
     cont,
@@ -77,58 +57,13 @@ const MandalaChart = () => {
     setModalState(initModalState);
   };
 
-  const handleChange = (e) => {
-    setModalState((prev) => ({
-      ...prev,
-      cont: e.target.value,
-    }));
-  };
-
-  const handleCancel = () => {
-    closeModal();
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const isSuccess = await updateChart(modalState);
-    if (isSuccess) {
-      closeModal();
-    }
-  };
-
   return (
     <Wrapper>
-      <Modal
-        isOpen={modalState.isOpen}
-        onRequestClose={closeModal}
-        onAfterOpen={() => {
-          ref.current.focus();
-        }}
-        style={modalStyle}
-        ariaHideApp={false}
-        parentSelector={() => document.querySelector('.modal-container')}
-      >
-        <p className="modal-header">Update {modalState.type}</p>
-        {showAlert && <Alert message={alertMessage} alertType={alertType} />}
-        <form className="modal-form" onSubmit={handleSubmit}>
-          <FormTextarea
-            name={modalState.type}
-            value={modalState.cont}
-            handleChange={handleChange}
-            inputRef={ref}
-          />
-          <button type="submit" className="btn btn-save">
-            Submit
-          </button>
-          <button
-            type="button"
-            className="btn btn-cancel"
-            onClick={handleCancel}
-          >
-            Cancel
-          </button>
-        </form>
-      </Modal>
+      <MandalaChartModal
+        modalState={modalState}
+        setModalState={setModalState}
+        closeModal={closeModal}
+      />
       {missions.map((missionList, i) => {
         if (missionList.length <= 0) {
           const missionsInit = [...Array(9)].map((_, j) => {

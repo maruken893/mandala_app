@@ -13,6 +13,7 @@ import UserLink from './UserLink';
 import UserEdit from './UserEdit';
 import CharWithoutGoal from './MandalaCharWithoutGoal';
 import MandalaChart from './MandalaChart';
+import MandalaChartModal from './MandalaChartModal';
 import NineSquare from './NineSquare';
 // Todo
 import AddTodo from './AddTodo';
@@ -35,6 +36,7 @@ export {
   UserEdit,
   CharWithoutGoal,
   MandalaChart,
+  MandalaChartModal,
   NineSquare,
   AddTodo,
   TodoCard,

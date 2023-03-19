@@ -245,6 +245,14 @@ form textarea {
   display: block;
   margin: 20px auto 0 auto;
 }
+.modal-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.modal-button-container .btn {
+  margin: 20px 5px 0px 5px;
+}
 
 /* alert */
 .alert {
