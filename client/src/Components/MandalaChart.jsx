@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 
 import Wrapper from '../assets/wrappers/MandalaChart';
 import { useAppContext } from '../context/AppContext';
-import { FormTextarea } from '../components';
+import { FormTextarea, Alert } from '../components';
 
 const modalStyle = {
   portal: {
@@ -32,7 +32,8 @@ const initModalState = {
 };
 
 const MandalaChart = () => {
-  const { missions, updateChart } = useAppContext();
+  const { showAlert, alertMessage, alertType, missions, updateChart } =
+    useAppContext();
   const [modalState, setModalState] = useState(initModalState);
   const ref = useRef(null);
 
@@ -43,7 +44,6 @@ const MandalaChart = () => {
     subMissionPos,
     parentPos,
   }) => {
-    console.log({ cont, goalId, missionPos, subMissionPos, parentPos });
     if (goalId && Number.isInteger(goalId)) {
       setModalState((prev) => ({
         ...prev,
@@ -88,10 +88,12 @@ const MandalaChart = () => {
     closeModal();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    updateChart(modalState);
-    closeModal();
+    const isSuccess = await updateChart(modalState);
+    if (isSuccess) {
+      closeModal();
+    }
   };
 
   return (
@@ -107,6 +109,7 @@ const MandalaChart = () => {
         parentSelector={() => document.querySelector('.modal-container')}
       >
         <p className="modal-header">Update {modalState.type}</p>
+        {showAlert && <Alert message={alertMessage} alertType={alertType} />}
         <form className="modal-form" onSubmit={handleSubmit}>
           <FormTextarea
             name={modalState.type}
@@ -158,7 +161,6 @@ const NineSquare = ({ list, openModal }) => {
             const parentPos = list.filter(
               ({ missionPos }) => missionPos !== undefined
             )[0].missionPos;
-            console.log(parentPos);
             openModal({
               cont,
               goalId,

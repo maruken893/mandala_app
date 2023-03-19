@@ -5,7 +5,7 @@ import { User, Mission, SubMission } from '../../models/index.js';
 
 export const updateMission = async (req, res) => {
   const { content, position } = req.body;
-  if (content === null) {
+  if (!content) {
     throw new BadRequestError('Mission content is not provided');
   }
   if (

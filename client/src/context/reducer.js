@@ -166,6 +166,7 @@ const reducer = (state, { type, payload }) => {
     case GOAL_UPDATE_FAILED:
       return {
         ...state,
+        isLoading: false,
         showAlert: true,
         alertMessage: payload.msg,
         alertType: 'failed',
@@ -175,6 +176,14 @@ const reducer = (state, { type, payload }) => {
         ...state,
         isLoading: false,
         missions: payload.missions,
+      };
+    case MISSION_UPDATE_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertMessage: payload.msg,
+        alertType: 'failed',
       };
     case SUB_MISSION_UPDATE_SUCCESS:
       return {

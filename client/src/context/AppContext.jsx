@@ -189,11 +189,10 @@ const AppProvider = ({ children }) => {
   };
 
   const updateChart = async ({ type, cont, pos, parentPos, goalId }) => {
-    console.log('hello');
     dispatch({ type: REQUEST_BEGIN });
-    try {
-      switch (type) {
-        case 'goal': {
+    switch (type) {
+      case 'goal': {
+        try {
           const res = await axios.patch(
             '/api/v1/update-goal',
             {
@@ -203,16 +202,28 @@ const AppProvider = ({ children }) => {
             config
           );
           const { user, token, missions } = res.data;
-          dispatch({ type: GOAL_UPDATE_SUCCESS, payload: { user, missions } });
+          dispatch({
+            type: GOAL_UPDATE_SUCCESS,
+            payload: { user, missions },
+          });
           addUserToLocalStorage({ user, token, missions });
-          break;
+          return true;
+        } catch (error) {
+          const { msg } = error.response.data;
+          dispatch({ type: GOAL_UPDATE_FAILED, payload: { msg } });
+          clearAlert();
+          return false;
         }
-        case 'mission': {
+      }
+      case 'mission': {
+        try {
           const res = await axios.patch(
             '/api/v1/update-mission',
             { content: cont, position: pos },
             config
           );
+          console.log('a');
+
           const { updatedMission, posMissions } = res.data;
           const userMissions = JSON.parse(localStorage.getItem('missions'));
           userMissions[pos] = posMissions;
@@ -222,35 +233,39 @@ const AppProvider = ({ children }) => {
             payload: { missions: userMissions },
           });
           localStorage.setItem('missions', JSON.stringify(userMissions));
-          break;
-        }
-        case 'sub-mission': {
-          const res = await axios.patch(
-            '/api/v1/update-sub-mission',
-            {
-              content: cont,
-              position: pos,
-              missionPosition: parentPos,
-            },
-            config
-          );
-          const { posMissions } = res.data;
-          console.log(posMissions);
-          const userMissions = JSON.parse(localStorage.getItem('missions'));
-          userMissions[parentPos] = posMissions;
-          dispatch({
-            type: SUB_MISSION_UPDATE_SUCCESS,
-            payload: { missions: userMissions },
-          });
-          localStorage.setItem('missions', JSON.stringify(userMissions));
-          break;
-        }
-        default: {
-          throw new Error('no such update type');
+          return true;
+        } catch (error) {
+          const { msg } = error.response.data;
+          console.log(msg);
+          dispatch({ type: MISSION_UPDATE_FAILED, payload: { msg } });
+          clearAlert();
+          return false;
         }
       }
-    } catch (error) {
-      console.error(error);
+      case 'sub-mission': {
+        const res = await axios.patch(
+          '/api/v1/update-sub-mission',
+          {
+            content: cont,
+            position: pos,
+            missionPosition: parentPos,
+          },
+          config
+        );
+        const { posMissions } = res.data;
+        console.log(posMissions);
+        const userMissions = JSON.parse(localStorage.getItem('missions'));
+        userMissions[parentPos] = posMissions;
+        dispatch({
+          type: SUB_MISSION_UPDATE_SUCCESS,
+          payload: { missions: userMissions },
+        });
+        localStorage.setItem('missions', JSON.stringify(userMissions));
+        break;
+      }
+      default: {
+        throw new Error('no such update type');
+      }
     }
   };
 
