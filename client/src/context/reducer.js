@@ -191,6 +191,14 @@ const reducer = (state, { type, payload }) => {
         isLoading: false,
         missions: payload.missions,
       };
+    case SUB_MISSION_UPDATE_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertMessage: payload.msg,
+        alertType: 'failed',
+      };
     case TODO_CREATE_SUCCESS:
       return {
         ...state,

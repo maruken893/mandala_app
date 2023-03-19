@@ -243,25 +243,32 @@ const AppProvider = ({ children }) => {
         }
       }
       case 'sub-mission': {
-        const res = await axios.patch(
-          '/api/v1/update-sub-mission',
-          {
-            content: cont,
-            position: pos,
-            missionPosition: parentPos,
-          },
-          config
-        );
-        const { posMissions } = res.data;
-        console.log(posMissions);
-        const userMissions = JSON.parse(localStorage.getItem('missions'));
-        userMissions[parentPos] = posMissions;
-        dispatch({
-          type: SUB_MISSION_UPDATE_SUCCESS,
-          payload: { missions: userMissions },
-        });
-        localStorage.setItem('missions', JSON.stringify(userMissions));
-        break;
+        try {
+          const res = await axios.patch(
+            '/api/v1/update-sub-mission',
+            {
+              content: cont,
+              position: pos,
+              missionPosition: parentPos,
+            },
+            config
+          );
+          const { posMissions } = res.data;
+          console.log(posMissions);
+          const userMissions = JSON.parse(localStorage.getItem('missions'));
+          userMissions[parentPos] = posMissions;
+          dispatch({
+            type: SUB_MISSION_UPDATE_SUCCESS,
+            payload: { missions: userMissions },
+          });
+          localStorage.setItem('missions', JSON.stringify(userMissions));
+          return true;
+        } catch (error) {
+          const { msg } = error.response.data;
+          dispatch({ type: SUB_MISSION_UPDATE_FAILED, payload: { msg } });
+          clearAlert();
+          return false;
+        }
       }
       default: {
         throw new Error('no such update type');
