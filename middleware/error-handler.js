@@ -6,7 +6,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     msg: err.message || 'Something went wrong, try again later',
   };
 
-  if (err.message === 'Validation error: Email is invalid') {
+  if (err.message.startsWith('Validation error:')) {
     (error.statusCode = StatusCodes.BAD_REQUEST),
       (error.msg = err.message.split(': ')[1]);
   }

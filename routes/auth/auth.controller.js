@@ -8,6 +8,9 @@ export const register = async (req, res) => {
   if (!name || !email || !password) {
     throw new BadRequestError('Please provide all values');
   }
+  if (password.length < 6) {
+    throw new BadRequestError('Password is too short. Password must be at least 6 characters.')
+  }
   const alreadyExist = await User.scope('withoutAllValues').findOne({
     where: { email },
   });

@@ -15,19 +15,27 @@ const User = sequelize.define(
       primaryKey: true,
     },
     name: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
+        notEmpty: [true, 'Provided name is empty.'],
+        len: {
+          args: [1, 20],
+          msg: 'Provided name is too long. Name is limited to 20 characters',
+        },
       },
     },
     email: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING,
       allowNull: false,
       unique: { msg: 'Email has already been taken' },
       validate: {
         isEmail: { msg: 'Email is invalid' },
-        notEmpty: true,
+        notEmpty: { arg: true, msg: 'Provided email is empty' },
+        len: {
+          arg: [1, 255],
+          msg: 'Password is too long. Password is limited to 255 characters',
+        },
       },
     },
     password: {
@@ -35,10 +43,25 @@ const User = sequelize.define(
       allowNull: false,
     },
     bio: {
-      type: DataTypes.STRING(200),
+      type: DataTypes.STRING,
+      defaultValue: '',
+      allowNull: false,
+      validate: {
+        len: {
+          args: [0, 100],
+          msg: 'Provided biography is too long. Biography is limited to 100 characters',
+        },
+      },
     },
     goal: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: { msg: 'Provided goal is empty' },
+        len: {
+          args: [1, 20],
+          msg: 'Provided goal is too long. Goal is limited to 20 characters',
+        },
+      },
     },
     GoalGenreId: {
       type: DataTypes.INTEGER,
