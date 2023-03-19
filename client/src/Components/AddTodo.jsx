@@ -35,8 +35,11 @@ const AddTodo = () => {
   const navigate = useNavigate();
 
   if (missions.length <= 0) {
-    console.log('あ');
-    return <Navigate to={"/"} />
+    displayAlert({
+      msg: "Can't create a Todo because no goals have been set yet",
+      type: 'failed',
+    });
+    return <Navigate to={'/'} />;
   }
 
   const todoTypes = missions[4]

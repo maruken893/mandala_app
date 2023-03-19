@@ -34,6 +34,7 @@ const Wrapper = styled.div`
       text-align: left;
       margin-bottom: 8px;
       font-size: 1.125rem;
+      font-weight: bold;
     }
     form input {
       display: block;

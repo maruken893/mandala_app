@@ -185,7 +185,7 @@ const AppProvider = ({ children }) => {
       const { msg } = error.response.data;
       dispatch({ type: GOAL_CREATE_FAILED, payload: { msg } });
     }
-    // clearAlert();
+    clearAlert();
   };
 
   const updateChart = async ({ type, cont, pos, parentPos, goalId }) => {
