@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AddTodo } from './components';
 
-import { Auth, Landing, ProtectedRoute } from './page';
+import { Auth, Landing, ProtectedRoute, NotFound404 } from './page';
 import {
   Chart,
   History,
@@ -34,6 +34,7 @@ function App() {
         </Route>
         <Route path="/landing" element={<Landing />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/*" element={<NotFound404 />} />
       </Routes>
     </BrowserRouter>
   );

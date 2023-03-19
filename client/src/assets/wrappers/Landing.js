@@ -28,7 +28,7 @@ const Wrapper = styled.div`
     max-width: 100%;
     vertical-align: bottom;
   }
-  @media (min-width: 821px) {
+  @media (min-width: 990px) {
     padding: 0 15%;
     h1 {
       font-size: 3rem;
