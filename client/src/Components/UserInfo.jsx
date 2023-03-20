@@ -4,7 +4,7 @@ import Wrapper from '../assets/wrappers/UserInfo';
 import UserLink from './UserLink';
 import { useAppContext } from '../context/AppContext';
 
-const UserInfo = ({ toggleUserEditing }) => {
+const UserInfo = ({ toggleUserEditing, todoNum }) => {
   const { user } = useAppContext();
   const { name, bio } = user;
 
@@ -20,7 +20,7 @@ const UserInfo = ({ toggleUserEditing }) => {
       </div>
       <p className="name">@{name}</p>
       <div className="user-links">
-        <UserLink className="todo" label="todo" value={0} />
+        <UserLink className="todo" label="todo" value={todoNum} />
         <UserLink className="follower" label="followers" value={0} />
         <UserLink className="" label="following" value={0} />
       </div>

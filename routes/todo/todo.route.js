@@ -7,6 +7,7 @@ import {
   deleteTodo,
   getTodos,
   getTodoCalendar,
+  getTodoListInfo,
 } from './todo.controller.js';
 import { auth } from '../../middleware/index.js';
 
@@ -17,5 +18,6 @@ router.route('/delete-todo').post(auth, deleteTodo);
 router.route('/todos').get(auth, getTodos);
 router.route('/todo-calendar').get(auth, getTodoCalendar);
 router.route('/change-todo-status').patch(auth, changeTodoStatus);
+router.route('/todo-info').get(auth, getTodoListInfo);
 
 export default router;

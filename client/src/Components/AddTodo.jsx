@@ -35,7 +35,6 @@ const AddTodo = () => {
   const navigate = useNavigate();
 
   if (missions.length <= 0) {
-    console.log('a')
     displayAlert({
       msg: "Can't create a Todo because no goals have been set yet",
       type: 'failed',

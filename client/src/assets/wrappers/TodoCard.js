@@ -7,9 +7,6 @@ const Wrapper = styled.div`
   box-shadow: 0px 0px 2px 1px #d9d9d9;
   border-radius: 10px;
   @media (min-width: 990px) {
-    svg {
-      vertical-align: middle;
-    }
     .icon {
       font-size: 1rem;
       margin-right: 0.25rem;
@@ -33,7 +30,6 @@ const Wrapper = styled.div`
       align-items: center;
     }
     .todo-header-text {
-      vertical-align: bottom;
       margin: 0;
       font-weight: bold;
     }

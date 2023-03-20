@@ -150,12 +150,23 @@ export const getTodoCalendar = async (req, res) => {
     });
   }
 
-  res
-    .status(StatusCodes.OK)
-    .json({
-      year,
-      month,
-      notStartedTodoList: notStartedTodoList || [],
-      doneTodoList: doneTodoList || [],
-    });
+  res.status(StatusCodes.OK).json({
+    year,
+    month,
+    notStartedTodoList: notStartedTodoList || [],
+    doneTodoList: doneTodoList || [],
+  });
+};
+
+export const getTodoListInfo = async (req, res) => {
+  const notStartedNum = await Todo.count({
+    where: { UserId: req.user.uid, StatusId: 1 },
+  });
+  const inProgressNum = await Todo.count({
+    where: { UserId: req.user.uid, StatusId: 2 },
+  });
+  const doneNum = await Todo.count({
+    where: { UserId: req.user.uid, StatusId: 3 },
+  });
+  res.status(StatusCodes.OK).json({ notStartedNum, inProgressNum, doneNum });
 };

@@ -32,3 +32,10 @@ export const fetchTodoForCalendar = async ({ year, month, fetchTypes }) => {
   const { notStartedTodoList, doneTodoList } = res.data;
   return { notStartedTodoList, doneTodoList };
 };
+
+export const fetchTodoInfo = async () => {
+  const res = await axios.get('api/v1/todo-info', authConfig);
+  console.log(res.data);
+  const { notStartedNum, inProgressNum, doneNum } = res.data;
+  return { notStartedNum, inProgressNum, doneNum };
+};

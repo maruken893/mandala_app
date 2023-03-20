@@ -56,7 +56,7 @@ const startServer = async () => {
         password: 'password',
       });
       await Todo.bulkCreate(
-        [...Array(20)].map((_, i) => ({
+        [...Array(30)].map((_, i) => ({
           content: `todo-${i}`,
           dueDate: new Date(),
           UserId: demoUser.id,
