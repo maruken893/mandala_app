@@ -18,7 +18,7 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: [true, 'Provided name is empty.'],
+        notEmpty: { arg: true, msg: 'Provided name is empty.' },
         len: {
           args: [1, 20],
           msg: 'Provided name is too long. Name is limited to 20 characters',
@@ -33,7 +33,7 @@ const User = sequelize.define(
         isEmail: { msg: 'Email is invalid' },
         notEmpty: { arg: true, msg: 'Provided email is empty' },
         len: {
-          arg: [1, 255],
+          args: [1, 255],
           msg: 'Password is too long. Password is limited to 255 characters',
         },
       },

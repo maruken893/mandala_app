@@ -17,17 +17,19 @@ const Todo = sequelize.define(
       validate: {
         notEmpty: { arg: true, msg: 'Provided todo is empty.' },
         len: {
-          arg: [1, 20],
+          args: [1, 20],
           msg: 'Provided todo is too long. Todo is limited to 20 characters.',
         },
       },
     },
     memo: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
       validate: {
-        len: [0, 50],
-        msg: 'Provided memo is too long. Memo is limited to 50 characters.',
+        len: {
+          args: [0, 50],
+          msg: 'Provided memo is too long. Memo is limited to 50 characters.',
+        },
       },
     },
     dueDate: {
@@ -51,7 +53,7 @@ const Todo = sequelize.define(
       allowNull: false,
       validate: {
         len: {
-          arg: [1, 20],
+          args: [1, 20],
           msg: 'Provided todo type is too long. Todo type is limited to 20 characters.',
         },
       },

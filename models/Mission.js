@@ -17,11 +17,11 @@ const Mission = sequelize.define(
       default: '',
       validate: {
         len: {
-          arg: [1, 20],
+          args: [1, 20],
           msg: 'Provided mission is too long. Mission is limited to 20 characters',
         },
         notEmpty: {
-          arg: true,
+          args: true,
           msg: 'Provided mission is empty.',
         },
       },
@@ -30,7 +30,7 @@ const Mission = sequelize.define(
       type: DataTypes.INTEGER,
       validate: {
         isIn: {
-          arg: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+          args: [0, 1, 2, 3, 4, 5, 6, 7, 8],
           msg: 'Provided position is out of range. Only  0~3, 5~8.',
         },
       },
