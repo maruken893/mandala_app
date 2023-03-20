@@ -7,6 +7,9 @@ import { UnauthorizedError, BadRequestError } from '../../errors/index.js';
 
 export const createTodo = async (req, res) => {
   const { content, dueDate, todoType, memo } = req.body;
+  if (!content && !dueDate && !todoType) {
+    throw new BadRequestError('Provide required property.')
+  }
   const user = await User.findOne({ where: { id: req.user.uid } });
   if (!user) {
     throw new UnauthorizedError('User not found.');
