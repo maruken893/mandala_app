@@ -5,6 +5,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 
 import Wrapper from '../../assets/wrappers/History';
 import { fetchTodoForCalendar } from '../../utils/api/todo';
+import { useAppContext } from '../../context/AppContext';
 
 const History = () => {
   const [dateInfo, setDateInfo] = useState({ year: '', month: '' });
@@ -13,6 +14,7 @@ const History = () => {
     done: true,
   });
   const [todoList, setTodoList] = useState([]);
+  const { showSidebarModal } = useAppContext();
 
   const fetchTodoList = async ({ year, month, fetchTypes }) => {
     const { notStartedTodoList, doneTodoList } = await fetchTodoForCalendar({
@@ -60,54 +62,60 @@ const History = () => {
 
   useEffect(function setCalendarEventHeightHack() {
     // a bit unsafe: I'm just grabbing the table via a class name
-    const calendarElement = document.getElementsByClassName(
-      'fc-scrollgrid-sync-table'
-    )[0];
+    if (!showSidebarModal) {
+      const calendarElement = document.getElementsByClassName(
+        'fc-scrollgrid-sync-table'
+      )[0];
 
-    if (calendarElement.tagName == 'TABLE') {
-      const trElements = calendarElement.getElementsByTagName('tr');
+      if (calendarElement.tagName == 'TABLE') {
+        const trElements = calendarElement.getElementsByTagName('tr');
 
-      for (let i = 0; i < trElements.length; i++) {
-        const tr = trElements[i];
+        for (let i = 0; i < trElements.length; i++) {
+          const tr = trElements[i];
 
-        tr.style.height = `${100 / trElements.length}%`;
+          tr.style.height = `${100 / trElements.length}%`;
+        }
       }
     }
   });
 
+  console.log(showSidebarModal);
+
   return (
     <Wrapper>
-      <FullCalendar
-        plugins={[dayGridPlugin, interactionPlugin]}
-        initialView="dayGridMonth"
-        events={todoList}
-        firstDay={1}
-        height={700}
-        datesSet={handleDateSet}
-        eventOrder={'StatusId'}
-        dayMaxEvents={3}
-        fixedWeekCount={false}
-        showNonCurrentDates={false}
-        customButtons={{
-          all: {
-            text: 'All',
-            click: handleAll,
-          },
-          notStarted: {
-            text: 'Not Started',
-            click: handleNotStarted,
-          },
-          done: {
-            text: 'Done',
-            click: handleDone,
-          },
-        }}
-        headerToolbar={{
-          start: 'title', // will normally be on the left. if RTL, will be on the right
-          center: 'all notStarted done',
-          end: 'today prev,next', // will normally be on the right. if RTL, will be on the left
-        }}
-      />
+      {!showSidebarModal && (
+        <FullCalendar
+          plugins={[dayGridPlugin, interactionPlugin]}
+          initialView="dayGridMonth"
+          events={todoList}
+          firstDay={1}
+          height={700}
+          datesSet={handleDateSet}
+          eventOrder={'StatusId'}
+          dayMaxEvents={3}
+          fixedWeekCount={false}
+          showNonCurrentDates={false}
+          customButtons={{
+            all: {
+              text: 'All',
+              click: handleAll,
+            },
+            notStarted: {
+              text: 'Not Started',
+              click: handleNotStarted,
+            },
+            done: {
+              text: 'Done',
+              click: handleDone,
+            },
+          }}
+          headerToolbar={{
+            start: 'title', // will normally be on the left. if RTL, will be on the right
+            center: 'all notStarted done',
+            end: 'today prev,next', // will normally be on the right. if RTL, will be on the left
+          }}
+        />
+      )}
     </Wrapper>
   );
 };

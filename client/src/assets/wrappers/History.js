@@ -6,6 +6,25 @@ const Wrapper = styled.div`
   box-shadow: 0 0 5px -2px #777777;
   background-color: white;
 
+  @media (max-width: 680px) {
+    .fc-header-toolbar {
+      width: 100%;
+      justify-content: space-evenly;
+      flex-basis: 200px;
+    }
+    .fc-toolbar-chunk {
+    }
+    .fc-toolbar-chunk button {
+      margin-bottom: 3px;
+    }
+    .fc-toolbar-chunk button.fc-all-button:first-child {
+      margin-left: 0.75em;
+    }
+    .fc-toolbar-chunk button.fc-today-button:first-child {
+      margin-left: 0.75em;
+    }
+  }
+
   .fc .fc-all-button.fc-button.fc-button-primary {
     padding-right: 2rem;
     padding-left: 2rem;
@@ -27,6 +46,12 @@ const Wrapper = styled.div`
   .fc .fc-done-button.fc-button.fc-button-primary:hover {
     background-color: #044fd9;
   }
+  .fc-event-time,
+  .fc-event-title {
+    padding: 0 1px;
+    white-space: normal;
+  }
+  /* ボタン */
 `;
 
 export default Wrapper;
