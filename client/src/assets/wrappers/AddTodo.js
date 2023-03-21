@@ -7,6 +7,13 @@ const Wrapper = styled.div`
   border-radius: 10px;
   padding: 1rem 2rem;
 
+  .btn-container {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+
   @media (min-width: 990px) {
     width: 70%;
     .title {
@@ -32,12 +39,6 @@ const Wrapper = styled.div`
     }
     .loading {
       margin-top: 20px;
-    }
-    .btn-container {
-      display: flex;
-      gap: 0.5rem;
-      justify-content: center;
-      margin-top: 1.5rem;
     }
   }
 `;
