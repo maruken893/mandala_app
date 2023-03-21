@@ -5,6 +5,7 @@ const Wrapper = styled.nav`
   background-color: white;
   width: 100%;
   position: fixed;
+  top: 0;
 
   /* left: var(--sidebar-width); */
   .header-container {
