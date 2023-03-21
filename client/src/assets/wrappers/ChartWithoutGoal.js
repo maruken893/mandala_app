@@ -22,13 +22,18 @@ const Wrapper = styled.div`
   .form-container {
     width: 80%;
     min-height: fit-content;
-    margin: 30px auto 0 auto;
-    padding: 1rem;
+    margin: 20px auto 0 auto;
+    padding: 0.25rem 1rem 1rem 1rem;
     background-color: white;
     border: 1px solid #bababa;
-    border-radius: 3px;
+    border-radius: 5px;
   }
-
+  p.form-header-text {
+    margin: 10px 0;
+    font-size: 1.125rem;
+    color: black;
+    text-align: left;
+  }
   form label {
     display: block;
     width: fit-content;
@@ -86,6 +91,9 @@ const Wrapper = styled.div`
     .form-container {
       width: 400px;
       margin: 40px auto 0 auto;
+    }
+    p.form-header-text  {
+      font-size: 1.25rem;
     }
     form label {
       font-size: 1.125rem;

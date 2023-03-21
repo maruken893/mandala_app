@@ -42,6 +42,7 @@ const CharWithoutGoal = () => {
         </p>
       </div>
       <div className="form-container">
+        <p className="form-header-text">Create Goal</p>
         {showAlert && <Alert message={alertMessage} alertType={alertType} />}
         <form onSubmit={handleSubmit}>
           <FormRow
