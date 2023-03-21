@@ -10,7 +10,7 @@ const UserInfo = ({ toggleUserEditing, todoNum }) => {
 
   return (
     <Wrapper>
-      <div className="flex">
+      <div className="flex-icon-edit">
         <div className="icon">
           <FaUserAlt />
         </div>
