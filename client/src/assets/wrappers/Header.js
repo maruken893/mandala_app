@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Wrapper = styled.nav`
   height: calc(var(--header-height));
   background-color: white;
-  width: calc(100% - var(--sidebar-width));
+  width: 100%;
   position: fixed;
 
   /* left: var(--sidebar-width); */
@@ -65,7 +65,17 @@ const Wrapper = styled.nav`
   .user-toggle:hover {
     cursor: pointer;
   }
+  .btn-logout {
+    width: 8.5rem;
+    font-size: 1rem;
+    position: absolute;
+    margin-top: 8px;
+    padding: .25rem 0;
+    background-color: #ffe4a0;
+    color: #ff9d09;
+  }
   @media (min-width: 990px) {
+    width: calc(100% - var(--sidebar-width));
     height: var(--header-height);
     padding-right: 2rem;
     /* padding: 2.25rem 0; */
@@ -84,13 +94,8 @@ const Wrapper = styled.nav`
       position: relative;
     }
     .btn-logout {
-      min-width: 11rem;
-      /* margin: 0 0 0 auto; */
-      font-size: 1rem;
-      position: absolute;
-      margin-top: 8px;
-      background-color: #ffe4a0;
-      color: #ff9d09;
+      width: 11rem;
+      padding: .375rem 0;
     }
   }
 `;
