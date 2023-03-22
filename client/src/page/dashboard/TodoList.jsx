@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
 import Wrapper from '../../assets/wrappers/TodoList';
