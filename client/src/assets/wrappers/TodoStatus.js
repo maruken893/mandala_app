@@ -1,14 +1,13 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
+  width: 90%;
   padding: 1rem;
-  min-width: 400px;
-  width: 50%;
+  margin: 30px auto 0 auto;
   height: 300px;
   background-color: white;
   border-radius: 5px;
   border: 1px solid #bababa;
-  margin-left: 30px;
   .todo-status-header-text {
     font-size: 1.5rem;
     font-weight: bold;
@@ -29,6 +28,12 @@ const Wrapper = styled.div`
   }
   .icon-3 {
     color: #3559d7;
+  }
+
+  @media (min-width: 680px) {
+    min-width: 400px;
+    margin-left: 30px;
+    margin-top: 0;
   }
 `;
 
