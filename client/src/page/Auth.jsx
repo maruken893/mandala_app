@@ -50,6 +50,11 @@ const Auth = () => {
     }
   };
 
+  const handleSubmitDemoUser = () => {
+    console.log('a')
+    login({ user: { email: 'demo@example.com', password: 'password' } });
+  };
+
   const togglePage = () => {
     setState((prev) => ({ ...prev, isMember: !prev.isMember }));
   };
@@ -95,7 +100,11 @@ const Auth = () => {
               </button>
               <br />
               <br />
-              <button type="submit" className="btn btn-wide btn-light-green">
+              <button
+                type="button"
+                className="btn btn-wide btn-light-green"
+                onClick={handleSubmitDemoUser}
+              >
                 Demo User
               </button>
               <p>
