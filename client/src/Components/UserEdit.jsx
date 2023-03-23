@@ -17,13 +17,11 @@ const UserEdit = ({ toggleUserEditing }) => {
       ...prev,
       [e.target.name]: e.target.value,
     }));
-    console.log(editInput);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await updateUser(editInput);
-    console.log(alertType);
   };
 
   return (

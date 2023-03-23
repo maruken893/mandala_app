@@ -33,7 +33,6 @@ const History = () => {
     setTodoList([...notStartedTodoListWithColor, ...doneTodoListWithColor]);
   };
 
-  console.log(todoList);
 
   const handleDateSet = (e) => {
     const { startStr } = e;
@@ -61,13 +60,12 @@ const History = () => {
   };
 
   useEffect(function setCalendarEventHeightHack() {
-    // a bit unsafe: I'm just grabbing the table via a class name
     if (!showSidebarModal) {
       const calendarElement = document.getElementsByClassName(
         'fc-scrollgrid-sync-table'
       )[0];
 
-      if (calendarElement.tagName == 'TABLE') {
+      if (calendarElement.tagName === 'TABLE') {
         const trElements = calendarElement.getElementsByTagName('tr');
 
         for (let i = 0; i < trElements.length; i++) {
@@ -79,7 +77,6 @@ const History = () => {
     }
   });
 
-  console.log(showSidebarModal);
 
   return (
     <Wrapper>

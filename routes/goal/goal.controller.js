@@ -49,7 +49,6 @@ export const updateGoal = async (req, res) => {
   }
   // await user.update({ goal, GoalGenreId: goalGenreId }, { include: GoalGenre });
   await user.update({ goal }, { include: GoalGenre });
-  console.log(goalGenres[goalGenreId]);
   const updatedUser = {
     ...user.dataValues,
     GoalGenre: { id: goalGenreId, name: goalGenres[goalGenreId].name },

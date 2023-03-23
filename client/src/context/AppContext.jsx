@@ -172,7 +172,6 @@ const AppProvider = ({ children }) => {
   const createGoal = async ({ goal, goalGenreId }) => {
     dispatch({ type: REQUEST_BEGIN });
     try {
-      console.log(config);
       const response = await axios.patch(
         '/api/v1/create-goal',
         { goal, goalGenreId },
@@ -222,7 +221,6 @@ const AppProvider = ({ children }) => {
             { content: cont, position: pos },
             config
           );
-          console.log('a');
 
           const { updatedMission, posMissions } = res.data;
           const userMissions = JSON.parse(localStorage.getItem('missions'));
@@ -236,7 +234,6 @@ const AppProvider = ({ children }) => {
           return true;
         } catch (error) {
           const { msg } = error.response.data;
-          console.log(msg);
           dispatch({ type: MISSION_UPDATE_FAILED, payload: { msg } });
           clearAlert();
           return false;
@@ -254,7 +251,6 @@ const AppProvider = ({ children }) => {
             config
           );
           const { posMissions } = res.data;
-          console.log(posMissions);
           const userMissions = JSON.parse(localStorage.getItem('missions'));
           userMissions[parentPos] = posMissions;
           dispatch({
@@ -280,7 +276,7 @@ const AppProvider = ({ children }) => {
   const createTodo = async ({ content, dueDate, type, memo }) => {
     dispatch({ type: REQUEST_BEGIN });
     try {
-      const res = await axios.post(
+      await axios.post(
         '/api/v1/create-todo',
         { content, dueDate, todoType: type, memo },
         config

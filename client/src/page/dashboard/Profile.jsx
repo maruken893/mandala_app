@@ -20,7 +20,6 @@ const Profile = () => {
   }
 
   const toggleUserEditing = () => {
-    console.log('toggle edit');
     setIsUserEditing((prev) => !prev);
   };
 

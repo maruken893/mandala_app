@@ -25,7 +25,6 @@ export const updateMission = async (req, res) => {
     throw new BadRequestError('mission not found');
   }
   if (mission.SubMissions.length <= 0) {
-    console.log('conducted');
     await SubMission.bulkCreate(
       [...Array(9)].map((_, i) => {
         return {

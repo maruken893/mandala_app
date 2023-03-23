@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { useAppContext } from '../context/AppContext';
 
 import Wrapper from '../assets/wrappers/Auth';
 import { Alert, FormRow, Logo, LoadingSpinner } from '../components';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const initialState = {
   name: '',
@@ -25,7 +25,6 @@ const Auth = () => {
     login,
     token,
   } = useAppContext();
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -51,7 +50,6 @@ const Auth = () => {
   };
 
   const handleSubmitDemoUser = () => {
-    console.log('a')
     login({ user: { email: 'demo@example.com', password: 'password' } });
   };
 
