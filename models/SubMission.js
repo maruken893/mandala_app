@@ -9,6 +9,16 @@ const SubMission = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       default: '',
+      validate: {
+        len: {
+          args: [1, 20],
+          msg: 'Provided sub mission is too long. Sub mission is limited to 20 characters',
+        },
+        notEmpty: {
+          args: true,
+          msg: 'Provided sub mission is empty.',
+        },
+      },
     },
     position: {
       type: DataTypes.INTEGER,
