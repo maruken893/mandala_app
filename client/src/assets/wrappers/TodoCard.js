@@ -24,6 +24,7 @@ const Wrapper = styled.div`
   }
   .todo-header-text {
     margin: 0;
+    font-size:  15px;
     font-weight: bold;
   }
   .flex {
@@ -64,7 +65,7 @@ const Wrapper = styled.div`
     justify-content: space-evenly;
   }
   @media (min-width: 990px) {
-    min-width: 400px;
+    min-width: 450px;
     width: 45%;
     .todo-header {
       padding: 0.75rem 0.5rem;

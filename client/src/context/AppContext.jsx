@@ -301,9 +301,8 @@ const AppProvider = ({ children }) => {
         { id, content, dueDate, todoType: type, memo },
         config
       );
-      const { todo } = res.data;
       dispatch({ type: TODO_UPDATE_SUCCESS });
-      return todo;
+      return true;
     } catch (error) {
       const { msg } = error.response;
       dispatch({ type: TODO_UPDATE_FAILED, payload: { msg } });

@@ -108,7 +108,7 @@ body {
 /* todo button */
 .btn-edit-todo {
   font-size: 0.875rem;
-  padding: 0.375rem 1rem;
+  padding: 0.375rem 0.875rem;
   margin-right: 10px;
   background-color: #7099e8;
 }
