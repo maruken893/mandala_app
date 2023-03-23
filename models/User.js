@@ -118,6 +118,9 @@ User.prototype.fetchMissions = async function () {
       attributes: ['content', 'position'],
     },
   });
+  if (missionsData.length === 0) {
+    return []
+  }
   const missions = missionsData.map((mission, i) => {
     if (i === 4) {
       return {

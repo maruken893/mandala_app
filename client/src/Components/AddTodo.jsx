@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import Wrapper from '../assets/wrappers/AddTodo';
 import {
@@ -32,6 +33,7 @@ const AddTodo = () => {
   } = useAppContext();
   const { setTodos, setCurrentPage, setTodoCount } = useOutletContext();
   const navigate = useNavigate();
+  let todoTypes = [];
 
   if (missions.length <= 0) {
     displayAlert({
@@ -39,12 +41,12 @@ const AddTodo = () => {
       type: 'failed',
     });
     navigate('/');
+  } else {
+    todoTypes = missions[4]
+      .filter((mission) => mission.goalId === undefined && mission.cont)
+      .map((mission) => ({ id: mission.missionPos, name: mission.cont }));
+    todoTypes.push({ name: 'Other', id: -1 });
   }
-
-  const todoTypes = missions[4]
-    .filter((mission) => mission.goalId === undefined && mission.cont)
-    .map((mission) => ({ id: mission.missionPos, name: mission.cont }));
-  todoTypes.push({ name: 'Other', id: -1 });
 
   const handleChange = (e) => {
     changeTodoState({ name: e.target.name, data: e.target.value });
