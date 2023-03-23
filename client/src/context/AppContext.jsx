@@ -282,11 +282,15 @@ const AppProvider = ({ children }) => {
         config
       );
       dispatch({ type: TODO_CREATE_SUCCESS });
+      clearAlert();
+      return true;
     } catch (error) {
       const { msg } = error.response.data;
-      dispatch({ type: TODO_CREATE_FAILED, payload: msg });
+      console.log(msg);
+      dispatch({ type: TODO_CREATE_FAILED, payload: { msg } });
+      clearAlert();
+      return false;
     }
-    clearAlert();
   };
 
   const updateTodo = async ({ id, content, dueDate, type, memo }) => {

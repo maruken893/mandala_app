@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { Navigate, useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import Wrapper from '../assets/wrappers/AddTodo';
 import {
   FormRow,
@@ -39,7 +38,7 @@ const AddTodo = () => {
       msg: "Can't create a Todo because no goals have been set yet",
       type: 'failed',
     });
-    return <Navigate to={'/'} />;
+    navigate('/');
   }
 
   const todoTypes = missions[4]
@@ -61,8 +60,9 @@ const AddTodo = () => {
       displayAlert({ msg: 'Todo content is not provided', type: 'failed' });
       return;
     }
+    let isSuccess;
     if (isEdit) {
-      await updateTodo({
+      isSuccess = await updateTodo({
         id: todoId,
         content: todoContent,
         dueDate: todoDueDate || new Date(),
@@ -70,20 +70,23 @@ const AddTodo = () => {
         memo: todoMemo || '',
       });
     } else {
-      await createTodo({
+      isSuccess = await createTodo({
         content: todoContent,
         dueDate: todoDueDate || new Date(),
         type: todoType || todoTypes[0].name,
         memo: todoMemo || '',
       });
     }
-    const INIT_PAGE = 0;
-    const { todos, todoCount } = await fetchTodos({ page: INIT_PAGE });
-    setTodos(todos);
-    setTodoCount(todoCount);
-    setCurrentPage(INIT_PAGE);
-    cancelEditTodo();
-    navigate('/todo/all');
+    if (isSuccess) {
+      const INIT_PAGE = 0;
+      const { todos, todoCount } = await fetchTodos({ page: INIT_PAGE });
+      setTodos(todos);
+      setTodoCount(todoCount);
+      setCurrentPage(INIT_PAGE);
+      cancelEditTodo();
+      navigate('/todo/all');
+      return;
+    }
   };
 
   const handleCancel = () => {
