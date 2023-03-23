@@ -26,6 +26,7 @@ const startServer = async () => {
     Object.values(statuses).forEach(async ({ type }) => {
       await Status.findOrCreate({ where: { type } });
     });
+
     // association
     GoalGenre.hasMany(User);
     User.belongsTo(GoalGenre);

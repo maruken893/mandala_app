@@ -35,7 +35,7 @@ app.use('/api/v1', subMissionRouter);
 app.use('/api/v1', todoRouter);
 
 // react
-app.get('/*', function (req, res, next) {
+app.get('/*',  (req, res, next) => {
   res.sendFile(path.join(process.cwd(), 'client', 'build', 'index.html'))
 });
 
