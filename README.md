@@ -91,7 +91,7 @@
 <img width="700" alt="インフラ図" src="https://user-images.githubusercontent.com/97023705/227583757-077970ff-b445-4162-9248-742d55e8d32f.png">
 
 
-## 実際の使い方
+## 使い方
 
 1. [アプリにアクセス](https://www.portfolio-maruken9.com)
 2. デモユーザーでログイン
