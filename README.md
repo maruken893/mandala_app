@@ -143,11 +143,14 @@
  - Todoを作成できるページです
  - Todoにはコンテントや期日、関連するミッションやメモを入力できます
 <br>
+<img width="800" alt="スクリーンショット 2023-03-24 19 27 42" src="https://user-images.githubusercontent.com/97023705/227496983-1c44510e-a468-4637-ac3d-e0099ce449ae.png">
+
 
 8\. Todo編集ページ
 <br>
-Todoを編集するページです。
+ - Todoを編集するページです
 <br>
+<img width="800" alt="スクリーンショット 2023-03-24 20 30 33" src="https://user-images.githubusercontent.com/97023705/227510121-f09bf830-2c95-4a9a-ab0f-477e47fae956.png">
 
 
 9\. ヒストリーページ
@@ -156,9 +159,13 @@ Todoを編集するページです。
  - カレンダーにはまだ取り組んでいないTodo(not started)と取り組み終わったTodo(done)を表示できます
  - 上部のボタンを押すことで、まだ取り組んでいないTodoと取り組み終わったTodoをフィルタリングできます
 <br>
+<img width="800" alt="スクリーンショット 2023-03-24 20 32 08" src="https://user-images.githubusercontent.com/97023705/227510461-6ab41d65-4855-48ff-bf6c-e601d91da598.png">
 
 10\. プロフィールページ
 <br>
 - ユーザーのプロフィールを確認できます。
 - Editボタンを押すことで、ユーザー 編集用のコンポーネントが表示されるようになっています。
 <br>
+<img width="800" alt="スクリーンショット 2023-03-24 20 32 40" src="https://user-images.githubusercontent.com/97023705/227510511-212769c4-6f52-4e0c-b521-1193ce1795d6.png">
+<img width="800" alt="スクリーンショット 2023-03-24 20 33 45" src="https://user-images.githubusercontent.com/97023705/227510713-dad6e97a-cb00-4363-958d-2f5ef1f43114.png">
+
