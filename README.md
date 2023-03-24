@@ -2,7 +2,7 @@
 ## 概要
 マンダラチャートと呼ばれる9✖️9マスの目標達成シートを管理するアプリケーション
 
-[ポートフォリオはここから](https://www.portfolio-maruken9.com/landing)
+<a href="https://www.portfolio-maruken9.com/landing" target="_blank">ポートフォリオはこちらから</a>
 
 <sm>マンダラチャートのイメージ</sm>
 <br>
