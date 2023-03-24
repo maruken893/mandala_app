@@ -80,6 +80,47 @@
 ### インフラ図
 <img width="700" alt="インフラ図" src="https://user-images.githubusercontent.com/97023705/227583757-077970ff-b445-4162-9248-742d55e8d32f.png">
 
+## 使用技術
+
+<details><summary>フロントエンド</summary>
+
+ - 言語
+   - JavaScript
+ - 主要なライブラリ
+   - React
+   - react-router-dom
+   - styled-component
+   - axios
+   - fullcalendar
+   - rc-pagination
+   - etc ...
+
+</details>
+
+<details><summary>バックエンド</summary>
+
+ - 言語
+   - JavaScript
+ - 主要なライブラリ
+   - Express
+   - bcrypt
+   - jsonwebtoken
+   - sequelize
+   - helmet
+   - etc ...
+
+</details>
+
+<details><summary>インフラ</summary>
+
+ - AWS
+   - EC2
+   - RDS
+   - Route 53
+   - VPC
+ - Let's Encrypt
+
+</details>
 
 ## 使い方
 
