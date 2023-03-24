@@ -2,7 +2,7 @@
 ## 概要
 マンダラチャートと呼ばれる9✖️9マスの目標達成シートを管理するアプリケーション
 
-[ポートフォリオはここから](https://www.portfolio-maruken9.com/landing)
+[ポートフォリオはここから](https://www.portfolio-maruken9.com/landing){:target="_blank"}
 
 
 
@@ -71,14 +71,14 @@
 ### テーブル設計
 
 ### 画面設計
-[Figmaから](https://www.figma.com/file/0AwVZ5iiwdJfh8srhcN6qz/Mandala-app?node-id=0%3A1&t=YGPCdC2IGBWx4Nsa-1)
+[Figmaから](https://www.figma.com/file/0AwVZ5iiwdJfh8srhcN6qz/Mandala-app?node-id=0%3A1&t=YGPCdC2IGBWx4Nsa-1){:target="_blank"}
 
 ### インフラ図
 
 
 ## 実際の使い方
 
-1. [アプリにアクセス](https://www.portfolio-maruken9.com)
+1. [アプリにアクセス](https://www.portfolio-maruken9.com){:target="_blank"}
 2. デモユーザーでログイン
 3. 好きなようにいじってみる
 
