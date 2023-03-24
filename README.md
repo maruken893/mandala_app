@@ -78,6 +78,39 @@
 
 ### インフラ図
 
+## 使用技術
+
+### フロントエンド
+ - 言語
+   - JavaScript
+ - 主要なライブラリ
+   - React
+   - react-router-dom
+   - styled-component
+   - axios
+   - fullcalendar
+   - rc-pagination
+   - etc ...
+
+### バックエンド
+ - 言語
+   - JavaScript
+ - 主要なライブラリ
+   - Express
+   - bcrypt
+   - jsonwebtoken
+   - sequelize
+   - helmet
+   - etc ...
+   
+### インフラ
+ - AWS
+   - EC2
+   - RDS
+   - Route 53
+   - VPC
+ - Let's Encrypt
+
 
 ## 実際の使い方
 
@@ -126,7 +159,8 @@
 6\. Todoリストページ
 <br>
  - ユーザー自身が作成したtodoを表示します
- - todoはページネーションで表示され、一度で最大12個のtodoが表示されます
+ - Todoはページネーションで表示され、一度で最大12個のtodoが表示されます
+ - Todoが12個を超えた場合はページネーションを用いて表示の切り替えができます
  - それぞれのTodoには、編集ボタンや削除ボタンがあります
 <br>
 <img width="800" alt="スクリーンショット 2023-03-24 18 47 37" src="https://user-images.githubusercontent.com/97023705/227485932-2a6febee-20eb-4abd-a051-74d46e9d8c3e.png">
@@ -164,3 +198,11 @@
 <img width="800" alt="スクリーンショット 2023-03-24 20 32 40" src="https://user-images.githubusercontent.com/97023705/227510511-212769c4-6f52-4e0c-b521-1193ce1795d6.png">
 <img width="800" alt="スクリーンショット 2023-03-24 20 33 45" src="https://user-images.githubusercontent.com/97023705/227510713-dad6e97a-cb00-4363-958d-2f5ef1f43114.png">
 
+
+## 開発の際に苦労した点
+
+#### 9✖️9マスの表に正しくデータを正しい位置に、データを配置する点に悩みました
+ユーザーが作成したミッション、サブミッションをそれぞれ正しい配置するために、ミッションとサブミッションにはpostionというメタデータを付与し、9✖️9マスのそれぞれに対応した位置に配置するようにして解決しました。
+
+#### カレンダーの表示
+初めてカレンダーの機能を実装するにあたって、自分がイメージしたカレンダーを実装するためにullcalendarというライブラリを使用しました。しかし、初めて使うライブラリかつ、少々個人的にドキュメントがわかりづらかったため実装には苦労しました。特にイメージするカレンダーに
